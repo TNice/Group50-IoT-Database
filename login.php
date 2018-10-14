@@ -54,12 +54,50 @@ function LoginRequest($email, $password){
 .error{color: red;}
 </style>
 
-<form method='post' action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
-    Email/Username: <input type='text' name='email'>
-    <br><br>
-    Password: <input type='text' name='password'>
-    <br><br>
-    <input type=submit name='submit' value="Submit">
-    <br><br>
-    <span class='error'><?php echo $loginError; ?></span>
-</form>
+<html style='overflow:hidden'>
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <!--Bootstrap-->
+        <?php include 'addbootstrap.php';?>
+
+        <title>Database Project</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" type="text/css" href="mainstyle.css">
+        <script src="main.js"></script>
+    </head>
+        
+    <body>
+        <div class="background" style='height:100%;'> 
+            <div id='title' class='container-fluid titleBox'>            
+                <h1 class='title1'>IoT Database Project</h1>            
+            </div>
+            <?php include 'navmenu.php'; ?>
+            <div class='row'>
+                <div class='col-3'></div>
+                <div class='col-6 contentBox row' style='height: 22.5rem;margin-top: 1rem;'>
+                    <div class='col-1'></div>
+                    <div class='col-10'>
+                        <form method='post' action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
+                            <label for="email"><h4>Email address:</h4></label>
+                                <input name='email' type="email" class="form-control" id="email">
+                            <label for="pwd"><h4 style='margin-top:1rem;'>Password:</h4></label>
+                                <input name='password' type="password" class="form-control" id="pwd">
+                            <div class="form-check" style='text-align:right;margin:0.5rem'>
+                                <label class="form-check-label">
+                                    <input class="form-check-input" type="checkbox"> Remember me
+                                </label>
+                            </div>
+                            <button type="submit" class="btn btn-secondary">Submit</button>&nbsp&nbsp&nbsp&nbsp&nbsp                                     
+                            <a class="btn btn-secondary" href='signup.php'>Create Account</a>
+                            <br><br>
+                            <span class='text-danger'><?php echo $loginError; ?></span>
+                        </form>  
+                    </div>
+                    <div class='col-1'></div>
+                </div>
+                <div class='col-3'></div>
+            </div>
+        </div>
+    </body>
+</html>

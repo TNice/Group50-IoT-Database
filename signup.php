@@ -141,4 +141,4 @@ function AddUserToDB($email, $username, $password){
     <span class='error'><?php echo $loginError; ?></span>
 </form>
 <br><br>
-<span style='color:#00ff00;'><?php echo $_SESSION['result']; ?></span>
+<span style='color:#00ff00;'><?php if(isset($_SESSION['result'])){echo $_SESSION['result']; }?></span>

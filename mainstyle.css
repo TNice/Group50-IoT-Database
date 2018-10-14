@@ -18,6 +18,7 @@ div.background {
     background-image: url("projectBackground.jpg");
     position: absolute;
     width: 100%;
+    min-height: 100%;
 }
 
 .stickyOffset {
@@ -48,6 +49,13 @@ h3.footer1 {
     text-align: center;
     color: white;
     text-shadow: 2px 3px rgba(150, 150, 150, 0.25);
+}
+
+h3.title1 {
+    margin-top: 2rem;
+    color: white;
+    text-align: center;
+    text-transform: uppercase;
 }
 
 h5.title1 {

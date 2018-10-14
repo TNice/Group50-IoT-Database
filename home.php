@@ -40,7 +40,7 @@
                     <div id='package0' class='row'></div>
                     <div  class="contentBox row">                   
                         <div class='col-8'>
-                            <h5 class='title1'>Package 0</h5>
+                            <h3 class='title1'>Package 0</h5>
                             <br>
                             <p class='homeInfo'>This is the package info</p>
                         </div>
