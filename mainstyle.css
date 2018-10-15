@@ -15,7 +15,7 @@ body {
 }
 
 div.background {
-    background-image: url("projectBackground.jpg");
+    background-image: url("images/projectBackground.jpg");
     position: absolute;
     width: 100%;
     min-height: 100%;

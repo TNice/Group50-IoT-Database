@@ -1,8 +1,6 @@
 <?php
 #restarts session if terminal was accessed
-if(isset($_SESSION['isTerminal'])){
-    session_unset();
-}
+session_unset();
 session_start();
 
 $server = 'localhost';
@@ -129,16 +127,65 @@ function AddUserToDB($email, $username, $password){
 }
 </style>
 
-<form id='signup' action="<?php htmlspecialchars($_SERVER['PHP_SELF']); ?>" method='post'>
-    Email: <input type='text' name='email' value='<?php if(isset($_SESSION['email'])){ echo $_SESSION['email']; } ?>'> <span class='error'><?php echo $emailError; ?></span>
-    <br><br>
-    Username: <input type='text' name='username' value='<?php if(isset($_SESSION['username'])){ echo $_SESSION['username']; } ?>'> <span class='error'><?php echo $userError; ?></span>
-    <br><br>
-    Password: <input type='text' name='password'> <span class='error'><?php echo $passError; ?></span>
-    <br><br>
-    <input type=submit name='submit'>
-    <br>
-    <span class='error'><?php echo $loginError; ?></span>
-</form>
-<br><br>
-<span style='color:#00ff00;'><?php if(isset($_SESSION['result'])){echo $_SESSION['result']; }?></span>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <!--Bootstrap-->
+        <?php include 'addbootstrap.php';?>
+
+        <title>Database Project</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" type="text/css" href="mainstyle.css">
+        <script src="main.js"></script>
+    </head>
+
+    <body>
+        
+        <div class="background"> 
+            <div id='title' class='container-fluid titleBox'>            
+                <h1 class='title1'>Create An Account</h1>            
+            </div>
+            <?php include 'navmenu.php'; ?>
+            <div class='container-fluid'>
+            <div class='row'>
+                <div class='col-1'></div>
+                <div class='col-9'>
+                    <div class='contentBox row' style='margin-left:0px'>
+                        <div class='col-11'>
+                            <form id='signup' action="<?php htmlspecialchars($_SERVER['PHP_SELF']); ?>" method='post'>
+                                <div class='input-group mb-3'>
+                                    <div class='input-group-prepend'>
+                                        <span class='input-group-text'>Email</span>
+                                    </div>
+                                    <input type='text' class='form-control' placeholder='exampl123@yahoo.com' name='email' value='<?php if(isset($_SESSION['email'])){ echo $_SESSION['email']; } ?>'> <span class='error'><?php echo $emailError; ?></span>
+                                </div>
+                                <br>
+                                <div class='input-group mb-3'>
+                                    <div class='input-group-prepend'>
+                                        <span class='input-group-text'>Username</span>
+                                    </div>
+                                    <input type='text' class='form-control' placeholder='Username' name='username' value='<?php if(isset($_SESSION['username'])){ echo $_SESSION['username']; } ?>'> <span class='error'><?php echo $userError; ?></span>
+                                </div>
+                                <br>
+                                <div class='input-group mb-3'>
+                                    <div class='input-group-prepend'>
+                                        <span class='input-group-text'>Password</span>
+                                    </div>
+                                    <input type='text' class='form-control' name='username'> <span class='error'><?php echo $passError; ?></span>
+                                </div>
+                                <br>
+                                <input class='btn btn-secondary' type='submit' name='submit'>
+                                <br>
+                                <span class='error'><?php echo $loginError; ?></span>
+                            </form>
+                        </div>
+                        </div class='col-1'>
+                    </div>
+                </div>
+                <div class='col-2'></div>
+            </div>
+            </div>
+        </div>
+    <body>
+</html>
