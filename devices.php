@@ -15,7 +15,7 @@
     <body>
         <div class="background">  
             <div id='title' class='container-fluid titleBox'>            
-                <h1 class='title1'>IoT Database Project</h1>            
+                <h1 class='title1'>Devices</h1>            
             </div>   
             <?php include 'navmenu.php'; ?>
             <div id='info' class="row" style='width: 100%'>

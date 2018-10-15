@@ -90,8 +90,20 @@ div.contentBox {
     padding: 2rem;
     margin: 0.5rem;
     margin-top: 2rem;
-    height: 20rem;
+    min-height: 20rem;
+    height: auto;
     background-color: rgba(0, 0, 0, 0.75);
+    color: lightgrey;
+    border-radius: .5rem;
+}
+
+div.contentBoxLight {
+    padding: 2rem;
+    margin: 0.5rem;
+    margin-top: 2rem;
+    min-height: 20rem;
+    height: auto;
+    background-color: rgba(50, 50, 50, 0.5);
     color: lightgrey;
     border-radius: .5rem;
 }

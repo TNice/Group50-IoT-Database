@@ -1,5 +1,4 @@
 <?php
-#restarts session if terminal was accessed
 session_unset();
 session_start();
 
@@ -166,6 +165,15 @@ function AddUserToDB($email, $username, $password){
                                         <span class='input-group-text'>Username</span>
                                     </div>
                                     <input type='text' class='form-control' placeholder='Username' name='username' value='<?php if(isset($_SESSION['username'])){ echo $_SESSION['username']; } ?>'> <span class='error'><?php echo $userError; ?></span>
+                                </div>
+                                <br>
+                                <div class='input-group mb-3 row'>
+                                    <div class='input-group-prepend col-1'>
+                                        <span class='input-group-text'>Name</span>
+                                    </div>
+                                    <input type='text' class='form-control col-4' style='margin-left:1.25rem' placeholder='First Name' name='firstName'> <span class='error'><?php?></span>
+                                    <input type='text' class='form-control col-1' placeholder='MI' name='middleInitial'> <span class='error'><?php?></span>
+                                    <input type='text' class='form-control col-6' placeholder='Last Name' name='lastName'> <span class='error'><?php?></span>
                                 </div>
                                 <br>
                                 <div class='input-group mb-3'>
