@@ -16,7 +16,7 @@
         <div class="background">  
             <div id='title' class='container-fluid titleBox'>            
                 <h1 class='title1'>Devices</h1>            
-            </div>   
+            </div> 
             <?php include 'navmenu.php'; ?>
             <div id='info' class="row" style='width: 100%'>
                 <div class='col-2'>
@@ -31,18 +31,18 @@
                     <br>
                     <div>
                         <h1 class='title2'>Devices</h1>
-                    </div>   
+                    </div>
+                    <div id='device0'></div> 
                     <br>
-                    <div id='device0' class='row'></div>
-                    <div  class="contentBox row">                   
+                    <div class="contentBox row">                   
                         <div class='col-12'>
                             <h5 class='title1'>Device 0</h5>
                             <br>
                             <p class='homeInfo'>This is the device info</p>
                         </div>
                     </div>
-                    <br>
-                    <div id='device1' class='row'></div>
+                    <div id='device1'></div>
+                    <br>     
                     <div  class="contentBox row">                   
                         <div class='col-12'>
                             <h5 class='title1'>Device 1</h5>
@@ -50,8 +50,8 @@
                             <p class='homeInfo'>This is the device info</p>
                         </div>
                     </div>
+                    <div id='device2'></div>
                     <br>
-                    <div id='device2' class='row'></div>
                     <div  class="contentBox row">                   
                         <div class='col-12'>
                             <h5 class='title1'>Device 2</h5>

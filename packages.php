@@ -32,8 +32,8 @@
                     <div>
                         <h1 class='title2'>Packages</h1>
                     </div>   
+                    <div id='package0'></div>
                     <br>
-                    <div id='package0' class='row'></div>
                     <div  class="contentBox row">                   
                         <div class='col-8'>
                             <h5 class='title1'>Package 0</h5>
@@ -49,8 +49,8 @@
                             </ul>
                         </div>  
                     </div>
+                    <div id='package1'></div>
                     <br>
-                    <div id='package1' class='row'></div>
                     <div  class="contentBox row">                   
                         <div class='col-8'>
                             <h5 class='title1'>Package 1</h5>
@@ -66,8 +66,8 @@
                             </ul>
                         </div>  
                     </div>
+                    <div id='package2'></div>
                     <br>
-                    <div id='package2' class='row'></div>
                     <div  class="contentBox row">                   
                         <div class='col-8'>
                             <h5 class='title1'>Package 2</h5>
