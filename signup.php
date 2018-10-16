@@ -149,9 +149,10 @@ function AddUserToDB($email, $username, $password){
             <div class='container-fluid'>
             <div class='row'>
                 <div class='col-1'></div>
-                <div class='col-9'>
-                    <div class='contentBox row' style='margin-left:0px'>
+                <div class='col-10'>
+                    <div class='contentBox row' style='margin-left:0px'>           
                         <div class='col-11'>
+                            <h5 class='title1' style='margin-bottom:1.5rem'>Account Info</h5>
                             <form id='signup' action="<?php htmlspecialchars($_SERVER['PHP_SELF']); ?>" method='post'>
                                 <div class='input-group mb-3'>
                                     <div class='input-group-prepend'>
@@ -167,20 +168,34 @@ function AddUserToDB($email, $username, $password){
                                     <input type='text' class='form-control' placeholder='Username' name='username' value='<?php if(isset($_SESSION['username'])){ echo $_SESSION['username']; } ?>'> <span class='error'><?php echo $userError; ?></span>
                                 </div>
                                 <br>
-                                <div class='input-group mb-3 row'>
-                                    <div class='input-group-prepend col-1'>
+                                <div class='input-group mb-3'>
+                                    <div class='input-group-prepend'>
                                         <span class='input-group-text'>Name</span>
                                     </div>
-                                    <input type='text' class='form-control col-4' style='margin-left:1.25rem' placeholder='First Name' name='firstName'> <span class='error'><?php?></span>
-                                    <input type='text' class='form-control col-1' placeholder='MI' name='middleInitial'> <span class='error'><?php?></span>
-                                    <input type='text' class='form-control col-6' placeholder='Last Name' name='lastName'> <span class='error'><?php?></span>
+                                    <input type='text' class='form-control' placeholder='First Name' name='firstName'> <span class='error'><?php?></span>
+                                    <input type='text' class='form-control' placeholder='Middle Name' name='middleName'> <span class='error'><?php?></span>
+                                    <input type='text' class='form-control' placeholder='Last Name' name='lastName'> <span class='error'><?php?></span>
                                 </div>
                                 <br>
                                 <div class='input-group mb-3'>
                                     <div class='input-group-prepend'>
                                         <span class='input-group-text'>Password</span>
                                     </div>
-                                    <input type='text' class='form-control' name='username'> <span class='error'><?php echo $passError; ?></span>
+                                    <input type='text' class='form-control' name='password'> <span class='error'><?php echo $passError; ?></span>
+                                </div>
+                                <br>
+                                <div class='input-group mb-3'>
+                                    <div class='input-group-prepend'>
+                                        <span class='input-group-text'>Phone #</span>
+                                    </div>
+                                    <input type='text' class='form-control' placeholder='555-555-5555' name='username'> <span class='error'><?php echo $passError; ?></span>
+                                </div>
+                                <br>
+                                <div class='input-group mb-3'>
+                                    <div class='input-group-prepend'>
+                                        <span class='input-group-text'>Birth Date</span>
+                                    </div>
+                                    <input type='date' class='form-control' name='bday'> <span class='error'><?php echo $passError; ?></span>
                                 </div>
                                 <br>
                                 <input class='btn btn-secondary' type='submit' name='submit'>
@@ -191,7 +206,7 @@ function AddUserToDB($email, $username, $password){
                         </div class='col-1'>
                     </div>
                 </div>
-                <div class='col-2'></div>
+                <div class='col-1'></div>
             </div>
             </div>
         </div>

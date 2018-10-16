@@ -88,7 +88,7 @@ function LoginRequest($email, $password){
                                     <input class="form-check-input" type="checkbox"> Remember me
                                 </label>
                             </div>
-                            <button type="submit" class="btn btn-secondary">Submit</button>&nbsp&nbsp&nbsp&nbsp&nbsp                                     
+                            <button type="submit" class="btn btn-secondary">Login</button>&nbsp&nbsp&nbsp&nbsp&nbsp                                     
                             <a class="btn btn-secondary" href='signup.php'>Create Account</a>
                             <br><br>
                             <span class='text-danger'><?php echo $loginError; ?></span>
