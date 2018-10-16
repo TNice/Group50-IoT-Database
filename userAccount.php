@@ -21,6 +21,9 @@
                 <h1 class='title1' style='text-transform:uppercase;'><?php echo $_SESSION['currentUser']; ?></h1>            
             </div>   
             <?php include 'navmenu.php'; ?>
+            <div class='contentBox'>
+                <h3 class='title1'>Account Information</h3>
+            </div>
         </div>
     </body>
 </html>
