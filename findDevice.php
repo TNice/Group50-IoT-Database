@@ -1,5 +1,29 @@
 <?php
     session_start();
+
+    $location = $type = '';
+
+    function findDevice($location, $type){
+        $sqlQuery = '';
+
+        if($location !== ''){
+            if($sqlQuery === ''){
+                $sqlQuery .= 'WHERE ';
+            }elseif($sqlQuery.contains('WHERE')){
+                $sqlQuery .= ', ';
+            }
+            $sqlQuery .= "location = '{$location}'";
+        }
+
+        if($type !== ''){
+            $sqlCommand = "SELECT deviceId, deviceName FROM {$type}"
+        }
+        else{
+            $sqlCommand = 'SELECT deviceId, deviceName FROM Devices';
+        }
+        $sqlCommand .= $sqlQuery . ';';
+        
+    }
 ?>
 
 <html>

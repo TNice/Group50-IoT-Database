@@ -70,7 +70,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
 
     if($error === FALSE){
        if(AddUserToDB($_SESSION['email'], $_SESSION['username'], $password) === TRUE){
-           ;
+           header('home.php');
        }
     }
 }
@@ -102,6 +102,27 @@ function CheckForDuplicateEmail($email){
     }  
     return FALSE;  
 }
+
+/*function AddUserToDB($email, $firstName, $lastName, $phoneNumber, $birthDay, $password){
+    $password = (string)$password;
+    $email = (string)$email;
+    $firstName = (string)$firstName;
+    $lastName = (string)$lastName;
+    $birthDay = (string)$birthDay;
+    $phoneNumber = (string)$phoneNumber;
+
+    $connection = new mysqli($GLOBALS['server'], $GLOBALS['user'], $GLOBALS['pass'], $GLOBALS['db']);
+    $sqlQuery = "INSERT INTO users (email, username, password) VALUES ('{$email}', '{$firstName}', '{$lastName}', '{$brithDay}', '{$phoneNumber}', '{$password}')";
+    
+    if($connection->query($sqlQuery) === TRUE){
+        $_SESSION['result'] = "{$email}, {$firstName}, {$lastName}, {$brithDay}, {$phoneNumber}, {$password} ADDED";
+        unset($_SESSION['username']);
+        unset($_SESSION['email']);
+    }
+    else{
+        $_SESSION['result'] = $connection->error . '\n' . $sqlQuery;
+    }
+}*/
 
 function AddUserToDB($email, $username, $password){
     $password = (string)$password;
@@ -198,7 +219,7 @@ function AddUserToDB($email, $username, $password){
                                     <input type='date' class='form-control' name='bday'> <span class='error'><?php echo $passError; ?></span>
                                 </div>
                                 <br>
-                                <input class='btn btn-secondary' type='submit' name='submit'>
+                                <button class='btn btn-secondary' type='submit' name='submit'>Create Account</button>
                                 <br>
                                 <span class='error'><?php echo $loginError; ?></span>
                             </form>

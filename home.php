@@ -7,6 +7,7 @@
 
         <title>Database Project</title>
         <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#969696">
         <link rel="stylesheet" type="text/css" href="mainstyle.css">
         <script src="main.js"></script>
     </head>

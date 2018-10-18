@@ -5,6 +5,6 @@ To Add The Nav Bar Use:
 <?php include 'navmenu.php'; ?>
 
 
-Use bootstrp modals with admin panel for editing packages
+Use bootstrp modals for popups
 
 Need to remove useraccount and just use the name of user once logged in to go to user account page.

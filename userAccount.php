@@ -92,7 +92,8 @@
                                             <input type='date' class='form-control' name='bday' value='<?php if(isset($_SESSION['bday'])){ echo $_SESSION['bday']; } ?>' <?php if(!isset($_SESSION['edit'])){ echo 'disabled';}?>> <span class='error'><?php echo $passError; ?></span>
                                         </div>
                                         <br>
-                                        <input class='btn btn-secondary' type='submit' name='Edit'>
+                                        <button class='btn btn-secondary' type='submit' name='Edit'>Edit</button>&nbsp&nbsp&nbsp&nbsp&nbsp
+                                        <button class='btn btn-danger' type='submit' name='deletAccount'>Delete Account</button>
                                         <br>
                                         <span class='error'><?php echo $loginError; ?></span>
                                     </form>
@@ -106,7 +107,37 @@
                             <h3 class='title2' style='margin-bottom:1.5rem;'>Package Information</h3>
                             <div class='row'>
                                 <div class='col-1'></div>
-                                <div class='col-10'></div>
+                                <div class='col-10 row'>
+                                    <div class='col-1'></div>
+                                    <div class='form-check col-5'>
+                                        <label class='form-check-lable'>
+                                            <input type='radio' class='form-check-radio' name='package0'> Wifi Only
+                                        </label>
+                                        <br><br>
+                                        <label class='form-check-lable'>
+                                            <input type='radio' class='form-check-radio' name='package0'> Printer Only
+                                        </label>
+                                        <br><br>
+                                        <label class='form-check-lable'>
+                                            <input type='radio' class='form-check-radio' name='package0'> Charging Only
+                                        </label>
+                                    </div><div class='form-check col-5'>
+                                        <label class='form-check-lable'>
+                                            <input type='radio' class='form-check-radio' name='package0'> Wifi With Charging
+                                        </label>
+                                        <br><br>
+                                        <label class='form-check-lable'>
+                                            <input type='radio' class='form-check-radio' name='package0'> Printer With WiFi
+                                        </label>
+                                        <br><br>
+                                        <label class='form-check-lable'>
+                                            <input type='radio' class='form-check-radio' name='package0'> Charging With Printer
+                                        </label>
+                                    </div>
+                                    <div class='col-1'>
+                                        <button class='btn btn-secondary' type='submit' style='position:relative;margin-top:450%'>Subscribe</button>
+                                    </div>
+                                </div>
                                 <div class='col-1'></div>
                             </div>
                         </div>
