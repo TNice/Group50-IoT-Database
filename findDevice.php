@@ -1,6 +1,10 @@
 <?php
     session_start();
 
+    if(!isset($_SESSION['filter'])){
+        $_SESSION['filter'] = 'NONE';
+    }
+    
     $location = $type = '';
 
     function findDevice($location, $type){
@@ -45,8 +49,34 @@
                 <h1 class='title1'>Find Device</h1>            
             </div>
             <?php include 'navmenu.php'; ?>
-            <div class="row">
-                
+            <div class="row" style='max-width:100%;'>
+                <div class='col-3' style='margin-left:2rem;'>
+                    <div id='filters' class='contentBoxLight'>
+                        <h5 class='title1'>Filters</h5>
+                        <form>
+                            <div class='form-group'>
+                                <label>Name</label>
+                            </div>
+                            <div class='form-group'>
+                                <label>Type</label>
+                            </div>
+                            <div class='form-group'>
+                                <label>Location</label>
+                            </div>
+                            <div class='form-group'>
+                                <label>Package</label>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <div class='col-1'></div>
+                <div class='col-7'>
+                    <div id='deviceList' class='contentBoxLight'>
+                        <h3 class='title1' style='margin-top:0.25rem;'>Devices</h3>
+                        <?php include 'createDeviceList.php'; ?>
+                    </div>
+                </div>
+                <div class='col-1'></div>
             </div>   
         </div>
     </body>

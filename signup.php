@@ -68,8 +68,10 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
         }
     }   
 
+    $userId = GenerateUserId();
+
     if($error === FALSE){
-       if(AddUserToDB($_SESSION['email'], $_SESSION['username'], $password) === TRUE){
+       if(AddUserToDB($_SESSION['email'], $_SESSION['username'], $password, $userId) === TRUE){
            header('home.php');
        }
     }
@@ -89,6 +91,30 @@ function CheckForDuplicateUser($username){
     return FALSE;  
 }
 
+function GenerateUserId(){
+    $temp = rand(10000, 99999);
+    if(CheckForDuplicateUserId($temp) === TRUE){
+        return GenerateUserId();
+    }
+    else{
+        return $temp;
+    }
+}
+
+function CheckForDuplicateUserId($userId){
+    $connection = new mysqli($GLOBALS['server'], $GLOBALS['user'], $GLOBALS['pass'], $GLOBALS['db']);
+    $sqlQuery = 'SELECT id FROM users';
+    $result = $connection->query($sqlQuery);
+    if($result->num_rows > 0){
+        while($row = $result->fetch_assoc()){
+            if($row['id'] == $userId){
+                return TRUE;
+            }
+        } 
+    }  
+    return FALSE;
+}
+
 function CheckForDuplicateEmail($email){
     $connection = new mysqli($GLOBALS['server'], $GLOBALS['user'], $GLOBALS['pass'], $GLOBALS['db']);
     $sqlQuery = 'SELECT email FROM users';
@@ -100,6 +126,7 @@ function CheckForDuplicateEmail($email){
             }
         } 
     }  
+   // print($result);
     return FALSE;  
 }
 
@@ -124,16 +151,18 @@ function CheckForDuplicateEmail($email){
     }
 }*/
 
-function AddUserToDB($email, $username, $password){
+function AddUserToDB($email, $username, $password, $userId){
     $password = (string)$password;
     $email = (string)$email;
     $connection = new mysqli($GLOBALS['server'], $GLOBALS['user'], $GLOBALS['pass'], $GLOBALS['db']);
-    $sqlQuery = "INSERT INTO users (email, username, password) VALUES ('{$email}', '{$username}', '{$password}')";
+    $sqlQuery = "INSERT INTO users (email, username, password, id) VALUES ('{$email}', '{$username}', '{$password}', '{$userId}')";
     
     if($connection->query($sqlQuery) === TRUE){
-        $_SESSION['result'] = "{$email}, {$username}, {$password} ADDED";
+        $_SESSION['result'] = "{$email}, {$username}, {$password}, {$userId} ADDED";
         unset($_SESSION['username']);
         unset($_SESSION['email']);
+        header('Location: home.php');
+        return TRUE;
     }
     else{
         $_SESSION['result'] = $connection->error . '\n' . $sqlQuery;
@@ -209,7 +238,7 @@ function AddUserToDB($email, $username, $password){
                                     <div class='input-group-prepend'>
                                         <span class='input-group-text'>Phone #</span>
                                     </div>
-                                    <input type='text' class='form-control' placeholder='555-555-5555' name='username'> <span class='error'><?php echo $passError; ?></span>
+                                    <input type='text' class='form-control' placeholder='555-555-5555' name='phone'> <span class='error'><?php echo $passError; ?></span>
                                 </div>
                                 <br>
                                 <div class='input-group mb-3'>

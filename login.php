@@ -28,14 +28,22 @@ function LoginRequest($email, $password){
         die("Connection Failed: " . mysqli_connect_error());
     }
 
-    $query = "SELECT * FROM users";
+    $query = "SELECT email, password, id FROM users WHERE email = '{$email}'";
     $result = mysqli_query($connection, $query);
 
+    if(mysqli_num_rows($result) == 0){
+        return FALSE;
+    }
+    else{
+        $row = mysqli_fetch_assoc($result);
+        $_SESSION['currentUser'] = $row['id'];
+        return TRUE;
+    }
 
-    if(mysqli_num_rows($result) > 0){
+   /* if(mysqli_num_rows($result) > 0){
         while($row = mysqli_fetch_assoc($result)){
             if(($row['email'] == $email || $row['username'] == $email) && $row['password'] == $password){              
-                $_SESSION['currentUser'] = $row['username'];
+                $_SESSION['currentUser'] = $row['id'];
                 return TRUE;           
             }
             else{
@@ -45,7 +53,8 @@ function LoginRequest($email, $password){
     }
     else{
         die("NO USERS");
-    }
+    }*/
+    
 }
 
 ?>

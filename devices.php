@@ -15,7 +15,7 @@
     <body>
         <div class="background">  
             <div id='title' class='container-fluid titleBox'>            
-                <h1 class='title1'>Devices</h1>            
+                <h1 class='title1'>Device Types</h1>            
             </div> 
             <?php include 'navmenu.php'; ?>
             <div id='info' class="row" style='width: 100%'>
@@ -30,7 +30,7 @@
                 <div class='col-10'>
                     <br>
                     <div>
-                        <h1 class='title2'>Devices</h1>
+                        <h1 class='title2'>Device Types</h1>
                     </div>
                     <div id='device0'></div> 
                     <br>
