@@ -1,6 +1,8 @@
 <?php
     session_start();
 
+    include 'util/sqlFunctions.php';
+    
     if(!isset($_SESSION['filter'])){
         $_SESSION['filter'] = 'NONE';
     }
@@ -35,7 +37,7 @@
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <!--Bootstrap-->
-        <?php include 'addbootstrap.php';?>
+        <?php include 'util/addbootstrap.php';?>
 
         <title>Database Project</title>
         <meta name="viewport" content="width=device-width, initial-scale=1">

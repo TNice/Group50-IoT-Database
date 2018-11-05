@@ -24,24 +24,6 @@ function DeterminLogButtons(){
         echo $userButton0 . GetUserName($_SESSION['currentUser']) . $userButton1 . $logoutButtons;
     }
 }
-
-function GetUserName($id){
-  $user = 'root';
-  $pass = '12345';
-  $server = 'localhost';
-  $db = 'testlogin';
-  
-  $connection = mysqli_connect($server, $user, $pass, $db);
-  if(!$connection){
-    die("Connection Failed: " . mysqli_connect_error());
-  }
-
-  $query = "SELECT username FROM users WHERE id = {$id}";
-  $result = mysqli_query($connection, $query);
-  $row = mysqli_fetch_assoc($result);
-  return $row['username'];
-
-}
 ?>
 
 <nav class="navbar navbar-expand-sm bg-dark navbar-dark sticky-top">

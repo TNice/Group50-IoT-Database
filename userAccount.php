@@ -1,6 +1,8 @@
 <?php
     session_start();
 
+    include 'util/sqlFunctions.php';
+
     $emailError = $userError = $passError = $nameError = $loginError = '';
 
     function EditAccount(){
@@ -11,6 +13,24 @@
         //Save Logic Here
         unset($_SESSION['edit']);
     }
+
+   /* function GetUserName($id){
+        $user = 'root';
+        $pass = '12345';
+        $server = 'localhost';
+        $db = 'testlogin';
+        
+        $connection = mysqli_connect($server, $user, $pass, $db);
+        if(!$connection){
+          die("Connection Failed: " . mysqli_connect_error());
+        }
+      
+        $query = "SELECT username FROM users WHERE id = {$id}";
+        $result = mysqli_query($connection, $query);
+        $row = mysqli_fetch_assoc($result);
+        return $row['username'];
+      
+    }*/
 ?>
 
 <html>
@@ -18,7 +38,7 @@
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <!--Bootstrap-->
-        <?php include 'addbootstrap.php';?>
+        <?php include 'util/addbootstrap.php';?>
 
         <title>Account Info</title>
         <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -29,7 +49,7 @@
     <body>
         <div class="background">  
             <div id='title' class='container-fluid titleBox'>            
-                <h1 class='title1' style='text-transform:uppercase;'><?php echo $_SESSION['currentUser']; ?></h1>            
+                <h1 class='title1' style='text-transform:uppercase;'><?php echo GetUserName($_SESSION['currentUser']); ?></h1>            
             </div>   
             <div id='general'></div>
             <?php include 'navmenu.php'; ?>
@@ -103,8 +123,11 @@
                         </div>
                         <div id='package'></div>
                         <br>
+                        <?php
+                            //If user is subscribed to package add a current package tabe
+                        ?>
                         <div class='contentBox'>
-                            <h3 class='title2' style='margin-bottom:1.5rem;'>Package Information</h3>
+                            <h3 class='title2' style='margin-bottom:1.5rem;'>Subscribe To Package</h3>
                             <div class='row'>
                                 <div class='col-1'></div>
                                 <div class='col-10 row'>
@@ -134,11 +157,15 @@
                                             <input type='radio' class='form-check-radio' name='package0'> Charging With Printer
                                         </label>
                                     </div>
-                                    <div class='col-1'>
-                                        <button class='btn btn-secondary' type='submit' style='position:relative;margin-top:450%'>Subscribe</button>
-                                    </div>
+                                    
                                 </div>
                                 <div class='col-1'></div>
+                            </div>
+                            <div class='row'>
+                                <div class='col-9'></div>
+                                <div class='col-3'>
+                                        <button class='btn btn-secondary' type='submit'>Subscribe</button>
+                                </div>
                             </div>
                         </div>
                     </div>

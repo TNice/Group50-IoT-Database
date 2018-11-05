@@ -1,6 +1,8 @@
 <?php
 session_start();
 
+include 'util/sqlFunctions.php';
+
 $loginError = '';
 
 if($_SERVER['REQUEST_METHOD'] == 'POST')
@@ -38,23 +40,7 @@ function LoginRequest($email, $password){
         $row = mysqli_fetch_assoc($result);
         $_SESSION['currentUser'] = $row['id'];
         return TRUE;
-    }
-
-   /* if(mysqli_num_rows($result) > 0){
-        while($row = mysqli_fetch_assoc($result)){
-            if(($row['email'] == $email || $row['username'] == $email) && $row['password'] == $password){              
-                $_SESSION['currentUser'] = $row['id'];
-                return TRUE;           
-            }
-            else{
-                return FALSE;
-            }
-        }
-    }
-    else{
-        die("NO USERS");
-    }*/
-    
+    }   
 }
 
 ?>
@@ -68,7 +54,7 @@ function LoginRequest($email, $password){
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <!--Bootstrap-->
-        <?php include 'addbootstrap.php';?>
+        <?php include 'util/addbootstrap.php';?>
 
         <title>Database Project</title>
         <meta name="viewport" content="width=device-width, initial-scale=1">

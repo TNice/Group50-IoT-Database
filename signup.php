@@ -1,6 +1,7 @@
 <?php
 session_unset();
 session_start();
+include 'util/sqlFunctions.php';
 
 $server = 'localhost';
 $user = 'root';
@@ -181,7 +182,7 @@ function AddUserToDB($email, $username, $password, $userId){
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <!--Bootstrap-->
-        <?php include 'addbootstrap.php';?>
+        <?php include 'util/addbootstrap.php';?>
 
         <title>Database Project</title>
         <meta name="viewport" content="width=device-width, initial-scale=1">
