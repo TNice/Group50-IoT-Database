@@ -24,8 +24,7 @@ function SqlQuery($query){
     if(!$connection){
       die("Connection Failed: " . mysqli_connect_error());
     }
-  
-    $query = "SELECT username FROM users WHERE id = {$id}";
+
     $result = mysqli_query($connection, $query);
 
     return mysqli_fetch_assoc($result);
@@ -39,12 +38,8 @@ function SqlQueryRaw($query){
       die("Connection Failed: " . mysqli_connect_error());
     }
   
-    $query = "SELECT username FROM users WHERE id = {$id}";
     return mysqli_query($connection, $query);
 }
 
-function InsertToTable($table, $values){
-
-}
 
 ?>

@@ -4,6 +4,9 @@
     include 'util/sqlFunctions.php';
 
     $emailError = $userError = $passError = $nameError = $loginError = '';
+    $fName = $lName = $username = $password = $email = $phone = $bday = '';
+
+    SetUserInfo();
 
     function EditAccount(){
         $_SESSION['edit'] = TRUE;
@@ -14,23 +17,27 @@
         unset($_SESSION['edit']);
     }
 
-   /* function GetUserName($id){
-        $user = 'root';
-        $pass = '12345';
-        $server = 'localhost';
-        $db = 'testlogin';
-        
-        $connection = mysqli_connect($server, $user, $pass, $db);
-        if(!$connection){
-          die("Connection Failed: " . mysqli_connect_error());
+   function SetUserInfo(){
+        $query = "SELECT * FROM users WHERE id = {$_SESSION['currentUser']};";
+        $row = SqlQuery($query);
+        $GLOBALS['username'] = $row['username'];
+        $GLOBALS['email'] = $row['email'];
+        $GLOBALS['password'] = $row['password'];
+        if(!isset($row['fName']) || $row['fName'] === NULL){
+            $GLOBALS['fName'] = 'First Name';
         }
-      
-        $query = "SELECT username FROM users WHERE id = {$id}";
-        $result = mysqli_query($connection, $query);
-        $row = mysqli_fetch_assoc($result);
-        return $row['username'];
-      
-    }*/
+        else{
+            $GLOBALS['fName'] = $row['fName'];
+        }
+        if(!isset($row['lName']) || $row['lName'] === NULL){
+            $GLOBALS['lName'] = 'Last Name';
+        }
+        else{
+            $GLOBALS['lName'] = $row['lName'];
+        }
+
+        //ADD PHONE NUMBER AND BIRTH DATE AS WELL
+   }
 ?>
 
 <html>
@@ -72,44 +79,43 @@
                                             <div class='input-group-prepend'>
                                                 <span class='input-group-text'>Email</span>
                                             </div>
-                                            <input type='text' class='form-control' placeholder=<?php if(!isset($_SESSION['email'])){ echo 'example12345@gmail.com';}else{echo $_SESSION['email'];}?> name='email' <?php if(!isset($_SESSION['edit'])){ echo 'disabled';}?>><span class='error'><?php echo $emailError; ?></span>
+                                            <input type='text' class='form-control' placeholder='<?php echo $email; ?>' name='email' <?php if(!isset($_SESSION['edit'])){ echo 'disabled';}?>><span class='error'><?php echo $emailError; ?></span>
                                         </div>
                                         <br>
                                         <div class='input-group mb-3'>
                                             <div class='input-group-prepend'>
                                                 <span class='input-group-text'>Username</span>
                                             </div>
-                                            <input type='text' class='form-control' placeholder=<?php if(!isset($_SESSION['currentUser'])){ echo 'Username';}else{echo $_SESSION['currentUser'];}?> name='username' <?php if(!isset($_SESSION['edit'])){ echo 'disabled';}?>><span class='error'><?php echo $userError; ?></span>
+                                            <input type='text' class='form-control' placeholder='<?php echo $username;?>' name='username' <?php if(!isset($_SESSION['edit'])){ echo 'disabled';}?>><span class='error'><?php echo $userError; ?></span>
                                         </div>
                                         <br>
                                         <div class='input-group mb-3'>
                                             <div class='input-group-prepend'>
                                                 <span class='input-group-text'>Name</span>
                                             </div>
-                                            <input type='text' class='form-control' placeholder='First Name' name='firstName' <?php if(!isset($_SESSION['edit'])){ echo 'disabled';}?>> <span class='error'><?php?></span>
-                                            <input type='text' class='form-control' placeholder='Middle Name' name='middleName' <?php if(!isset($_SESSION['edit'])){ echo 'disabled';}?>> <span class='error'><?php?></span>
-                                            <input type='text' class='form-control' placeholder='Last Name' name='lastName' <?php if(!isset($_SESSION['edit'])){ echo 'disabled';}?>> <span class='error'><?php?></span>
+                                            <input type='text' class='form-control' placeholder='<?php echo $fName; ?>' name='firstName' <?php if(!isset($_SESSION['edit'])){ echo 'disabled';}?>> <span class='error'><?php?></span>
+                                            <input type='text' class='form-control' placeholder='<?php echo $lName; ?>' name='lastName' <?php if(!isset($_SESSION['edit'])){ echo 'disabled';}?>> <span class='error'><?php?></span>
                                         </div>
                                         <br>
                                         <div class='input-group mb-3'>
                                             <div class='input-group-prepend'>
                                                 <span class='input-group-text'>Password</span>
                                             </div>
-                                            <input type='text' class='form-control' name='password' placeholder='<?php if(isset($_SESSION['password'])){echo $_SESSION['password']; }?>' <?php if(!isset($_SESSION['edit'])){ echo 'disabled';}?>> <span class='error'><?php echo $passError; ?></span>
+                                            <input type='password' class='form-control' name='password' value='<?php echo $password;?>' <?php if(!isset($_SESSION['edit'])){ echo 'disabled';}?>> <span class='error'><?php echo $passError; ?></span>
                                         </div>
                                         <br>
                                         <div class='input-group mb-3'>
                                             <div class='input-group-prepend'>
                                                 <span class='input-group-text'>Phone #</span>
                                             </div>
-                                            <input type='text' class='form-control' placeholder="<?php if(!isset($_SESSION['phone'])){ echo '555-555-5555';}else{echo $_SESSION['phone'];}?>" name='phone' <?php if(!isset($_SESSION['edit'])){ echo 'disabled';}?>> <span class='error'><?php echo $passError; ?></span>
+                                            <input type='text' class='form-control' placeholder="<?php echo $phone; ?>" name='phone' <?php if(!isset($_SESSION['edit'])){ echo 'disabled';}?>> <span class='error'><?php echo $passError; ?></span>
                                         </div>
                                         <br>
                                         <div class='input-group mb-3'>
                                             <div class='input-group-prepend'>
                                                 <span class='input-group-text'>Birth Date</span>
                                             </div>
-                                            <input type='date' class='form-control' name='bday' value='<?php if(isset($_SESSION['bday'])){ echo $_SESSION['bday']; } ?>' <?php if(!isset($_SESSION['edit'])){ echo 'disabled';}?>> <span class='error'><?php echo $passError; ?></span>
+                                            <input type='date' class='form-control' name='bday' value='<?php echo $bday; ?>' <?php if(!isset($_SESSION['edit'])){ echo 'disabled';}?>> <span class='error'><?php echo $passError; ?></span>
                                         </div>
                                         <br>
                                         <button class='btn btn-secondary' type='submit' name='Edit'>Edit</button>&nbsp&nbsp&nbsp&nbsp&nbsp
@@ -124,6 +130,23 @@
                         <div id='package'></div>
                         <br>
                         <?php
+                            $tempBool = FALSE;
+
+                            if($tempBool === TRUE){
+                                $element = 
+                                "<div class='contentBox'>
+                                    <h3 class='title2'>PACKAGE NAME</h3>
+                                    <div class='row'>
+                                        <div class='col-6'>
+                                            Package Info
+                                        </div>
+                                        <div class='col-6'>    
+                                            Get Devices for package with sql package
+                                        </div>
+                                    </div>
+                                </div>";
+                                echo $element;
+                            }
                             //If user is subscribed to package add a current package tabe
                         ?>
                         <div class='contentBox'>
