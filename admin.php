@@ -1,6 +1,8 @@
 <?php 
     include 'util/sqlFunctions.php';
 ?>
+<?php include 'navmenu.php'; ?>
+
 <!DOCTYPE html>
 <html>
     <head>
