@@ -1,5 +1,6 @@
 <?php 
     include 'util/sqlFunctions.php';
+//test
 ?>
 
 <html>
