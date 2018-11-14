@@ -6,11 +6,11 @@ include 'util/sqlFunctions.php';
 $server = 'localhost';
 $user = 'root';
 $pass = '12345';
-$db = 'testlogin';
+$db = 'project';
 
 $emptyFieldError = '* Required';
 $error = FALSE;
-$loginError = $userError = $emailError = $passError = $result = '';
+$loginError = $nameError = $userError = $emailError = $passError = $result = '';
 
 if(!isset($_SESSION['username'])){
     $_SESSION['username'] = '';
@@ -18,7 +18,7 @@ if(!isset($_SESSION['username'])){
 if(!isset($_SESSION['email'])){
     $_SESSION['email'] = '';
 }
-$password = '';
+$phoneNumber = $fName = $lName = $birthDate = $password = '';
 
 function testData($data){
     $data = trim($data);
@@ -67,7 +67,31 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
             $userError = '* Username Already Taken';
             $error = TRUE;
         }
-    }   
+    }  
+    if(empty($_POST['firstName']) || empty($_POST['lastName'])){
+        $nameError = $emptyFieldError
+        $error = TRUE;
+    }
+    else{
+        $fName = $_POST['firstName'];
+        $lName = $_POST['lastName'];
+        if(!preg_match('/^[a-zA-Z]+$/', $fName)){
+            if(isempty($nameError)){
+                $nameError = '* Invalid First Name';
+            }
+            else if(strpos($nameError, 'Invalid')){
+                $nameError .= ' and First Name';
+            }
+        }
+        if(!preg_match('/^[a-zA-Z]+$/', $lName)){
+            if(isempty($nameError)){
+                $nameError = '* Invalid First Name';
+            }
+            else if(strpos($nameError, 'Invalid')){
+                $nameError .= ' and First Name';
+            }
+        }
+    }
 
     $userId = GenerateUserId();
 
@@ -170,7 +194,6 @@ function AddUserToDB($email, $username, $password, $userId){
     }
 }
 ?>
-
 <style>
 .error{
     color: #ff0000;
@@ -223,9 +246,8 @@ function AddUserToDB($email, $username, $password, $userId){
                                     <div class='input-group-prepend'>
                                         <span class='input-group-text'>Name</span>
                                     </div>
-                                    <input type='text' class='form-control' placeholder='First Name' name='firstName'> <span class='error'><?php?></span>
-                                    <input type='text' class='form-control' placeholder='Middle Name' name='middleName'> <span class='error'><?php?></span>
-                                    <input type='text' class='form-control' placeholder='Last Name' name='lastName'> <span class='error'><?php?></span>
+                                    <input type='text' class='form-control' placeholder='First Name' name='firstName'>
+                                    <input type='text' class='form-control' placeholder='Last Name' name='lastName'> <span class='error'><?php echo $nameError;?></span>
                                 </div>
                                 <br>
                                 <div class='input-group mb-3'>
@@ -239,9 +261,9 @@ function AddUserToDB($email, $username, $password, $userId){
                                     <div class='input-group-prepend'>
                                         <span class='input-group-text'>Phone #</span>
                                     </div>
-                                    <input type='text' class='form-control' placeholder='555-555-5555' name='phone'> <span class='error'><?php echo $passError; ?></span>
+                                    <input type='text' class='form-control' placeholder='555-555-5555' id='phoneNumber' maxlength='16' name='phone'> <span class='error'><?php echo $passError; ?></span>
                                 </div>
-                                <br>
+                                <br> 
                                 <div class='input-group mb-3'>
                                     <div class='input-group-prepend'>
                                         <span class='input-group-text'>Birth Date</span>

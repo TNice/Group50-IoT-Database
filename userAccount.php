@@ -4,7 +4,7 @@
     include 'util/sqlFunctions.php';
 
     $emailError = $userError = $passError = $nameError = $loginError = '';
-    $fName = $lName = $username = $password = $email = $phone = $bday = '';
+    $fName = $lName = $username = $password = $email = $phone = $bday = $package = '';
 
     SetUserInfo();
 
@@ -35,8 +35,11 @@
         else{
             $GLOBALS['lName'] = $row['lName'];
         }
-
         //ADD PHONE NUMBER AND BIRTH DATE AS WELL
+
+        $row = SqlQuery("SELECT id FROM packages p, user_package u 
+                        WHERE p.id = u.packageId and u.userId = {$_SESSION['currentUser']}");
+        $GLOBALS['package'] = $row['packageId'];
    }
 ?>
 
@@ -135,7 +138,7 @@
                             if($tempBool === TRUE){
                                 $element = 
                                 "<div class='contentBox'>
-                                    <h3 class='title2'>PACKAGE NAME</h3>
+                                    <h3 class='title2'>" . GetPackageName($GLOBALS['package']) . "</h3>
                                     <div class='row'>
                                         <div class='col-6'>
                                             Package Info

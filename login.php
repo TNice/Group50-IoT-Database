@@ -24,7 +24,7 @@ function LoginRequest($email, $password){
         return FALSE;
     }
 
-    $connection = mysqli_connect('localhost', 'root', '12345', 'testlogin');
+    $connection = mysqli_connect('localhost', 'root', '12345', 'project');
     if(!$connection){
         //return false;
         die("Connection Failed: " . mysqli_connect_error());
