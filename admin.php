@@ -34,24 +34,23 @@
             evt.currentTarget.className += " active";
         }
     </script>
-    
         <div class="tab">
           <button class="tablinks" onclick="openTab(event, 'Logs')">Logs</button>
           <button class="tablinks" onclick="openTab(event, 'Devices')">Devices</button>
           <button class="tablinks" onclick="openTab(event, 'User')">User</button>
         </div>
 
-        <div id="Logs" class="tabcontent">
+        <div id="Logs" class="tabcontent" style='display:none;'>
           <h3>Logs</h3>
           <p>This is where logs go.</p>
         </div>
 
-        <div id="Devices" class="tabcontent">
+        <div id="Devices" class="tabcontent" style='display:none;'>
           <h3>Devices</h3>
           <p>This is where Devices go.</p> 
         </div>
 
-        <div id="User" class="tabcontent">
+        <div id="User" class="tabcontent" style='display:none;'>
           <h3>User</h3>
           <p>This is Users go</p>
         </div>

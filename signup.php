@@ -78,19 +78,38 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
         if(!preg_match('/^[a-zA-Z]+$/', $fName)){
             if(isempty($nameError)){
                 $nameError = '* Invalid First Name';
+                $error = TRUE;
             }
             else if(strpos($nameError, 'Invalid')){
                 $nameError .= ' and First Name';
+                $error = TRUE;
             }
         }
         if(!preg_match('/^[a-zA-Z]+$/', $lName)){
             if(isempty($nameError)){
-                $nameError = '* Invalid First Name';
+                $nameError = '* Invalid Last Name';
+                $error = TRUE;
             }
             else if(strpos($nameError, 'Invalid')){
-                $nameError .= ' and First Name';
+                $nameError .= ' and Last Name';
+                $error = TRUE;
             }
         }
+    }
+    if(empty($_POST['phone'])){
+        $phoneError = $emptyFieldError;
+        $error = TRUE;
+    }
+    else{
+        $phoneNumber = $_POST['phone'];
+        if(!preg_match('/^[0-9]+${10}/'), $phoneNumber){
+            $phoneError = '* Invalid Phone Number';
+            $error = TRUE;
+        }
+    }
+    if(empty($_POST['bday'])){
+        $birthDateError = $emptyFieldError;
+        $error = TRUE;
     }
 
     $userId = GenerateUserId();
@@ -98,7 +117,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
     if($error === FALSE){
        if(AddUserToDB($_SESSION['email'], $_SESSION['username'], $password, $userId) === TRUE){
            header('home.php');
-       }
+        }
     }
 }
 
