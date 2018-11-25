@@ -26,7 +26,7 @@
             <div name='spacer' style='margin-top:3rem;'>
             
             <div class='row' style='max-width:100%;'>
-                <div class='col-1'></div>
+                <div class='col-1'> </div>
                 <div class='col-10'>
                     <div class=contentBox>
                         <h3 class='title1' style='margin-top:0.5rem;margin-bottom:2rem'>Project Info</h3>

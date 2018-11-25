@@ -57,18 +57,24 @@
                         <h5 class='title1'>Filters</h5>
                         <form>
                             <div class='form-group'>
-                                <label>Name</label>
+                                <input type="text" name="divName" placeholder="Name">
                             </div>
                             <div class='form-group'>
-                                <label>Type</label>
+                                <input type="text" name="divType" placeholder="Type">
                             </div>
                             <div class='form-group'>
-                                <label>Location</label>
+                                <input type="text" name="divLoc" placeholder="Location">
                             </div>
                             <div class='form-group'>
-                                <label>Package</label>
+                                <select name= "Package">
+                                    <option>Package</option>
+                                    <option>Basic</option>
+                                    <option>Premiume</option>
+                                    <option>Gold</option>
+                                </select>
                             </div>
                         </form>
+                        
                     </div>
                 </div>
                 <div class='col-1'></div>
