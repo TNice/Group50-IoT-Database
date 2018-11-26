@@ -51,8 +51,6 @@
         </div>
 
         <div id="User" class="tabcontent" style='display:none;'>
-          <h3>User</h3>
-          <p>This is Users go</p>
             
                     <div class="background">  
             <div id='title' class='container-fluid titleBox'>            
