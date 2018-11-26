@@ -64,14 +64,7 @@
                                 <div class='form-group'>
                                     <input type="text" name="divLoc" placeholder="Username">
                                 </div>
-                                <div class='form-group'>
-                                    <select name= "Package">
-                                        <option>Package</option>
-                                        <option>Basic</option>
-                                        <option>Premiume</option>
-                                        <option>Gold</option>
-                                    </select>
-                                </div>
+                                
                             </form>
                 
                         </div>
@@ -124,7 +117,7 @@
                                     <select name= "Package">
                                         <option>Package</option>
                                         <option>Basic</option>
-                                        <option>Premiume</option>
+                                        <option>Premium</option>
                                         <option>Gold</option>
                                     </select>
                                 </div>
