@@ -58,7 +58,7 @@
             <div id='title' class='container-fluid titleBox'>            
                 <h1 class='title1'>User Search</h1>            
             </div>
-            <?php include 'navmenu.php'; ?>
+            
             <div class="row" style='max-width:100%;'>
                 <div class='col-3' style='margin-left:2rem;'>
                     <div id='filters' class='contentBoxLight'>
