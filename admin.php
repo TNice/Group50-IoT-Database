@@ -8,15 +8,15 @@
     }
 
 
-    $userId = $_POST['divId'];
-    // POST data
-    $firstName = $_POST['divfName'];
-    $lastName = $_POST['divlName'];
-    $email = $_POST['divEmail'];
-
+    function submitFunction(){
+        $userId = $_POST['divId'];
+        $firstName = $_POST['divfName'];
+        $lastName = $_POST['divlName'];
+        $email = $_POST['divEmail'];
+    }
 
     // Print Data
-    echo "user id = $userId";
+    
     
     $location = $type = '';
 
@@ -156,15 +156,15 @@
                                     <input type="text" name="divEmail" placeholder="Email">
                                 </div>
                                 <div class='form-group'>
-                                    <input type="submit" value="Submit">
-                                </div>
-                                <div class='form-group'>
                                     <select name= "Package">
                                         <option>Package</option>
                                         <option>Basic</option>
                                         <option>Premium</option>
                                         <option>Gold</option>
                                     </select>
+                                </div>
+                                <div class='form-group'>
+                                    <input type="submit" value="Submit" onclick="submitFunction()">
                                 </div>
                             </form>
                 
@@ -175,6 +175,7 @@
                         <div id='deviceList' class='contentBoxLight'>
                             <h3 class='title1' style='margin-top:0.25rem;'>Users</h3>
                         </div>
+                       <?php echo "user id = $userId"; ?>
                     </div>
                     <div class='col-1'></div>
                 </div>   
