@@ -6,13 +6,14 @@
     if(!isset($_SESSION['filter'])){
         $_SESSION['filter'] = 'NONE';
     }
-        $userId = "a";
-
+       
+    $userId = $_POST['divId'];
     function submitFunction(){
-        $userId = $_POST['divId'];
-        $firstName = $_POST['divfName'];
-        $lastName = $_POST['divlName'];
-        $email = $_POST['divEmail'];
+        
+        
+        $GLOBALS['firstName'] = $_POST['divfName'];
+        $GLOBALS['lastName'] = $_POST['divlName'];
+        $GLOBALS['email'] = $_POST['divEmail'];
     }
 
     // Print Data
@@ -142,7 +143,7 @@
                     <div class='col-3' style='margin-left:2rem;'>
                         <div id='filters' class='contentBoxLight'>
                             <h5 class='title1'>Filters</h5>
-                            <form>
+                            <form action="#" method="POST">
                                 <div class='form-group'>
                                     <input type="text" name="divId" placeholder="User Id">
                                 </div>
@@ -174,8 +175,9 @@
                     <div class='col-7'>
                         <div id='deviceList' class='contentBoxLight'>
                             <h3 class='title1' style='margin-top:0.25rem;'>Users</h3>
+                            <?php echo "user id = {$GLOBALS['userId']}"; ?>
                         </div>
-                       <?php echo "user id = $userId"; ?>
+                       
                     </div>
                     <div class='col-1'></div>
                 </div>   
