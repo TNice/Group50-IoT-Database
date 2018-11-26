@@ -53,6 +53,52 @@
         <div id="User" class="tabcontent" style='display:none;'>
           <h3>User</h3>
           <p>This is Users go</p>
+            
+                    <div class="background">  
+            <div id='title' class='container-fluid titleBox'>            
+                <h1 class='title1'>User Search</h1>            
+            </div>
+            <?php include 'navmenu.php'; ?>
+            <div class="row" style='max-width:100%;'>
+                <div class='col-3' style='margin-left:2rem;'>
+                    <div id='filters' class='contentBoxLight'>
+                        <h5 class='title1'>Filters</h5>
+                        <form>
+                            <div class='form-group'>
+                                <input type="text" name="divName" placeholder="User Id">
+                            </div>
+                            <div class='form-group'>
+                                <input type="text" name="divType" placeholder="First Name">
+                            </div>
+                            <div class='form-group'>
+                                <input type="text" name="divLoc" placeholder="Last Name">
+                            </div>
+                            <div class='form-group'>
+                                <input type="text" name="divLoc" placeholder="Email">
+                            </div>
+                            <div class='form-group'>
+                                <select name= "Package">
+                                    <option>Package</option>
+                                    <option>Basic</option>
+                                    <option>Premiume</option>
+                                    <option>Gold</option>
+                                </select>
+                            </div>
+                        </form>
+                
+                    </div>
+                </div>
+                <div class='col-1'></div>
+                <div class='col-7'>
+                    <div id='deviceList' class='contentBoxLight'>
+                        <h3 class='title1' style='margin-top:0.25rem;'>Devices</h3>
+                        <?php include 'createDeviceList.php'; ?>
+                    </div>
+                </div>
+                <div class='col-1'></div>
+            </div>   
+        </div>    
+            
         </div>
         
         
