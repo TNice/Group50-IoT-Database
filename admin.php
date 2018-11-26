@@ -79,7 +79,7 @@
                     <div class='col-1'></div>
                     <div class='col-7'>
                         <div id='deviceList' class='contentBoxLight'>
-                            <h3 class='title1' style='margin-top:0.25rem;'>Devices</h3>
+                            <h3 class='title1' style='margin-top:0.25rem;'>Logs</h3>
                             <?php include 'createDeviceList.php'; ?>
                         </div>
                     </div>
@@ -135,7 +135,7 @@
                     <div class='col-1'></div>
                     <div class='col-7'>
                         <div id='deviceList' class='contentBoxLight'>
-                            <h3 class='title1' style='margin-top:0.25rem;'>Devices</h3>
+                            <h3 class='title1' style='margin-top:0.25rem;'>Users</h3>
                             <?php include 'createDeviceList.php'; ?>
                         </div>
                     </div>
