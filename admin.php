@@ -6,7 +6,7 @@
     if(!isset($_SESSION['filter'])){
         $_SESSION['filter'] = 'NONE';
     }
-
+        $userId = "a";
 
     function submitFunction(){
         $userId = $_POST['divId'];
