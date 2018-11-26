@@ -1,5 +1,47 @@
 <?php 
+
+    session_start();
     include 'util/sqlFunctions.php';
+    
+    if(!isset($_SESSION['filter'])){
+        $_SESSION['filter'] = 'NONE';
+    }
+
+
+    $userId = $_POST['divId'];
+    // POST data
+    $firstName = $_POST['divfName'];
+    $lastName = $_POST['divlName'];
+    $email = $_POST['divEmail'];
+
+
+    // Print Data
+    echo "user id = $userId";
+    
+    $location = $type = '';
+
+    function findUser($location, $type){
+        $sqlQuery = '';
+
+        if($location !== ''){
+            if($sqlQuery === ''){
+                $sqlQuery .= 'WHERE ';
+            }elseif($sqlQuery.contains('WHERE')){
+                $sqlQuery .= ', ';
+            }
+            $sqlQuery .= "location = '{$location}'";
+        }
+
+        if($type !== ''){
+            $sqlCommand = "SELECT deviceId, deviceName FROM {$type}";
+        }
+        else{
+            $sqlCommand = 'SELECT deviceId, deviceName FROM Devices';
+        }
+        $sqlCommand .= $sqlQuery . ';';
+        
+    }
+
 ?>
 <?php include 'navmenu.php'; ?>
 
@@ -102,16 +144,19 @@
                             <h5 class='title1'>Filters</h5>
                             <form>
                                 <div class='form-group'>
-                                    <input type="text" name="divName" placeholder="User Id">
+                                    <input type="text" name="divId" placeholder="User Id">
                                 </div>
                                 <div class='form-group'>
-                                    <input type="text" name="divType" placeholder="First Name">
+                                    <input type="text" name="divfName" placeholder="First Name">
                                 </div>
                                 <div class='form-group'>
-                                    <input type="text" name="divLoc" placeholder="Last Name">
+                                    <input type="text" name="divlName" placeholder="Last Name">
                                 </div>
                                 <div class='form-group'>
-                                    <input type="text" name="divLoc" placeholder="Email">
+                                    <input type="text" name="divEmail" placeholder="Email">
+                                </div>
+                                <div class='form-group'>
+                                    <input type="submit" value="Submit">
                                 </div>
                                 <div class='form-group'>
                                     <select name= "Package">
