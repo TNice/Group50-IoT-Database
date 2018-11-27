@@ -6,19 +6,29 @@
     if(!isset($_SESSION['filter'])){
         $_SESSION['filter'] = 'NONE';
     }
-       
-    $userId = $_POST['divId'];
-    function submitFunction(){
+    
+    function useFilter(){
+        if(isset($_POST['divId']) || $_POST['divId'] != ""){
+            return true;
+        }
+        if(isset($_POST['divfName']) || $_POST['divfName'] != ""){
+            return true;
+        }
+        if(isset($_POST['divlName']) || $_POST['divlName'] != ""){
+            return true;
+        }
+        if(isset($_POST['divEmail']) || $_POST['divEmail'] != ""){
+            return true;
+        }
         
-        
-        $GLOBALS['firstName'] = $_POST['divfName'];
-        $GLOBALS['lastName'] = $_POST['divlName'];
-        $GLOBALS['email'] = $_POST['divEmail'];
+        return false;
     }
 
-    // Print Data
-    
-    
+//    $userId = $_POST['divId'];
+//    $firstName = $_POST['divfName'];
+//    $lastName = $_POST['divlName'];
+//    $email = $_POST['divEmail'];
+
     $location = $type = '';
 
     function findUser($location, $type){
@@ -175,7 +185,53 @@
                     <div class='col-7'>
                         <div id='deviceList' class='contentBoxLight'>
                             <h3 class='title1' style='margin-top:0.25rem;'>Users</h3>
-                            <?php echo "user id = {$GLOBALS['userId']}"; ?>
+                            <?php 
+                                $html ="<div><ul>";
+                                $query = "Select * From Users";
+                               if(useFilter()){
+                                   $query .= " WHERE ";
+                                   if(isset($_POST['divId']) && !empty($_POST['divId'])){
+                                       if(strpos($query, "=")){
+                                           $query .= ' and ';
+                                       } 
+                                       $query .= "id = {$_POST['divId']}";
+                                    }
+                                    if(isset($_POST['divfName']) && !empty($_POST['divfName'])){
+                                        if(strpos($query, "=")){
+                                           $query .= ' and ';
+                                       } 
+                                       $query .= "firstName = {$_POST['divfName']}";
+                                    }
+                                    if(isset($_POST['divlName']) && !empty($_POST['divlName'])){
+                                        if(strpos($query, "=")){
+                                           $query .= ' and ';
+                                       } 
+                                       $query .= "lastName = {$_POST['divlName']}";
+                                    }
+                                    if(isset($_POST['divEmail']) && !empty($_POST['divEmail'])){
+                                        if(strpos($query, "=")){
+                                           $query .= ' and ';
+                                       } 
+                                       $query .= "email = {$_POST['divEmail']}";
+                                    }
+                                   echo $query;
+                                   $result = SqlQueryRaw($query);
+                                   
+                                   while($row = mysqli_fetch_assoc($result)){
+                                       $html .= "<li> {$row['id']} </li>";
+                                   }
+                                   
+                               }else{
+                                   //send query
+                                    $result = SqlQueryRaw($query);
+                                   echo $result;
+                                   while($row = mysqli_fetch_assoc($result)){
+                                       $html .= "<li> {$row['id']} </li>";
+                                   }
+                               }
+                            
+                                $html = "</ul></div>";
+                             ?>
                         </div>
                        
                     </div>
