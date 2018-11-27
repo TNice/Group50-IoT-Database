@@ -69,7 +69,27 @@
         <meta name="theme-color" content="#969696">
         <link rel="stylesheet" type="text/css" href="mainstyle.css">
         <script src="main.js"></script>
-        
+        <script>
+        function DefaultTab(){
+            var tabName = localStorage.getItem("lastTab");
+            if(!tabName){
+                tabName = "Logs";
+            }
+            var tab = document.getElementById(tabName);
+            var tabcontent = document.getElementsByClassName("tabcontent");
+            for (i = 0; i < tabcontent.length; i++) {
+                tabcontent[i].style.display = "none";
+            }
+            var tablinks = document.getElementsByClassName("tablinks");
+            for (i = 0; i < tablinks.length; i++) {
+                tablinks[i].className = tablinks[i].className.replace(" active", "");
+            }
+            tab.style.display = "block";
+            document.getElementById(tabName + "Button").className += " active";
+        }
+
+        window.onload = DefaultTab;
+        </script>
     </head>
     <body>
     <script>
@@ -85,12 +105,14 @@
             }
             document.getElementById(tabName).style.display = "block";
             evt.currentTarget.className += " active";
+
+            localStorage.setItem("lastTab", tabName);
         }
     </script>
         <div class="tab">
-          <button class="tablinks" onclick="openTab(event, 'Logs')">Logs</button>
-          <button class="tablinks" onclick="openTab(event, 'Devices')">Devices</button>
-          <button class="tablinks" onclick="openTab(event, 'User')">User</button>
+          <button class="tablinks" id='LogsButton' onclick="openTab(event, 'Logs')">Logs</button>
+          <button class="tablinks" id='DevicesButton' onclick="openTab(event, 'Devices')">Devices</button>
+          <button class="tablinks" id='UserButton' onclick="openTab(event, 'User')">User</button>
         </div>
 
         <div id="Logs" class="tabcontent" style='display:none;'>
