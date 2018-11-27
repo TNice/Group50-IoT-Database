@@ -8,8 +8,9 @@
 
     $package = UserHasPackage($_SESSION['currentUser']);
     if($_SERVER['REQUEST_METHOD'] == 'POST'){
-        UpdatePackages();
-        //echo 'test';
+        if(isset($_POST['packageButton'])){
+            UpdatePackages();
+        }
     }
     SetUserInfo();
 
