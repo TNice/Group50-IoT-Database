@@ -89,44 +89,47 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="stylesheet" type="text/css" href="mainstyle.css">
         <script src="main.js"></script>
-    </head>
-    <script>
-    function EnableInputs(){
-        document.getElementById("email").disabled = false;
-        document.getElementById("username").disabled = false;
-        document.getElementById("fname").disabled = false;
-        document.getElementById("lname").disabled = false;
-        document.getElementById("phone").disabled = false;
-        document.getElementById("bday").disabled = false;
-        document.getElementById("password").disabled = false;
-    }
-    function DisableInputs(){
-        document.getElementById("email").disabled = true;
-        document.getElementById("username").disabled = true;
-        document.getElementById("fname").disabled = true;
-        document.getElementById("lname").disabled = true;
-        document.getElementById("phone").disabled = true;
-        document.getElementById("bday").disabled = true;
-        document.getElementById("password").disabled = true;
-    }
-    function HandleEditButton(event){
-        EnableInputs();
-        document.getElementById("saveButton").style.display = 'inline';
-        document.getElementById("cancelButton").style.display = 'inline';
-        document.getElementById("oldpassword").style.display = 'inline';
-        document.getElementById("password").value = '';
-        event.currentTarget.disabled = true;
-    }
 
-    function HandleCancelButton(event){
-        DisableInputs();
-        document.getElementById("saveButton").style.display = 'none';
-        document.getElementById("editButton").disabled = false;
-        document.getElementById("oldpassword").style.display = 'none';
-        document.getElementById("password").value = '';
-        event.currentTarget.style.display = 'none';
-    }
+        <script>
+        function EnableInputs(){
+            document.getElementById("email").disabled = false;
+            document.getElementById("username").disabled = false;
+            document.getElementById("fname").disabled = false;
+            document.getElementById("lname").disabled = false;
+            document.getElementById("phone").disabled = false;
+            document.getElementById("bday").disabled = false;
+            document.getElementById("password").disabled = false;
+        }
+        function DisableInputs(){
+            document.getElementById("email").disabled = true;
+            document.getElementById("username").disabled = true;
+            document.getElementById("fname").disabled = true;
+            document.getElementById("lname").disabled = true;
+            document.getElementById("phone").disabled = true;
+            document.getElementById("bday").disabled = true;
+            document.getElementById("password").disabled = true;
+        }
+        function HandleEditButton(event){
+            EnableInputs();
+            document.getElementById("saveButton").style.display = 'inline';
+            document.getElementById("cancelButton").style.display = 'inline';
+            document.getElementById("oldpassword").style.display = 'inline';
+            document.getElementById("password").value = '';
+            event.currentTarget.disabled = true;
+        }
+
+        function HandleCancelButton(event){
+            DisableInputs();
+            document.getElementById("saveButton").style.display = 'none';
+            document.getElementById("editButton").disabled = false;
+            document.getElementById("oldpassword").style.display = 'none';
+            document.getElementById("password").value = '';
+            event.currentTarget.style.display = 'none';
+        }
+
+        window.onload = DisableInputs;
     </script>
+    </head>
     <body>
         <div class="background">  
             <div id='title' class='container-fluid titleBox'>            
