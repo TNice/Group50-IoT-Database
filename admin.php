@@ -116,9 +116,9 @@
           <button class="tablinks" id='UserButton' onclick="openTab(event, 'User')">User</button>
         </div>
 
-        <div id="Logs" class="tabcontent" style='display:none;'>
+        <div id="Logs" class="tabcontent" style='display:none;padding-left:0;'>
           
-            <div class="background">  
+            <div class="background" style='max-width:99.8%'>  
                 <div id='title' class='container-fluid titleBox'>            
                     <h1 class='title1'>Log Search</h1>            
                 </div>
