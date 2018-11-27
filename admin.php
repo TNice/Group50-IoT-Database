@@ -242,18 +242,21 @@
                                    
                                    while($row = mysqli_fetch_assoc($result)){
                                        $html .= "<li> {$row['id']} </li>";
+                                       //echo $row['id'];
                                    }
+                                   
                                    
                                }else{
                                    //send query
                                     $result = SqlQueryRaw($query);
-                                   echo $result;
-                                   while($row = mysqli_fetch_assoc($result)){
-                                       $html .= "<li> {$row['id']} </li>";
-                                   }
+                                    //echo $result;
+                                    while($row = mysqli_fetch_assoc($result)){
+                                        $html .= "<li> {$row['id']} </li>";  
+                                    }
+                                    
                                }
-                            
-                                $html = "</ul></div>";
+                               $html .= "</ul></div>";
+                                echo $html;
                              ?>
                         </div>
                        
