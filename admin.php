@@ -154,20 +154,17 @@
                     </div>
                     <div class='col-1'></div>
                 </div>   
-            </div>    
-            
-            
-            
+            </div>      
         </div>
 
-        <div id="Devices" class="tabcontent" style='display:none;'>
+        <div id="Devices" class="tabcontent" style='display:none;padding-left:0;'>
           <h3>Devices</h3>
           <p>This is where Devices go.</p> 
         </div>
 
-        <div id="User" class="tabcontent" style='display:none;'>
+        <div id="User" class="tabcontent" style='display:none;padding-left:0;'>
             
-            <div class="background">  
+            <div class="background" style='max-width:99.8%'>  
                 <div id='title' class='container-fluid titleBox'>            
                     <h1 class='title1'>User Search</h1>            
                 </div>
@@ -209,7 +206,7 @@
                         <div id='deviceList' class='contentBoxLight'>
                             <h3 class='title1' style='margin-top:0.25rem;'>Users</h3>
                             <?php 
-                                $html ="<div><ul>";
+                                $html ="<div class='container' style='overflow:hidden;overflow-y:scroll;height:15em;max-height:90%'><div class='btn-group' style='width:100%'>";
                                 $query = "Select * From Users";
                                if(useFilter()){
                                    $query .= " WHERE ";
@@ -241,21 +238,18 @@
                                    $result = SqlQueryRaw($query);
                                    
                                    while($row = mysqli_fetch_assoc($result)){
-                                       $html .= "<li> {$row['id']} </li>";
+                                       $html .= "<button style='display:block;width:95%'>{$row['id']}</button>";
                                        //echo $row['id'];
-                                   }
-                                   
-                                   
+                                   }       
                                }else{
                                    //send query
                                     $result = SqlQueryRaw($query);
                                     //echo $result;
                                     while($row = mysqli_fetch_assoc($result)){
-                                        $html .= "<li> {$row['id']} </li>";  
-                                    }
-                                    
+                                        $html .= "<button style='dsiplay:block;width:95%'> {$row['id']} </button>";  
+                                    }        
                                }
-                               $html .= "</ul></div>";
+                               $html .= "</div></div>";
                                 echo $html;
                              ?>
                         </div>
