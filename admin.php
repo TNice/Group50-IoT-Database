@@ -8,16 +8,16 @@
     }
     
     function useFilter(){
-        if(isset($_POST['divId']) || $_POST['divId'] != ""){
+        if(isset($_POST['divId']) && $_POST['divId'] != ""){
             return true;
         }
-        if(isset($_POST['divfName']) || $_POST['divfName'] != ""){
+        if(isset($_POST['divfName']) && $_POST['divfName'] != ""){
             return true;
         }
-        if(isset($_POST['divlName']) || $_POST['divlName'] != ""){
+        if(isset($_POST['divlName']) && $_POST['divlName'] != ""){
             return true;
         }
-        if(isset($_POST['divEmail']) || $_POST['divEmail'] != ""){
+        if(isset($_POST['divEmail']) && $_POST['divEmail'] != ""){
             return true;
         }
         
@@ -108,6 +108,7 @@
 
             localStorage.setItem("lastTab", tabName);
         }
+        
     </script>
         <div class="tab">
           <button class="tablinks" id='LogsButton' onclick="openTab(event, 'Logs')">Logs</button>
@@ -197,7 +198,7 @@
                                     </select>
                                 </div>
                                 <div class='form-group'>
-                                    <input type="submit" value="Submit" onclick="submitFunction()">
+                                    <input type="submit" value="Submit" onclick="openTab(event, 'User')">
                                 </div>
                             </form>
                 
@@ -216,25 +217,25 @@
                                        if(strpos($query, "=")){
                                            $query .= ' and ';
                                        } 
-                                       $query .= "id = {$_POST['divId']}";
+                                       $query .= "id = '{$_POST['divId']}'";
                                     }
                                     if(isset($_POST['divfName']) && !empty($_POST['divfName'])){
                                         if(strpos($query, "=")){
                                            $query .= ' and ';
                                        } 
-                                       $query .= "firstName = {$_POST['divfName']}";
+                                       $query .= "firstName = '{$_POST['divfName']}'";
                                     }
                                     if(isset($_POST['divlName']) && !empty($_POST['divlName'])){
                                         if(strpos($query, "=")){
                                            $query .= ' and ';
                                        } 
-                                       $query .= "lastName = {$_POST['divlName']}";
+                                       $query .= "lastName = '{$_POST['divlName']}'";
                                     }
                                     if(isset($_POST['divEmail']) && !empty($_POST['divEmail'])){
                                         if(strpos($query, "=")){
                                            $query .= ' and ';
                                        } 
-                                       $query .= "email = {$_POST['divEmail']}";
+                                       $query .= "email = '{$_POST['divEmail']}'";
                                     }
                                    echo $query;
                                    $result = SqlQueryRaw($query);
