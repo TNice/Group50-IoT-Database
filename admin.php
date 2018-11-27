@@ -7,7 +7,7 @@
         $_SESSION['filter'] = 'NONE';
     }
     
-    function useFilter(){
+    function useUserFilter(){
         if(isset($_POST['divId']) && $_POST['divId'] != ""){
             return true;
         }
@@ -18,6 +18,23 @@
             return true;
         }
         if(isset($_POST['divEmail']) && $_POST['divEmail'] != ""){
+            return true;
+        }
+        
+        return false;
+    }
+
+    function useLogFilter(){
+        if(isset($_POST['divId']) && $_POST['divId'] != ""){
+            return true;
+        }
+        if(isset($_POST['divTime']) && $_POST['divTime'] != ""){
+            return true;
+        }
+        if(isset($_POST['divlType']) && $_POST['divlType'] != ""){
+            return true;
+        }
+        if(isset($_POST['divUserName']) && $_POST['divUserName'] != ""){
             return true;
         }
         
@@ -150,6 +167,56 @@
                         <div id='deviceList' class='contentBoxLight'>
                             <h3 class='title1' style='margin-top:0.25rem;'>Logs</h3>
                             <?php include 'createDeviceList.php'; ?>
+                            <?php 
+                                $html ="<div><ul>";
+                                $query = "Select * From Logs";
+                               if(useUserFilter()){
+                                   $query .= " WHERE ";
+                                   if(isset($_POST['divId']) && !empty($_POST['divId'])){
+                                       if(strpos($query, "=")){
+                                           $query .= ' and ';
+                                       } 
+                                       $query .= "id = '{$_POST['divId']}'";
+                                    }
+                                    if(isset($_POST['divTime']) && !empty($_POST['divTime'])){
+                                        if(strpos($query, "=")){
+                                           $query .= ' and ';
+                                       } 
+                                       $query .= "Time = '{$_POST['divTime']}'";
+                                    }
+                                    if(isset($_POST['divType']) && !empty($_POST['divType'])){
+                                        if(strpos($query, "=")){
+                                           $query .= ' and ';
+                                       } 
+                                       $query .= "Type = '{$_POST['divType']}'";
+                                    }
+                                    if(isset($_POST['divUserName']) && !empty($_POST['divUserName'])){
+                                        if(strpos($query, "=")){
+                                           $query .= ' and ';
+                                       } 
+                                       $query .= "username = '{$_POST['divUserName']}'";
+                                    }
+                                   echo $query;
+                                   $result = SqlQueryRaw($query);
+                                   
+                                   while($row = mysqli_fetch_assoc($result)){
+                                       $html .= "<li> {$row['id']} </li>";
+                                       //echo $row['id'];
+                                   }
+                                   
+                                   
+                               }else{
+                                   //send query
+                                    $result = SqlQueryRaw($query);
+                                    //echo $result;
+                                    while($row = mysqli_fetch_assoc($result)){
+                                        $html .= "<li> {$row['id']} </li>";  
+                                    }
+                                    
+                               }
+                               $html .= "</ul></div>";
+                                echo $html;
+                             ?>
                         </div>
                     </div>
                     <div class='col-1'></div>
@@ -211,7 +278,7 @@
                             <?php 
                                 $html ="<div><ul>";
                                 $query = "Select * From Users";
-                               if(useFilter()){
+                               if(useUserFilter()){
                                    $query .= " WHERE ";
                                    if(isset($_POST['divId']) && !empty($_POST['divId'])){
                                        if(strpos($query, "=")){
