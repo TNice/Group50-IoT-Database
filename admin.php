@@ -172,7 +172,7 @@
                             <?php 
                                 $html ="<div><ul>";
                                 $query = "Select * From deviceLogs";
-                               if(useUserFilter()){
+                               if(useLogFilter()){
                                    $query .= " WHERE ";
                                    if(isset($_POST['divLogId']) && !empty($_POST['divLogId'])){
                                        if(strpos($query, "=")){
