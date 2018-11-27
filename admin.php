@@ -25,7 +25,7 @@
     }
 
     function useLogFilter(){
-        if(isset($_POST['divId']) && $_POST['divId'] != ""){
+        if(isset($_POST['divLogId']) && $_POST['divLogId'] != ""){
             return true;
         }
         if(isset($_POST['divTime']) && $_POST['divTime'] != ""){
@@ -172,11 +172,11 @@
                                 $query = "Select * From Logs";
                                if(useUserFilter()){
                                    $query .= " WHERE ";
-                                   if(isset($_POST['divId']) && !empty($_POST['divId'])){
+                                   if(isset($_POST['divLogId']) && !empty($_POST['divLogId'])){
                                        if(strpos($query, "=")){
                                            $query .= ' and ';
                                        } 
-                                       $query .= "id = '{$_POST['divId']}'";
+                                       $query .= "id = '{$_POST['divLogId']}'";
                                     }
                                     if(isset($_POST['divTime']) && !empty($_POST['divTime'])){
                                         if(strpos($query, "=")){
