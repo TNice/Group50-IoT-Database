@@ -6,6 +6,11 @@
     $emailError = $userError = $passError = $nameError = $loginError = '';
     $fName = $lName = $username = $password = $email = $phone = $bday = $package = '';
 
+    $package = UserHasPackage($_SESSION['currentUser']);
+    if($_SERVER['REQUEST_METHOD'] == 'POST'){
+        UpdatePackages();
+        //echo 'test';
+    }
     SetUserInfo();
 
     function EditAccount(){
@@ -20,7 +25,7 @@
    function SetUserInfo(){
         $query = "SELECT * FROM users WHERE id = {$_SESSION['currentUser']};";
         $row = SqlQuery($query);
-        $GLOBALS['username'] = $row['username'];
+        $GLOBALS['username'] = $row['userName'];
         $GLOBALS['email'] = $row['email'];
         $GLOBALS['password'] = $row['password'];
         if(!isset($row['fName']) || $row['fName'] === NULL){
@@ -38,8 +43,24 @@
         //ADD PHONE NUMBER AND BIRTH DATE AS WELL
 
         $row = SqlQuery("SELECT id FROM packages p, user_package u 
-                        WHERE p.id = u.packageId and u.userId = {$_SESSION['currentUser']}");
-        $GLOBALS['package'] = $row['packageId'];
+                        WHERE p.id = u.packageId and u.userId = {$_SESSION['currentUser']};");
+        $GLOBALS['package'] = $row['id'];
+   }
+
+   function UpdatePackages(){
+       if(isset($_POST['package'])){ 
+            if($GLOBALS['package'] === NULL){
+                $query = "INSERT INTO user_package VALUES ({$_SESSION['currentUser']}, {$_POST['package']});";
+            }
+            else{
+                $query = "UPDATE user_package SET packageId = {$_POST['package']} WHERE userId = {$_SESSION['currentUser']};";
+            }
+            if($GLOBALS['package'] !== $_POST['package']){
+                SqlQueryRaw($query);  
+                $GLOBALS['package'] = $_POST['package'];
+            }
+            unset($_POST['package']);
+       }
    }
 ?>
 
@@ -132,10 +153,8 @@
                         </div>
                         <div id='package'></div>
                         <br>
-                        <?php
-                            $tempBool = FALSE;
-
-                            if($tempBool === TRUE){
+                        <?php                            
+                            if($GLOBALS['package'] !== NULL){
                                 $element = 
                                 "<div class='contentBox'>
                                     <h3 class='title2'>" . GetPackageName($GLOBALS['package']) . "</h3>
@@ -150,49 +169,52 @@
                                 </div>";
                                 echo $element;
                             }
-                            //If user is subscribed to package add a current package tabe
+                            //If user is subscribed to package add a current package tab
                         ?>
                         <div class='contentBox'>
                             <h3 class='title2' style='margin-bottom:1.5rem;'>Subscribe To Package</h3>
+                            <!--Radio button values for packages must be the corisponding package id-->
+                            <form action='<?php htmlspecialchars($_SERVER['PHP_SELF']); ?>' method='post' id='updatePackage'>
                             <div class='row'>
                                 <div class='col-1'></div>
                                 <div class='col-10 row'>
                                     <div class='col-1'></div>
                                     <div class='form-check col-5'>
                                         <label class='form-check-lable'>
-                                            <input type='radio' class='form-check-radio' name='package0'> Wifi Only
+                                            <input type='radio' class='form-check-radio' name='package' value='0'> Package 0
                                         </label>
                                         <br><br>
                                         <label class='form-check-lable'>
-                                            <input type='radio' class='form-check-radio' name='package0'> Printer Only
+                                            <input type='radio' class='form-check-radio' name='package' value='1'> Package 1
                                         </label>
-                                        <br><br>
+                                         <br><br>
                                         <label class='form-check-lable'>
-                                            <input type='radio' class='form-check-radio' name='package0'> Charging Only
-                                        </label>
-                                    </div><div class='form-check col-5'>
-                                        <label class='form-check-lable'>
-                                            <input type='radio' class='form-check-radio' name='package0'> Wifi With Charging
-                                        </label>
-                                        <br><br>
-                                        <label class='form-check-lable'>
-                                            <input type='radio' class='form-check-radio' name='package0'> Printer With WiFi
-                                        </label>
-                                        <br><br>
-                                        <label class='form-check-lable'>
-                                            <input type='radio' class='form-check-radio' name='package0'> Charging With Printer
+                                            <input type='radio' class='form-check-radio' name='package' value='2'> Package 2
                                         </label>
                                     </div>
-                                    
+                                    <div class='form-check col-5'>
+                                        <label class='form-check-lable'>
+                                            <input type='radio' class='form-check-radio' name='package' value='3'> Wifi With Charging
+                                        </label>
+                                        <br><br>
+                                        <label class='form-check-lable'>
+                                            <input type='radio' class='form-check-radio' name='package' value='4'> Printer With WiFi
+                                        </label>
+                                        <br><br>
+                                        <label class='form-check-lable'>
+                                            <input type='radio' class='form-check-radio' name='package' value='5'> Charging With Printer
+                                        </label>
+                                    </div>
                                 </div>
                                 <div class='col-1'></div>
                             </div>
                             <div class='row'>
                                 <div class='col-9'></div>
                                 <div class='col-3'>
-                                        <button class='btn btn-secondary' type='submit'>Subscribe</button>
+                                        <button name='packageButton' class='btn btn-secondary' type='submit'>Subscribe</button>
                                 </div>
                             </div>
+                            </form>
                         </div>
                     </div>
                 </div>
