@@ -31,7 +31,7 @@
         if(isset($_POST['divTime']) && $_POST['divTime'] != ""){
             return true;
         }
-        if(isset($_POST['divlType']) && $_POST['divlType'] != ""){
+        if(isset($_POST['divResult']) && $_POST['divResult'] != ""){
             return true;
         }
         if(isset($_POST['divUserName']) && $_POST['divUserName'] != ""){
@@ -152,12 +152,14 @@
                                     <input type="text" name="divType" placeholder="Time">
                                 </div>
                                 <div class='form-group'>
-                                    <input type="text" name="divLoc" placeholder="Device Type">
+                                    <input type="text" name="divLoc" placeholder="Result">
                                 </div>
                                 <div class='form-group'>
                                     <input type="text" name="divLoc" placeholder="Username">
                                 </div>
-                                
+                                <div class='form-group'>
+                                    <input type="submit" value="Submit" onclick="openTab(event, 'User')">
+                                </div>
                             </form>
                 
                         </div>
@@ -169,26 +171,26 @@
                             <?php include 'createDeviceList.php'; ?>
                             <?php 
                                 $html ="<div><ul>";
-                                $query = "Select * From Logs";
+                                $query = "Select * From deviceLogs";
                                if(useUserFilter()){
                                    $query .= " WHERE ";
                                    if(isset($_POST['divLogId']) && !empty($_POST['divLogId'])){
                                        if(strpos($query, "=")){
                                            $query .= ' and ';
                                        } 
-                                       $query .= "id = '{$_POST['divLogId']}'";
+                                       $query .= "logid = '{$_POST['divLogId']}'";
                                     }
                                     if(isset($_POST['divTime']) && !empty($_POST['divTime'])){
                                         if(strpos($query, "=")){
                                            $query .= ' and ';
                                        } 
-                                       $query .= "Time = '{$_POST['divTime']}'";
+                                       $query .= "logTime = '{$_POST['divTime']}'";
                                     }
-                                    if(isset($_POST['divType']) && !empty($_POST['divType'])){
+                                    if(isset($_POST['divResult']) && !empty($_POST['divResult'])){
                                         if(strpos($query, "=")){
                                            $query .= ' and ';
                                        } 
-                                       $query .= "Type = '{$_POST['divType']}'";
+                                       $query .= "result = '{$_POST['divResult']}'";
                                     }
                                     if(isset($_POST['divUserName']) && !empty($_POST['divUserName'])){
                                         if(strpos($query, "=")){
