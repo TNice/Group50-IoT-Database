@@ -149,16 +149,16 @@
                                     <input type="text" name="divName" placeholder="Log Id">
                                 </div>
                                 <div class='form-group'>
-                                    <input type="text" name="divType" placeholder="Time">
+                                    <input type="text" name="divTime" placeholder="Time">
                                 </div>
                                 <div class='form-group'>
-                                    <input type="text" name="divLoc" placeholder="Result">
+                                    <input type="text" name="divResult" placeholder="Result">
                                 </div>
                                 <div class='form-group'>
-                                    <input type="text" name="divLoc" placeholder="Username">
+                                    <input type="text" name="divUserName" placeholder="Username">
                                 </div>
                                 <div class='form-group'>
-                                    <input type="submit" value="Submit" onclick="openTab(event, 'User')">
+                                    <input type="submit" value="Submit" onclick="openTab(event, 'Logs')">
                                 </div>
                             </form>
                 
