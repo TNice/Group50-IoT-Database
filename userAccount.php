@@ -11,17 +11,17 @@
         if(isset($_POST['packageButton'])){
             UpdatePackages();
         }
+        if(isset($_POST['saveAccount'])){
+            if(CheckUserPassword($_SESSION['currentUser'], $_POST['oldpass']) === TRUE){
+                $query = "UPDATE users 
+                SET email = {$_POST['email']}, userName = {$_POST['username']}, firstName = {$_POST['firstName']}, 
+                lastName = {$_POST['lastName']}, phoneNumber = {$_POST['phone']}, birthDate = {$_POST['bday']}, password = {$_POST['password']} 
+                WHERE id = {$_SESSION['currentUser']};";
+                SqlQuery($query);
+            }
+        }
     }
     SetUserInfo();
-
-    function EditAccount(){
-        $_SESSION['edit'] = TRUE;
-    }
-    
-    function ConfirmEdit(){ 
-        //Save Logic Here
-        unset($_SESSION['edit']);
-    }
 
    function SetUserInfo(){
         $query = "SELECT * FROM users WHERE id = {$_SESSION['currentUser']};";
@@ -29,17 +29,30 @@
         $GLOBALS['username'] = $row['userName'];
         $GLOBALS['email'] = $row['email'];
         $GLOBALS['password'] = $row['password'];
-        if(!isset($row['fName']) || $row['fName'] === NULL){
+        
+        if(!isset($row['firstName']) || $row['firstName'] === NULL){
             $GLOBALS['fName'] = 'First Name';
         }
         else{
-            $GLOBALS['fName'] = $row['fName'];
+            $GLOBALS['fName'] = $row['firstName'];
         }
-        if(!isset($row['lName']) || $row['lName'] === NULL){
+        
+        if(!isset($row['lastName']) || $row['lastName'] === NULL){
             $GLOBALS['lName'] = 'Last Name';
         }
         else{
-            $GLOBALS['lName'] = $row['lName'];
+            $GLOBALS['lName'] = $row['lastName'];
+        }
+        
+        if(!isset($row['phoneNumber']) || $row['phoneNumber'] === NULL){
+            $GLOBALS['phone'] = '555-555-5555';
+        }
+        else{
+            $GLOBALS['phone'] = $row['phoneNumber'];
+        }
+
+        if(isset($row['birthDate']) && $row['birthDate'] !== NULL){
+            $GLOBALS['bday'] = $row['birthDate'];
         }
         //ADD PHONE NUMBER AND BIRTH DATE AS WELL
 
@@ -77,7 +90,43 @@
         <link rel="stylesheet" type="text/css" href="mainstyle.css">
         <script src="main.js"></script>
     </head>
-        
+    <script>
+    function EnableInputs(){
+        document.getElementById("email").disabled = false;
+        document.getElementById("username").disabled = false;
+        document.getElementById("fname").disabled = false;
+        document.getElementById("lname").disabled = false;
+        document.getElementById("phone").disabled = false;
+        document.getElementById("bday").disabled = false;
+        document.getElementById("password").disabled = false;
+    }
+    function DisableInputs(){
+        document.getElementById("email").disabled = true;
+        document.getElementById("username").disabled = true;
+        document.getElementById("fname").disabled = true;
+        document.getElementById("lname").disabled = true;
+        document.getElementById("phone").disabled = true;
+        document.getElementById("bday").disabled = true;
+        document.getElementById("password").disabled = true;
+    }
+    function HandleEditButton(event){
+        EnableInputs();
+        document.getElementById("saveButton").style.display = 'inline';
+        document.getElementById("cancelButton").style.display = 'inline';
+        document.getElementById("oldpassword").style.display = 'inline';
+        document.getElementById("password").value = '';
+        event.currentTarget.disabled = true;
+    }
+
+    function HandleCancelButton(event){
+        DisableInputs();
+        document.getElementById("saveButton").style.display = 'none';
+        document.getElementById("editButton").disabled = false;
+        document.getElementById("oldpassword").style.display = 'none';
+        document.getElementById("password").value = '';
+        event.currentTarget.style.display = 'none';
+    }
+    </script>
     <body>
         <div class="background">  
             <div id='title' class='container-fluid titleBox'>            
@@ -104,53 +153,63 @@
                                             <div class='input-group-prepend'>
                                                 <span class='input-group-text'>Email</span>
                                             </div>
-                                            <input type='text' class='form-control' placeholder='<?php echo $email; ?>' name='email' <?php if(!isset($_SESSION['edit'])){ echo 'disabled';}?>><span class='error'><?php echo $emailError; ?></span>
+                                            <input type='text' class='form-control' placeholder='<?php echo $email; ?>' name='email' id='email' ><span class='error'><?php echo $emailError; ?></span>
                                         </div>
                                         <br>
                                         <div class='input-group mb-3'>
                                             <div class='input-group-prepend'>
                                                 <span class='input-group-text'>Username</span>
                                             </div>
-                                            <input type='text' class='form-control' placeholder='<?php echo $username;?>' name='username' <?php if(!isset($_SESSION['edit'])){ echo 'disabled';}?>><span class='error'><?php echo $userError; ?></span>
+                                            <input type='text' class='form-control' placeholder='<?php echo $username;?>' name='username' id='username' ><span class='error'><?php echo $userError; ?></span>
                                         </div>
                                         <br>
                                         <div class='input-group mb-3'>
                                             <div class='input-group-prepend'>
                                                 <span class='input-group-text'>Name</span>
                                             </div>
-                                            <input type='text' class='form-control' placeholder='<?php echo $fName; ?>' name='firstName' <?php if(!isset($_SESSION['edit'])){ echo 'disabled';}?>> <span class='error'><?php?></span>
-                                            <input type='text' class='form-control' placeholder='<?php echo $lName; ?>' name='lastName' <?php if(!isset($_SESSION['edit'])){ echo 'disabled';}?>> <span class='error'><?php?></span>
+                                            <input type='text' class='form-control' placeholder='<?php echo $fName; ?>' name='firstName' id='fname'> <span class='error'><?php?></span>
+                                            <input type='text' class='form-control' placeholder='<?php echo $lName; ?>' name='lastName' id='lname'> <span class='error'><?php?></span>
                                         </div>
                                         <br>
                                         <div class='input-group mb-3'>
                                             <div class='input-group-prepend'>
                                                 <span class='input-group-text'>Password</span>
                                             </div>
-                                            <input type='password' class='form-control' name='password' value='<?php echo $password;?>' <?php if(!isset($_SESSION['edit'])){ echo 'disabled';}?>> <span class='error'><?php echo $passError; ?></span>
+                                            <input type='password' class='form-control' name='password' id='password' value='<?php echo $password;?>'> <span class='error'><?php echo $passError; ?></span>
+                                        </div>
+                                        <div id='oldpassword' style='display:none'>
+                                        <br>
+                                        <div class='input-group mb-3'>
+                                            <div class='input-group-prepend'>
+                                                <span class='input-group-text'>Old Password</span>
+                                            </div>
+                                            <input type='password' class='form-control' name='oldpass' value=''> <span class='error'><?php echo $passError; ?></span>
+                                        </div>
                                         </div>
                                         <br>
                                         <div class='input-group mb-3'>
                                             <div class='input-group-prepend'>
                                                 <span class='input-group-text'>Phone #</span>
                                             </div>
-                                            <input type='text' class='form-control' placeholder="<?php echo $phone; ?>" name='phone' <?php if(!isset($_SESSION['edit'])){ echo 'disabled';}?>> <span class='error'><?php echo $passError; ?></span>
+                                            <input type='text' class='form-control' placeholder="<?php echo $phone; ?>" name='phone' id='phone'> <span class='error'><?php echo $passError; ?></span>
                                         </div>
                                         <br>
                                         <div class='input-group mb-3'>
                                             <div class='input-group-prepend'>
                                                 <span class='input-group-text'>Birth Date</span>
                                             </div>
-                                            <input type='date' class='form-control' name='bday' value='<?php echo $bday; ?>' <?php if(!isset($_SESSION['edit'])){ echo 'disabled';}?>> <span class='error'><?php echo $passError; ?></span>
+                                            <input type='date' class='form-control' name='bday' id='bday' value='<?php echo $bday; ?>'> <span class='error'><?php echo $passError; ?></span>
                                         </div>
                                         <br>
-                                        <button class='btn btn-secondary' type='submit' name='Edit'>Edit</button>&nbsp&nbsp&nbsp&nbsp&nbsp
-                                        <button class='btn btn-danger' type='submit' name='deletAccount'>Delete Account</button>
+                                        <button class='btn btn-secondary' onclick='HandleEditButton(event);return false;' style='margin-right:0.5rem' name='Edit' id='editButton'>Edit</button>
+                                        <button class='btn btn-secondary' type='submit' style='display:none;margin-right:0.5rem;' name='Save' id='saveButton'>Save</button> 
+                                        <button class='btn btn-secondary' onclick='HandleCancelButton(event);return false;' style='display:none' name='Cancel' id='cancelButton'>Cancel</button> 
+                                        <button class='btn btn-danger' onclick='return false;' style='float:right;' name='deletAccount'>Delete Account</button>
                                         <br>
                                         <span class='error'><?php echo $loginError; ?></span>
                                     </form>
                                     <div class='col-1'></div>
-                                </div>
-                                
+                                </div>       
                         </div>
                         <div id='package'></div>
                         <br>

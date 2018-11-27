@@ -18,6 +18,15 @@ function GetUserName($id){
   
 }
 
+function CheckUserPassword($id, $password){
+    $query = "SELECT * FROM users WHERE id = {$id};";
+    $row = SqlQuery($query);
+    if($row['password'] == $password){
+      return TRUE;
+    }
+    return FALSE;
+}
+
 function UserHasPackage($id){
   $connection = mysqli_connect($GLOBALS['server'], $GLOBALS['user'], $GLOBALS['pass'], $GLOBALS['db']);
   if(!$connection){
