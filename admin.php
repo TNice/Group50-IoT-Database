@@ -38,17 +38,17 @@
         }
         else if($start < $end){
             $days = array();
-            for($i = $start; i <= $end; i++){
+            for($i = $start; $i <= $end; $i++){
                 array_push($days, $GLOBALS['daysOfWeek'][$i]);
             }
             return $days;
         }
         else{
             $days = array();
-            for($i = $start; i < 7; i++){
+            for($i = $start; $i < 7; $i++){
                 array_push($days, $GLOBALS['daysOfWeek'][$i]);
             }
-            for($i = 0; i <= $end; i++){
+            for($i = 0; $i <= $end; $i++){
                 array_push($days, $GLOBALS['daysOfWeek'][$i]);
             }
             return $days;
@@ -108,14 +108,14 @@
         }
     }
 
-    function deviceCheck(){
+    function deviceTypeCheck(){
         if($_POST['divDevice'] == "Smart Plug"){
             return 0;
         }
         else if($_POST['divDevice'] == "Printer"){
             return 1;
         }
-        else if($_POST['divPackage'] == "Wifi"){
+        else if($_POST['divDevice'] == "Wifi"){
             return 2;
         }
         else{
@@ -273,9 +273,20 @@
                             <?php include 'createDeviceList.php'; ?>
                             <?php 
                                 $html ="<div><ul>";
-                                $query = "Select * From deviceLogs";
+                                $query = "Select * From deviceLogs d";
                                if(useLogFilter()){
-                                   $query .= " WHERE ";
+                                   
+                                   roleCheck();
+                                   if(isset($_POST['divRole']) && !empty($_POST['divRole'])){ 
+                                       $query .= ", user_role r Where d.userId = r.userId ";
+                                    }     
+                                   else{
+                                       $query .= " WHERE ";
+                                   }
+                                   
+                                   
+                                   
+                                   
                                    if(isset($_POST['divLogId']) && !empty($_POST['divLogId'])){
                                        if(strpos($query, "=")){
                                            $query .= ' and ';
@@ -299,6 +310,12 @@
                                            $query .= ' and ';
                                        } 
                                        $query .= "username = '{$_POST['divUserName']}'";
+                                    }
+                                   if(isset($_POST['divDeviceId']) && !empty($_POST['divDeviceId'])){
+                                        if(strpos($query, "=")){
+                                           $query .= ' and ';
+                                       } 
+                                       $query .= "deviceId = '{$_POST['divDeviceId']}'";
                                     }
                                    
                                    echo $query;
