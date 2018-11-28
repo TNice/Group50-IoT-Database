@@ -9,3 +9,12 @@ To Add The Nav Bar Use:
 
 
 Use bootstrp modals for popups
+
+Filters for Role
+    - User = 0
+    - Admin = 1
+    
+Filters for Package
+    - Basic = 0
+    - Premium = 1
+    - Gold = 2
