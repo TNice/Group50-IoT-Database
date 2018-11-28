@@ -366,7 +366,7 @@
                                        }
                                     }
                                    else if(isset($_POST['divRole']) && !empty($_POST['divRole'])){
-                                        $query .= " user_role Where u.id = r.userId";
+                                        $query .= " user_role r Where u.id = r.userId";
                                     }     
                                    else{
                                        $query .= " WHERE ";
