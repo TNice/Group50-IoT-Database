@@ -68,9 +68,12 @@
         if(isset($_POST['divUserName']) && $_POST['divUserName'] != ""){
             return true;
         }
-        if(isset($_POST['divDevice']) && $_POST['divDevice'] != ""){
+        if(isset($_POST['divDeviceId']) && $_POST['divDeviceId'] != ""){
             return true;
         }
+//        if(isset($_POST['divDevice']) && $_POST['divDevice'] != ""){
+//            return true;
+//        }
         if(isset($_POST['divRole']) && $_POST['divRole'] != ""){
             return true;
         }
@@ -105,14 +108,14 @@
         }
     }
 
-    function deviceCheck(){
+    function deviceTypeCheck(){
         if($_POST['divDevice'] == "Smart Plug"){
             return 0;
         }
         else if($_POST['divDevice'] == "Printer"){
             return 1;
         }
-        else if($_POST['divPackage'] == "Wifi"){
+        else if($_POST['divDevice'] == "Wifi"){
             return 2;
         }
         else{
@@ -232,6 +235,10 @@
                                     <input type="text" name="divUserName" placeholder="Username">
                                 </div>
                                 <div class='form-group'>
+                                    <input type="text" name="divDeviceId" placeholder="Device Id">
+                                </div>
+<!--
+                                <div class='form-group'>
                                     <select name="divDevice">
                                         <option>Device</option>
                                         <option>Smart Plug</option>
@@ -239,6 +246,7 @@
                                         <option>WiFi</option>
                                     </select>
                                 </div>
+-->
                                 <div class='form-group'>
                                     <select name="divRole">
                                         <option>Role</option>
@@ -260,9 +268,20 @@
                             <?php include 'createDeviceList.php'; ?>
                             <?php 
                                 $html ="<div><ul>";
-                                $query = "Select * From deviceLogs";
+                                $query = "Select * From deviceLogs d";
                                if(useLogFilter()){
-                                   $query .= " WHERE ";
+                                   
+                                   roleCheck();
+                                   if(isset($_POST['divRole']) && !empty($_POST['divRole'])){ 
+                                       $query .= ", user_role r Where d.userId = r.userId ";
+                                    }     
+                                   else{
+                                       $query .= " WHERE ";
+                                   }
+                                   
+                                   
+                                   
+                                   
                                    if(isset($_POST['divLogId']) && !empty($_POST['divLogId'])){
                                        if(strpos($query, "=")){
                                            $query .= ' and ';
@@ -287,6 +306,13 @@
                                        } 
                                        $query .= "username = '{$_POST['divUserName']}'";
                                     }
+                                   if(isset($_POST['divDeviceId']) && !empty($_POST['divDeviceId'])){
+                                        if(strpos($query, "=")){
+                                           $query .= ' and ';
+                                       } 
+                                       $query .= "deviceId = '{$_POST['divDeviceId']}'";
+                                    }
+                                   
                                    echo $query;
                                    $result = SqlQueryRaw($query);
                                    
@@ -377,7 +403,7 @@
                             <h3 class='title1' style='margin-top:0.25rem;'>Users</h3>
                             <?php 
                                 $html ="<div class='container' style='overflow:hidden;overflow-y:scroll;height:15em;max-height:90%'><div class='btn-group' style='width:100%'>";
-                                $query = "Select * From Users u";
+                                $query = "Select * From users u";
                                if(useUserFilter()){
                                    
                                    packageCheck();
@@ -413,14 +439,14 @@
                                        }
                                        
                                        $packageResult = packageCheck();
-                                       $query .= " r.packageId = $packageResult";
+                                       $query .= " p.packageId = $packageResult";
                                    }
                                    
                                    if(isset($_POST['divId']) && !empty($_POST['divId'])){
                                        if(strpos($query, "=")){
                                            $query .= ' and ';
                                        } 
-                                       $query .= "id = '{$_POST['divId']}'";
+                                       $query .= "id = {$_POST['divId']}";
                                     }
                                     if(isset($_POST['divfName']) && !empty($_POST['divfName'])){
                                         if(strpos($query, "=")){
