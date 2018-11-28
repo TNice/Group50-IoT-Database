@@ -11,14 +11,29 @@
         if(isset($_POST['packageButton'])){
             UpdatePackages();
         }
-        if(isset($_POST['saveAccount'])){
+        if(isset($_POST['saveButton'])){
             if(CheckUserPassword($_SESSION['currentUser'], $_POST['oldpass']) === TRUE){
+                $email = $_POST['email'];
+                $username = $_POST['username'];
+                $fname = $_POST['firstName'];
+                $lname = $_POST['lastName'];
+                $phone = $_POST['phone'];
+                $bday = $_POST['bday'];
+                $password = $_POST['password'];
                 $query = "UPDATE users 
-                SET email = {$_POST['email']}, userName = {$_POST['username']}, firstName = {$_POST['firstName']}, 
-                lastName = {$_POST['lastName']}, phoneNumber = {$_POST['phone']}, birthDate = {$_POST['bday']}, password = {$_POST['password']} 
+                SET email = '{$email}', userName = '{$username}', firstName = '{$fname}', lastName = '{$lname}', phoneNumber = '{$phone}', birthDate = '{$bday}', password = '{$password}' 
                 WHERE id = {$_SESSION['currentUser']};";
-                SqlQuery($query);
+                SqlQueryRaw($query);
             }
+            else{
+                $GLOBALS['passError'] = '* Wrong Password';
+            }
+        }
+        if(isset($_POST['deleteAcct'])){
+            $query = "DELETE FROM users WHERE id = {$_SESSION['currentUser']};";
+            SqlQueryRaw($query);
+            $_SESSION['currentUser'] = NULL;
+            header("Location: home.php");
         }
     }
     SetUserInfo();
@@ -114,7 +129,6 @@
             document.getElementById("saveButton").style.display = 'inline';
             document.getElementById("cancelButton").style.display = 'inline';
             document.getElementById("oldpassword").style.display = 'inline';
-            document.getElementById("password").value = '';
             event.currentTarget.disabled = true;
         }
 
@@ -123,8 +137,11 @@
             document.getElementById("saveButton").style.display = 'none';
             document.getElementById("editButton").disabled = false;
             document.getElementById("oldpassword").style.display = 'none';
-            document.getElementById("password").value = '';
             event.currentTarget.style.display = 'none';
+        }
+        
+        function HandelDeleteProject(event){
+            $("#deleteAcctWarning").modal();
         }
 
         window.onload = DisableInputs;
@@ -156,22 +173,22 @@
                                             <div class='input-group-prepend'>
                                                 <span class='input-group-text'>Email</span>
                                             </div>
-                                            <input type='text' class='form-control' placeholder='<?php echo $email; ?>' name='email' id='email' ><span class='error'><?php echo $emailError; ?></span>
+                                            <input type='text' class='form-control' value='<?php echo $email; ?>' name='email' id='email' ><span class='error'><?php echo $emailError; ?></span>
                                         </div>
                                         <br>
                                         <div class='input-group mb-3'>
                                             <div class='input-group-prepend'>
                                                 <span class='input-group-text'>Username</span>
                                             </div>
-                                            <input type='text' class='form-control' placeholder='<?php echo $username;?>' name='username' id='username' ><span class='error'><?php echo $userError; ?></span>
+                                            <input type='text' class='form-control' value='<?php echo $username;?>' name='username' id='username' ><span class='error'><?php echo $userError; ?></span>
                                         </div>
                                         <br>
                                         <div class='input-group mb-3'>
                                             <div class='input-group-prepend'>
                                                 <span class='input-group-text'>Name</span>
                                             </div>
-                                            <input type='text' class='form-control' placeholder='<?php echo $fName; ?>' name='firstName' id='fname'> <span class='error'><?php?></span>
-                                            <input type='text' class='form-control' placeholder='<?php echo $lName; ?>' name='lastName' id='lname'> <span class='error'><?php?></span>
+                                            <input type='text' class='form-control' value='<?php echo $fName; ?>' name='firstName' id='fname'> <span class='error'><?php?></span>
+                                            <input type='text' class='form-control' value='<?php echo $lName; ?>' name='lastName' id='lname'> <span class='error'><?php?></span>
                                         </div>
                                         <br>
                                         <div class='input-group mb-3'>
@@ -194,7 +211,7 @@
                                             <div class='input-group-prepend'>
                                                 <span class='input-group-text'>Phone #</span>
                                             </div>
-                                            <input type='text' class='form-control' placeholder="<?php echo $phone; ?>" name='phone' id='phone'> <span class='error'><?php echo $passError; ?></span>
+                                            <input type='text' class='form-control' value="<?php echo $phone; ?>" name='phone' id='phone'> <span class='error'><?php echo $passError; ?></span>
                                         </div>
                                         <br>
                                         <div class='input-group mb-3'>
@@ -205,9 +222,9 @@
                                         </div>
                                         <br>
                                         <button class='btn btn-secondary' onclick='HandleEditButton(event);return false;' style='margin-right:0.5rem' name='Edit' id='editButton'>Edit</button>
-                                        <button class='btn btn-secondary' type='submit' style='display:none;margin-right:0.5rem;' name='Save' id='saveButton'>Save</button> 
+                                        <button class='btn btn-secondary' type='submit' style='display:none;margin-right:0.5rem;' name='saveButton' id='saveButton'>Save</button> 
                                         <button class='btn btn-secondary' onclick='HandleCancelButton(event);return false;' style='display:none' name='Cancel' id='cancelButton'>Cancel</button> 
-                                        <button class='btn btn-danger' onclick='return false;' style='float:right;' name='deletAccount'>Delete Account</button>
+                                        <button class='btn btn-danger' type='button' data-toggle="modal" data-target="#deleteAcctWarning" style='float:right;' name='deletAccount'>Delete Account</button>
                                         <br>
                                         <span class='error'><?php echo $loginError; ?></span>
                                     </form>
@@ -277,6 +294,25 @@
                                         <button name='packageButton' class='btn btn-secondary' type='submit'>Subscribe</button>
                                 </div>
                             </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class='modal fade' id='deleteAcctWarning'>
+                <div class='modal-dialog'>
+                    <div class='modal-content'> 
+                        <div class="modal-header">
+                            <h4 class="modal-title">DELETE ACCOUNT</h4>
+                            <button type="button" class="close" data-dismiss="modal">×</button>
+                        </div>
+                        <div class='modal-body'>
+                            Are you sure you would like to delete your account?
+                        </div>
+                        <div class='modal-footer'>
+                            <form action='userAccount.php' method='post'>
+                                <button class='btn btn-secondary' data-dismiss="modal" style='float:left;margin-right:0.5rem'>Cancel</button>
+                                <button class='btn btn-danger' type='submit' name='deleteAcct' style='float:right'>DELETE</button>
                             </form>
                         </div>
                     </div>

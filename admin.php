@@ -6,6 +6,8 @@
     if(!isset($_SESSION['filter'])){
         $_SESSION['filter'] = 'NONE';
     }
+
+    $daysOfWeek = array('Sun', 'Mon', 'Tues', 'Wed', 'Thur', 'Fri', 'Sat');
     
     function useUserFilter(){
         if(isset($_POST['divId']) && $_POST['divId'] != ""){
@@ -28,6 +30,29 @@
         }
         
         return false;
+    }
+
+    function GetDaysToFilter($start, $end){
+        if($start === $end){
+            return array($GLOBALS['daysOfWeek'][$start]);
+        }
+        else if($start < $end){
+            $days = array();
+            for($i = $start; i <= $end; i++){
+                array_push($days, $GLOBALS['daysOfWeek'][$i]);
+            }
+            return $days;
+        }
+        else{
+            $days = array();
+            for($i = $start; i < 7; i++){
+                array_push($days, $GLOBALS['daysOfWeek'][$i]);
+            }
+            for($i = 0; i <= $end; i++){
+                array_push($days, $GLOBALS['daysOfWeek'][$i]);
+            }
+            return $days;
+        }
     }
 
     function useLogFilter(){
@@ -450,10 +475,6 @@
                 </div>   
             </div>    
             
-        </div>
-        
-        
+        </div>      
     </body>
-    
-    
 </html>
