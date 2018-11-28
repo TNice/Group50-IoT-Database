@@ -38,17 +38,17 @@
         }
         else if($start < $end){
             $days = array();
-            for($i = $start; i <= $end; i++){
+            for($i = $start; $i <= $end; $i++){
                 array_push($days, $GLOBALS['daysOfWeek'][$i]);
             }
             return $days;
         }
         else{
             $days = array();
-            for($i = $start; i < 7; i++){
+            for($i = $start; $i < 7; $i++){
                 array_push($days, $GLOBALS['daysOfWeek'][$i]);
             }
-            for($i = 0; i <= $end; i++){
+            for($i = 0; $i <= $end; $i++){
                 array_push($days, $GLOBALS['daysOfWeek'][$i]);
             }
             return $days;
@@ -119,12 +119,7 @@
             $_POST['divDevice'] = "";
         }
     }
-
-//    $userId = $_POST['divId'];
-//    $firstName = $_POST['divfName'];
-//    $lastName = $_POST['divlName'];
-//    $email = $_POST['divEmail'];
-
+    
     $location = $type = '';
 
     function findUser($location, $type){
@@ -373,7 +368,12 @@
                     </div>
                     <div class='col-1'></div>
                     <div class='col-7'>
-                        <div id='deviceList' class='contentBoxLight'>
+                        <script>
+                        function OpenUserModal(data){
+
+                        }
+                       </script>
+                        <div id='userList' class='contentBoxLight'>
                             <h3 class='title1' style='margin-top:0.25rem;'>Users</h3>
                             <?php 
                                 $html ="<div class='container' style='overflow:hidden;overflow-y:scroll;height:15em;max-height:90%'><div class='btn-group' style='width:100%'>";
@@ -453,7 +453,9 @@
                                     $result = SqlQueryRaw($query);
                                     //echo $result;
                                     while($row = mysqli_fetch_assoc($result)){
-                                        $html .= "<button style='dsiplay:block;width:95%'> {$row['id']} </button>";  
+                                        $html .= "<button class='btn' onclick='OpenUserModal();'  data-toggle='modal' data-target='.bd-example-modal-lg' style='dsiplay:block;width:95%'>" . 
+                                        "{$row['firstName']} {$row['lastName']} ({$row['userName']})". 
+                                        "</button>";  
                                     }        
                                }
                                $html .= "</div></div>";
@@ -465,6 +467,25 @@
                     <div class='col-1'></div>
                 </div>   
             </div>    
+            <div class='modal fade bd-example-modal-lg' id='userInfo'>
+                <div class='modal-dialog modal-lg'>
+                    <div class='modal-content'> 
+                        <div class="modal-header">
+                            <h4 class="modal-title">DELETE ACCOUNT</h4>
+                            <button type="button" class="close" data-dismiss="modal">×</button>
+                        </div>
+                        <div class='modal-body'>
+                            Are you sure you would like to delete your account?
+                        </div>
+                        <div class='modal-footer'>
+                            <form action='userAccount.php' method='post'>
+                                <button class='btn btn-secondary' data-dismiss="modal" style='float:left;margin-right:0.5rem'>Cancel</button>
+                                <button class='btn btn-danger' type='submit' name='deleteAcct' style='float:right'>DELETE</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
             
         </div>      
     </body>
