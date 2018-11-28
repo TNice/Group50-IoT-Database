@@ -158,6 +158,21 @@
                                     <input type="text" name="divUserName" placeholder="Username">
                                 </div>
                                 <div class='form-group'>
+                                    <select name="Device">
+                                        <option>Device</option>
+                                        <option>Smart Plug</option>
+                                        <option>Printer</option>
+                                        <option>WiFi</option>
+                                    </select>
+                                </div>
+                                <div class='form-group'>
+                                    <select name="Role">
+                                        <option>Role</option>
+                                        <option>User</option>
+                                        <option>Admin</option>
+                                    </select>
+                                </div>
+                                <div class='form-group'>
                                     <input type="submit" value="Submit" onclick="openTab(event, 'Logs')">
                                 </div>
                             </form>
@@ -261,6 +276,13 @@
                                         <option>Basic</option>
                                         <option>Premium</option>
                                         <option>Gold</option>
+                                    </select>
+                                </div>
+                                <div class='form-group'>
+                                    <select name="Role">
+                                        <option>Role</option>
+                                        <option>User</option>
+                                        <option>Admin</option>
                                     </select>
                                 </div>
                                 <div class='form-group'>
