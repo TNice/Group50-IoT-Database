@@ -20,6 +20,12 @@
         if(isset($_POST['divEmail']) && $_POST['divEmail'] != ""){
             return true;
         }
+        if(isset($_POST['divPackage']) && $_POST['divPackage'] != ""){
+            return true;
+        }
+        if(isset($_POST['divRole']) && $_POST['divRole'] != ""){
+            return true;
+        }
         
         return false;
     }
@@ -37,8 +43,56 @@
         if(isset($_POST['divUserName']) && $_POST['divUserName'] != ""){
             return true;
         }
+        if(isset($_POST['divDevice']) && $_POST['divDevice'] != ""){
+            return true;
+        }
+        if(isset($_POST['divRole']) && $_POST['divRole'] != ""){
+            return true;
+        }
         
         return false;
+    }
+
+    function roleCheck(){
+        if($_POST['divRole'] == "User"){
+            return 0;
+        }
+        else if($_POST['divRole'] == "Admin"){
+            return 1;
+        }
+        else{ 
+            $_POST['divRole'] = "";
+        }
+    }
+
+    function packageCheck(){
+        if($_POST['divPackage'] == "Basic"){
+            return 0;
+        }
+        else if($_POST['divPackage'] == "Premium"){
+            return 1;
+        }
+        else if($_POST['divPackage'] == "Gold"){
+            return 2;
+        }
+        else{
+            $_POST['divPackage'] = "";
+        }
+    }
+
+    function deviceCheck(){
+        if($_POST['divDevice'] == "Smart Plug"){
+            return 0;
+        }
+        else if($_POST['divDevice'] == "Printer"){
+            return 1;
+        }
+        else if($_POST['divPackage'] == "Wifi"){
+            return 2;
+        }
+        else{
+            $_POST['divDevice'] = "";
+        }
     }
 
 //    $userId = $_POST['divId'];
@@ -158,7 +212,7 @@
                                     <input type="text" name="divUserName" placeholder="Username">
                                 </div>
                                 <div class='form-group'>
-                                    <select name="Device">
+                                    <select name="divDevice">
                                         <option>Device</option>
                                         <option>Smart Plug</option>
                                         <option>Printer</option>
@@ -166,7 +220,7 @@
                                     </select>
                                 </div>
                                 <div class='form-group'>
-                                    <select name="Role">
+                                    <select name="divRole">
                                         <option>Role</option>
                                         <option>User</option>
                                         <option>Admin</option>
@@ -271,7 +325,7 @@
                                     <input type="text" name="divEmail" placeholder="Email">
                                 </div>
                                 <div class='form-group'>
-                                    <select name= "Package">
+                                    <select name= "divPackage">
                                         <option>Package</option>
                                         <option>Basic</option>
                                         <option>Premium</option>
@@ -279,7 +333,7 @@
                                     </select>
                                 </div>
                                 <div class='form-group'>
-                                    <select name="Role">
+                                    <select name="divRole">
                                         <option>Role</option>
                                         <option>User</option>
                                         <option>Admin</option>
@@ -298,9 +352,45 @@
                             <h3 class='title1' style='margin-top:0.25rem;'>Users</h3>
                             <?php 
                                 $html ="<div class='container' style='overflow:hidden;overflow-y:scroll;height:15em;max-height:90%'><div class='btn-group' style='width:100%'>";
-                                $query = "Select * From Users";
+                                $query = "Select * From Users u";
                                if(useUserFilter()){
-                                   $query .= " WHERE ";
+                                   
+                                   packageCheck();
+                                   roleCheck();
+                                   
+                                   if(isset($_POST['divPackage']) && !empty($_POST['divPackage'])){ 
+                                       if(isset($_POST['divRole']) && !empty($_POST['divRole'])){
+                                            $query .= ", user_package p, user_role r Where u.id = p.userId and p.userId = r.userId and u.id = p.userId";
+                                        }else{
+                                           $query .= " user_package p Where u.id = p.userId";
+                                       }
+                                    }
+                                   else if(isset($_POST['divRole']) && !empty($_POST['divRole'])){
+                                        $query .= " user_role Where u.id = r.userId";
+                                    }     
+                                   else{
+                                       $query .= " WHERE ";
+                                   }
+                                   
+                                   
+                                   if(isset($_POST['divRole']) && !empty($_POST['divRole'])){
+                                       if(strpos($query, "=")){
+                                           $query .= ' and ';
+                                       }
+                                       
+                                       $roleResult = roleCheck();
+                                       $query .= " r.roleId = $roleResult";
+                                   }
+                                   
+                                   if(isset($_POST['divPackage']) && !empty($_POST['divPackage'])){
+                                       if(strpos($query, "=")){
+                                           $query .= ' and ';
+                                       }
+                                       
+                                       $packageResult = packageCheck();
+                                       $query .= " r.packageId = $packageResult";
+                                   }
+                                   
                                    if(isset($_POST['divId']) && !empty($_POST['divId'])){
                                        if(strpos($query, "=")){
                                            $query .= ' and ';
@@ -325,12 +415,13 @@
                                        } 
                                        $query .= "email = '{$_POST['divEmail']}'";
                                     }
+                                   
                                    echo $query;
                                    $result = SqlQueryRaw($query);
                                    
                                    while($row = mysqli_fetch_assoc($result)){
                                        $html .= "<button style='display:block;width:95%'>{$row['id']}</button>";
-                                       //echo $row['id'];
+                                       echo $row['id'];
                                    }       
                                }else{
                                    //send query
