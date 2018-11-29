@@ -263,7 +263,7 @@
                     </div>
                     <div class='col-1'></div>
                     <div class='col-7'>
-                        <div id='deviceList' class='contentBoxLight'>
+                        <div id='logList' class='contentBoxLight'>
                             <h3 class='title1' style='margin-top:0.25rem;'>Logs</h3>
                             <?php include 'createDeviceList.php'; ?>
                             <?php 
@@ -395,9 +395,54 @@
                     <div class='col-1'></div>
                     <div class='col-7'>
                         <script>
-                        function OpenUserModal(data){
+                        function OpenModal(type, id){
+                            var modal = document.getElementById(modalType[type] + "Modal");
+                            modal.style.visibility = 'visible';
+                            var xmlhttp = new XMLHttpRequest();
+                            xmlhttp.onreadystatechange = function() {
+                                if (this.readyState == 4 && this.status == 200) {
+                                    document.getElementById("userInfo").innerHTML = this.responseText;
+                                }
+                            };
 
+                            xmlhttp.open("GET", "util/find" + modalType[type] + ".php?id=" + id, true);
+                            xmlhttp.send();  
                         }
+                        
+                        var modalType = ["user", "device", "log"];
+
+                        function CloseModal(type){
+                            var modal = document.getElementById(modalType[type] + "Modal").style.visibility = 'hidden';
+                            modal.innerHTML = '';
+                        }
+
+                        function EditModal(event){
+                            event.currentTarget.disabled = true;
+                            document.getElementById('saveButton').style.display = 'inline';
+                            document.getElementById('cancelButton').style.display = 'inline';
+                        }
+
+                        function CancelEdit(event){
+                            document.getElementById('editButton').disabled = false;
+                            document.getElementById('saveButton').style.display = 'none';
+                            event.currentTarget.style.display = 'none';
+                        }
+
+                        function SaveUserModal(event){
+                            var xmlhttp = new XMLHttpRequest();
+                            var username, fName, lName, phone, bday, id;
+                            xmlhttp.onreadystatechange = function() {
+                                if (this.readyState == 4 && this.status == 200) {
+                                    document.getElementById("userInfo").innerHTML = this.responseText;
+                                }
+                            };
+
+                            xmlhttp.open("GET", "util/edituser" + ".php?id=" + id + 
+                            "&username=" + username + "&fname" + fname + "&lname" + lname +
+                            "&phone" + phone + "&bday" + bday, true);
+                            xmlhttp.send();
+                        }
+
                        </script>
                         <div id='userList' class='contentBoxLight'>
                             <h3 class='title1' style='margin-top:0.25rem;'>Users</h3>
@@ -479,7 +524,7 @@
                                     $result = SqlQueryRaw($query);
                                     //echo $result;
                                     while($row = mysqli_fetch_assoc($result)){
-                                        $html .= "<button class='btn' onclick='OpenUserModal();'  data-toggle='modal' data-target='.bd-example-modal-lg' style='dsiplay:block;width:95%'>" . 
+                                        $html .= "<button class='btn' onclick='OpenModal(0, "."{$row['id']}".");'  style='display:block;width:95%'>" . 
                                         "{$row['firstName']} {$row['lastName']} ({$row['userName']})". 
                                         "</button>";  
                                     }        
@@ -493,26 +538,16 @@
                     <div class='col-1'></div>
                 </div>   
             </div>    
-            <div class='modal fade bd-example-modal-lg' id='userInfo'>
-                <div class='modal-dialog modal-lg'>
-                    <div class='modal-content'> 
-                        <div class="modal-header">
-                            <h4 class="modal-title">DELETE ACCOUNT</h4>
-                            <button type="button" class="close" data-dismiss="modal">×</button>
-                        </div>
-                        <div class='modal-body'>
-                            Are you sure you would like to delete your account?
-                        </div>
-                        <div class='modal-footer'>
-                            <form action='userAccount.php' method='post'>
-                                <button class='btn btn-secondary' data-dismiss="modal" style='float:left;margin-right:0.5rem'>Cancel</button>
-                                <button class='btn btn-danger' type='submit' name='deleteAcct' style='float:right'>DELETE</button>
-                            </form>
-                        </div>
-                    </div>
+            <div id='userModal' style='visibility:hidden;'>
+                <div class='modal-dialog modal-lg' style='z-index:10'>
+                    <div class='modal-content' id='userInfo'></div>
                 </div>
             </div>
-            
+            <div class='modal' id='userEditModal'>
+                <div class='modal-dialog modal-lg'>
+                    <div class='modal-content' id='userEdit'></div>
+                </div>
+            </div>
         </div>      
     </body>
 </html>
