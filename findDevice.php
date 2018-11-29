@@ -10,11 +10,14 @@
     $location = $type = '';
 
     function findDevice($location, $type){
+        //sqlquery = search parms
+        //sqlcommand = full sql query
+        
         $sqlQuery = '';
 
         if($location !== ''){
             if($sqlQuery === ''){
-                $sqlQuery .= 'WHERE ';
+                $sqlQuery .= ' WHERE ';
             }elseif($sqlQuery.contains('WHERE')){
                 $sqlQuery .= ', ';
             }

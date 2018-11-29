@@ -1,5 +1,4 @@
 <?php
-
 $user = 'root';
 $pass = '12345';
 $server = 'localhost';
@@ -18,6 +17,32 @@ function GetUserName($id){
   
 }
 
+function CheckUserPassword($id, $password){
+    $query = "SELECT * FROM users WHERE id = {$id};";
+    $row = SqlQuery($query);
+    if($row['password'] == $password){
+      return TRUE;
+    }
+    return FALSE;
+}
+
+function UserHasPackage($id){
+  $connection = mysqli_connect($GLOBALS['server'], $GLOBALS['user'], $GLOBALS['pass'], $GLOBALS['db']);
+  if(!$connection){
+    die("Connection Failed: " . mysqli_connect_error());
+  }
+
+  $query = "SELECT * FROM user_package WHERE userId = {$id}";
+  $result = mysqli_query($connection, $query);
+
+  if($result == NULL){
+    return NULL;
+  }
+  
+  $row = mysqli_fetch_assoc($result);
+  return $row['packageId'];
+}
+
 function GetPackageName($id){
   $connection = mysqli_connect($GLOBALS['server'], $GLOBALS['user'], $GLOBALS['pass'], $GLOBALS['db']);
   if(!$connection){
@@ -27,12 +52,12 @@ function GetPackageName($id){
   $query = "SELECT packageName FROM packages WHERE id = {$id}";
   $result = mysqli_query($connection, $query);
   $row = mysqli_fetch_assoc($result);
-  return $row['username'];
+  return $row['packageName'];
 }
 
 //returns mysqli_fetch_assoc result
 function SqlQuery($query){
-  $connection = mysqli_connect($GLOBALS['server'], 'root', $GLOBALS['pass'], $GLOBALS['db']);
+    $connection = mysqli_connect($GLOBALS['server'], $GLOBALS['user'], $GLOBALS['pass'], $GLOBALS['db']);
     if(!$connection){
       die("Connection Failed: " . mysqli_connect_error());
     }
@@ -52,6 +77,4 @@ function SqlQueryRaw($query){
   
     return mysqli_query($connection, $query);
 }
-
-
 ?>

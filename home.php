@@ -23,7 +23,7 @@
                 <h1 class='title1'>IoT Database Project</h1>            
             </div>   
             <?php include 'navmenu.php'; ?>
-            <div name='spacer' style='margin-top:3rem;'>
+            <div name='spacer' style='margin-top:3rem;'></div>
             
             <div class='row' style='max-width:100%;'>
                 <div class='col-1'> </div>

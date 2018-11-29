@@ -9,6 +9,7 @@ function DeterminLogButtons(){
     $logoutButtons = "<li class='nav-item'><a class='nav-link' href='logout.php'>Logout</a></li>";
     $userButton0 = "<li class='nav-item'><a class='nav-link' href='userAccount.php'>";
     $userButton1 = "</a></li><li class='nav-link'>|</li>";
+    $adminButton = "<li class='nav-item'><a class='nav-link' href=admin.php>Admin</a></li><li class='nav-link'>|</li>";
     $currentPage = basename($_SERVER['PHP_SELF']);
     if(!isset($_SESSION['currentUser']) || $_SESSION['currentUser'] == NULL)
     {
@@ -21,8 +22,24 @@ function DeterminLogButtons(){
         }
     }
     else {
-        echo $userButton0 . GetUserName($_SESSION['currentUser']) . $userButton1 . $logoutButtons;
+        $showButtons = $userButton0 . GetUserName($_SESSION['currentUser']) . $userButton1;
+        if(IsAdmin($_SESSION['currentUser'])){
+            $showButtons .= $adminButton;
+        }
+
+        echo $showButtons . $logoutButtons;
     }
+}
+
+function IsAdmin($id){
+  $query = "SELECT * FROM users WHERE id = {$id};";
+  $row = SqlQuery($query);
+  if($row['isAdmin'] == '1'){
+    return TRUE;
+  }
+  else{
+    return FALSE;
+  }
 }
 ?>
 
