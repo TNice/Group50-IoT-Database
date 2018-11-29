@@ -26,9 +26,9 @@
                 <div class='col-2'>
                    <div class='list-group list-group-flush contentBox2 sticky-top stickyOffset'>
                         <li class='list-group-item homeTitle' style='font-weight:bold;color:lightgrey;'>Packages</li>
-                        <a href='#package0' class='list-group-item homeList' style='color:lightgrey;'>Package0</a>
-                        <a href='#package1' class='list-group-item homeList' style='color:lightgrey;'>Package1</a>
-                        <a href='#package2' class='list-group-item homeList' style='color:lightgrey;'>Package2</a>
+                        <a href='#package0' class='list-group-item homeList' style='color:lightgrey;'>Basic Package</a>
+                        <a href='#package1' class='list-group-item homeList' style='color:lightgrey;'>Premium Package</a>
+                        <a href='#package2' class='list-group-item homeList' style='color:lightgrey;'>Gold Package</a>
                     </div> 
                 </div>    
                 <div class='col-10'>
@@ -40,7 +40,7 @@
                     <br>
                     <div  class="contentBox row">                   
                         <div class='col-8'>
-                            <h5 class='title1'>Package 0</h5>
+                            <h5 class='title1'>Basic Package</h5>
                             <br>
                             <p class='homeInfo'>This is the package info</p>
                         </div>
@@ -57,7 +57,7 @@
                     <br>
                     <div  class="contentBox row">                   
                         <div class='col-8'>
-                            <h5 class='title1'>Package 1</h5>
+                            <h5 class='title1'>Premium Package</h5>
                             <br>
                             <p class='homeInfo'>This is the package info</p>
                         </div>
@@ -74,7 +74,7 @@
                     <br>
                     <div  class="contentBox row">                   
                         <div class='col-8'>
-                            <h5 class='title1'>Package 2</h5>
+                            <h5 class='title1'>Gold Package</h5>
                             <br>
                             <p class='homeInfo'>This is the package info</p>
                         </div>
@@ -90,7 +90,7 @@
                 </div>
             </div>
             <div id='footer' class='container-fluid footerBox'>
-                <h3 class='footer1'>Created By: Group 50</h1>
+                <h3 class='footer1'>Created By: Group 50</h3>
             </div>
         </div>
     </body>

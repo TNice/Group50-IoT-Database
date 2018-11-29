@@ -221,7 +221,7 @@
                     <div class='col-3' style='margin-left:2rem;'>
                         <div id='filters' class='contentBoxLight'>
                             <h5 class='title1'>Filters</h5>
-                            <form>
+                            <form action="#" method="POST">
                                 <div class='form-group'>
                                     <input type="text" name="divName" placeholder="Log Id">
                                 </div>
@@ -232,7 +232,7 @@
                                     <input type="text" name="divResult" placeholder="Result">
                                 </div>
                                 <div class='form-group'>
-                                    <input type="text" name="divUserName" placeholder="Username">
+                                    <input type="text" name="divUserName" placeholder="User Id">
                                 </div>
                                 <div class='form-group'>
                                     <input type="text" name="divDeviceId" placeholder="Device Id">
@@ -280,7 +280,14 @@
                                    }
                                    
                                    
-                                   
+                                   if(isset($_POST['divRole']) && !empty($_POST['divRole'])){
+                                       if(strpos($query, "=")){
+                                           $query .= ' and ';
+                                       }
+                                       
+                                       $roleResult = roleCheck();
+                                       $query .= " r.roleId = $roleResult";
+                                   }
                                    
                                    if(isset($_POST['divLogId']) && !empty($_POST['divLogId'])){
                                        if(strpos($query, "=")){
@@ -298,19 +305,19 @@
                                         if(strpos($query, "=")){
                                            $query .= ' and ';
                                        } 
-                                       $query .= "result = '{$_POST['divResult']}'";
+                                       $query .= "result = {$_POST['divResult']}";
                                     }
                                     if(isset($_POST['divUserName']) && !empty($_POST['divUserName'])){
                                         if(strpos($query, "=")){
                                            $query .= ' and ';
                                        } 
-                                       $query .= "username = '{$_POST['divUserName']}'";
+                                       $query .= "d.userId = {$_POST['divUserName']}";
                                     }
                                    if(isset($_POST['divDeviceId']) && !empty($_POST['divDeviceId'])){
                                         if(strpos($query, "=")){
                                            $query .= ' and ';
                                        } 
-                                       $query .= "deviceId = '{$_POST['divDeviceId']}'";
+                                       $query .= "deviceId = {$_POST['divDeviceId']}";
                                     }
                                    
                                    echo $query;
@@ -320,10 +327,11 @@
                                        $html .= "<li> {$row['id']} </li>";
                                        //echo $row['id'];
                                    }
-                                   
+                                     
                                    
                                }else{
                                    //send query
+                                   echo "ERROR";
                                     $result = SqlQueryRaw($query);
                                     //echo $result;
                                     while($row = mysqli_fetch_assoc($result)){
@@ -371,7 +379,7 @@
                                     <input type="text" name="divEmail" placeholder="Email">
                                 </div>
                                 <div class='form-group'>
-                                    <select name= "divPackage">
+                                    <select name='divPackage'>
                                         <option>Package</option>
                                         <option>Basic</option>
                                         <option>Premium</option>
@@ -462,10 +470,14 @@
                                        }
                                     }
                                    else if(isset($_POST['divRole']) && !empty($_POST['divRole'])){
-                                        $query .= " user_role r Where u.id = r.userId";
+                                        $query .= ", user_role r Where u.id = r.userId";
                                     }     
-                                   else{
-                                       $query .= " WHERE ";
+                                else{
+                                        packageCheck();
+                                        roleCheck();
+                                        if(useUserFilter()){
+                                            $query .= " WHERE ";
+                                        }
                                    }
                                    
                                    
