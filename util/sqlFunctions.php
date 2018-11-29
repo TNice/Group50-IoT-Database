@@ -32,7 +32,7 @@ function GetPackageName($id){
 
 //returns mysqli_fetch_assoc result
 function SqlQuery($query){
-  $connection = mysqli_connect($GLOBALS['server'], $GLOBALS['user'], $GLOBALS['pass'], $GLOBALS['db']);
+  $connection = mysqli_connect($GLOBALS['server'], 'root', $GLOBALS['pass'], $GLOBALS['db']);
     if(!$connection){
       die("Connection Failed: " . mysqli_connect_error());
     }
