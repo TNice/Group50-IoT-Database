@@ -124,39 +124,41 @@
                         
                         
                         
-                        if(strcmp($type, "SelectType") == 0 || empty($type) == true){ // if type value is select type or is empty
-                           if(strcmp($divLoc, "Location") == 0 || empty($divLoc) == true){// if location is empty or defalt value 'location'
-                               if(strcmp($package, "Package") == 0 || empty($package) == true){// if package is empty or 'package'
-                                    $query =  "select * FROM devices";
-                                    $result = SqlQueryRaw($query);
-                                    while($row = mysqli_fetch_assoc($result)){
-                                        echo "<br/>{$row['id']}";
-                                    }
-                               }
-                           }
+                        if((strcmp($type, "SelectType") == 0 || empty($type) == true)&&
+                           (strcmp($divLoc, "Location") == 0 || empty($divLoc) == true)&&
+                           (strcmp($package, "0") == 0 || empty($package) == true)){ // if type value is select type or is empty
+//                           if(strcmp($divLoc, "Location") == 0 || empty($divLoc) == true){// if location is empty or defalt value 'location'
+//                               if(strcmp($package, "0") == 0 || empty($package) == true){// if package is empty or 'package'
+                            $query =  "select * FROM devices;";
+                            print $query; // for debugging
+                            $result = SqlQueryRaw($query);
+                            while($row = mysqli_fetch_assoc($result)){
+                                echo "<br/>{$row['id']}";
+                            }
+
+
                         }
                         
                         
                         
                         
                         
-                        else{ 
+                        else{
                             $query = "";
                             $query = "select * from devices ";
                             if(strcmp($type, "SelectType") != 0 && empty($type) != true){// if type is not empty and not 'SelectType'
                                 $query .= "where id = (select id from {$type}) "; //query using where
                             }
                             
-                            if(strcmp($package, "Package") != 0 && empty($package) != true){ // if package is not empty and not 'package'
-                                /* and */if(strcmp($type, "SelectType") == 0 || empty($type) == true){ // if type is is empty or set to 'SelectType' 
-                                    echo "steps through here <br/> ";
-                                $query .= "where "; // query using where
+                            if(strcmp($package, "0") != 0 && empty($package) != true){ // if package is not empty and not 'package'
+                                if(strcmp($type, "SelectType") == 0 || empty($type) == true){ // if type is is empty or set to 'SelectType' 
+                                    $query .= "where "; // query using where
                                 }
+                                
                                 else {
                                     $query .= "and "; //if type is not set to a valid option
                                 }
                                 $query .= "id = (select packageId from package_device where packageId = {$package}) ";
-                                print $query."<br/>";
                             }
                             
                             if(strcmp($divLoc, "Location") != 0 && empty($divLoc) != true){ // if divLoc is not 'locatioin' and empty
@@ -166,9 +168,7 @@
                                     if((strcmp($type, "SelectType") == 0 || empty($type) == true)&&(strcmp($package, "0") == 0 || empty($package) == true)){ //if is empty or set to 'SelectType' 
                                        $query .= "where ";
                                     }
-//                                    else if(strcmp($package, "Package") == 0 || empty($package) == true){ //and package is empty or set to 'package'
-//                                        $query .= "where ";
-//                                    }
+                                    
                                     else {
                                         $query .= "and ";
                                     }
@@ -176,9 +176,11 @@
                                     $query .= "location = {$divLoc} ";
                                 }
                             }
-                            echo "its getting to here <br/>";
+                            
                             $query .= ";";
-                            print $query;
+                            
+                            print $query; // for debugging
+                            
                             $result = SqlQueryRaw($query);
                             while($row = mysqli_fetch_assoc($result)){
                                 echo "<br/>{$row['id']}";
