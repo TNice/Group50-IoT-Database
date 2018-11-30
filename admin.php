@@ -339,7 +339,7 @@
                                    
                                }else{
                                    //send query
-                                   echo "ERROR";
+                                   echo "No Logs Found";
                                     $result = SqlQueryRaw($query);
                                     //echo $result;
                                     while($row = mysqli_fetch_assoc($result)){
