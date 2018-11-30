@@ -689,7 +689,7 @@
                                    while($row = mysqli_fetch_assoc($result)){
                                        $html .= "<button class='btn' onclick='OpenModal(0, "."{$row['id']}".");'  style='display:block;width:95%'>" . 
                                         "{$row['firstName']} {$row['lastName']} ({$row['userName']})". 
-                                        "</button>"; 
+                                        "</button><br>"; 
                                    }       
                                }else{
                                    //send query
@@ -698,7 +698,7 @@
                                     while($row = mysqli_fetch_assoc($result)){
                                         $html .= "<button class='btn' onclick='OpenModal(0, "."{$row['id']}".");'  style='display:block;width:95%'>" . 
                                         "{$row['firstName']} {$row['lastName']} ({$row['userName']})". 
-                                        "</button>";  
+                                        "</button><br>";  
                                     }        
                                }
                                $html .= "</div></div>";
