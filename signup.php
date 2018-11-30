@@ -197,7 +197,11 @@ function AddUserToDB($userId, $email, $firstName, $lastName, $phoneNumber, $birt
     $sqlQuery = "INSERT INTO users VALUES ('{$userId}', '{$email}', '{$user}', '{$firstName}', '{$lastName}', '{$phoneNumber}', '{$birthDay}', '{$password}', '0')";
     
     if($connection->query($sqlQuery) === TRUE){
-        $_SESSION['result'] = "{$email}, {$firstName}, {$lastName}, {$birthDay}, {$phoneNumber}, {$password} ADDED";
+       // $_SESSION['result'] = "{$email}, {$firstName}, {$lastName}, {$birthDay}, {$phoneNumber}, {$password} ADDED";
+        
+        $roleQuey = "INSERT INTO user_role VALUES ('{$userId}', '0')";
+        SqlQuery($roleQuery);
+
         unset($_SESSION['username']);
         unset($_SESSION['email']);
         header('Location: login.php');

@@ -46,15 +46,21 @@ echo "
                 </div>
                <input type='date' class='form-control' value='{$row['birthDate']}' id='bdayModal' disabled>
             </div>
+            <div class='input-group mb-3'>
+                <div class='input-group-prepend'>
+                    <span class='input-group-text'>Password</span>
+                </div>
+               <input type='password' class='form-control' value='{$row['password']}' id='passwordModal' disabled>
+            </div>
         </div>
         <div class='col-1'></div>
     </div>
 </div>
 <div class='modal-footer'>
     <form style='width:100%'>
-        <button class='btn btn-secondary' id='editButton' onclick='EditModal(event);return false;' style='text-align:left;'>Edit</button>
+        <button class='btn btn-secondary' id='editButton' onclick='EditUserModal(event);return false;' style='text-align:left;'>Edit</button>
         <button class='btn btn-secondary' id='saveButton' onclick='SaveUserModal(event);return false;' style='display:none'>Save</button>
-        <button class='btn btn-secondary' id='cancelButton' onclick='CancelEdit(event);return false;' style='display:none'>Cancel</button>
+        <button class='btn btn-secondary' id='cancelButton' onclick='CancelUserEdit(event);return false;' style='display:none'>Cancel</button>
         <button class='btn btn-danger' type='submit' name='deleteAcct' style='float:right'>DELETE</button>
     </form>
 </div>

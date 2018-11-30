@@ -32,9 +32,9 @@ function DeterminLogButtons(){
 }
 
 function IsAdmin($id){
-  $query = "SELECT * FROM users WHERE id = {$id};";
+  $query = "SELECT * FROM user_role WHERE userId = {$id};";
   $row = SqlQuery($query);
-  if($row['isAdmin'] == '1'){
+  if($row['roleId'] == '1'){
     return TRUE;
   }
   else{
