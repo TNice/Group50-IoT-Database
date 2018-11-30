@@ -481,6 +481,7 @@
                     </div>
                 </div>
                 <div class='col-1'></div>
+                <button id="addDevice" type="button" name="addDevice" onclick="addDevice()">Add Device</button>
             </div> 
         </div>
         </div>
@@ -719,7 +720,7 @@
                        
                     </div>
                     <div class='col-1'></div>
-                    <button id="addDevice" type="button" name="addDevice" onclick="addDevice()">Add Device</button>
+                    
                 </div>   
             </div>    
             <div id='Modal' style='visibility:hidden;'>
