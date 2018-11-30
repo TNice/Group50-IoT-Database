@@ -31,7 +31,7 @@
                     <div class=contentBox>
                         <h3 class='title1' style='margin-top:0.5rem;margin-bottom:2rem'>Project Info</h3>
                         <h5 style="color:white">Purpose Statement</h5>
-                        <p style='color:white'>The purpose of our project is to create a system that controls access to smart devices in commercial areas such as an airport or student center. The control is based on packages that the user can subscribe to and device rules.</p>
+                        <p style='color:white;text-indent:15px'>The purpose of our project is to create a system that controls access to smart devices in commercial areas such as an airport or student center. The control is based on packages that the user can subscribe to and device rules.</p>
                     </div>
                     <div class='contentBoxLight'>
                         <h3 class='title1' style='margin-top:0.5rem;margin-bottom:2rem'>ER Diagram</h3>
