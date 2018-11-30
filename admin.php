@@ -426,11 +426,23 @@
 
                         function EditModal(event){
                             event.currentTarget.disabled = true;
+                            document.getElementById('bdayModal').disabled = false;
+                            document.getElementById('phoneModal').disabled = false;
+                            document.getElementById('usernameModal').disabled = false;
+                            document.getElementById('lnameModal').disabled = false;
+                            document.getElementById('fnameModal').disabled = false;
+                            document.getElementById('emailModal').disabled = false;
                             document.getElementById('saveButton').style.display = 'inline';
                             document.getElementById('cancelButton').style.display = 'inline';
                         }
 
                         function CancelEdit(event){
+                            document.getElementById('bdayModal').disabled = true;
+                            document.getElementById('phoneModal').disabled = true;
+                            document.getElementById('usernameModal').disabled = true;
+                            document.getElementById('lnameModal').disabled = true;
+                            document.getElementById('fnameModal').disabled = true;
+                            document.getElementById('emailModal').disabled = true;
                             document.getElementById('editButton').disabled = false;
                             document.getElementById('saveButton').style.display = 'none';
                             event.currentTarget.style.display = 'none';
@@ -438,17 +450,31 @@
 
                         function SaveUserModal(event){
                             var xmlhttp = new XMLHttpRequest();
-                            var username, fName, lName, phone, bday, id;
-                            xmlhttp.onreadystatechange = function() {
-                                if (this.readyState == 4 && this.status == 200) {
-                                    document.getElementById("userInfo").innerHTML = this.responseText;
-                                }
-                            };
+                            var username, fName, lName, phone, bday, id, email;
+                            id = document.getElementById('idModal').innerHTML;
+                            email = document.getElementById('emailModal').value;
+                            bday = document.getElementById('bdayModal').value;
+                            phone = document.getElementById('phoneModal').value;
+                            username = document.getElementById('usernameModal').value;
+                            lname = document.getElementById('lnameModal').value;
+                            fname = document.getElementById('fnameModal').value;
 
-                            xmlhttp.open("GET", "util/edituser" + ".php?id=" + id + 
-                            "&username=" + username + "&fname" + fname + "&lname" + lname +
-                            "&phone" + phone + "&bday" + bday, true);
+                            var url = "util/edituser" + ".php?id=" + id + 
+                            "&username=" + username + "&fname=" + fname + "&lname=" + lname +
+                            "&phone=" + phone + "&bday=" + bday + "&email=" + email;
+                            //console.dir(url);
+                            xmlhttp.open("GET", url, true);
                             xmlhttp.send();
+
+                            document.getElementById('bdayModal').disabled = true;
+                            document.getElementById('phoneModal').disabled = true;
+                            document.getElementById('usernameModal').disabled = true;
+                            document.getElementById('lnameModal').disabled = true;
+                            document.getElementById('fnameModal').disabled = true;
+                            document.getElementById('emailModal').disabled = true;
+                            document.getElementById('editButton').disabled = false;
+                            document.getElementById('cancelButton').style.display = 'none';
+                            event.currentTarget.style.display = 'none';
                         }
 
                        </script>
@@ -552,12 +578,68 @@
             </div>    
             <div id='userModal' style='visibility:hidden;'>
                 <div class='modal-dialog modal-lg' style='z-index:10'>
-                    <div class='modal-content' id='userInfo'></div>
+                    <div class='modal-content' id='userInfo'>
+                    
+                    </div>
                 </div>
             </div>
-            <div class='modal' id='userEditModal'>
-                <div class='modal-dialog modal-lg'>
-                    <div class='modal-content' id='userEdit'></div>
+            <div class='modal' id='addDeviceModal' style='visibility:hidden;'>
+                <div class='modal-dialog modal-lg' style='z-index:10'>
+                    <div class='modal-content' id='userEdit'>
+                    <div class='modal-header'>
+                        <h4 class='modal-title' id='idModal' style='margin:auto;width:100%;text-align:center'>"."{$row['id']}"."</h4>
+                        <button type='button' class='close' onclick='CloseModal(0);'>×</button>
+                    </div>
+                    <div class='modal-body'>
+                        <div class='row'>
+                            <div class='col-1'></div>
+                            <div class='col-5'>
+                                <div class='input-group mb-3'>
+                                    <div class='input-group-prepend'>
+                                        <span class='input-group-text'>Name</span>
+                                    </div>
+                                    <input type='text' class='form-control' value='{$row['firstName']}' id='fnameModal' disabled>
+                                    <input type='text' class='form-control' value='{$row['lastName']}' id='lnameModal' disabled> 
+                                </div>
+                                <div class='input-group mb-3'>
+                                    <div class='input-group-prepend'>
+                                        <span class='input-group-text'>Username</span>
+                                    </div>
+                                <input type='text' class='form-control' value='{$row['userName']}' id='usernameModal' disabled>
+                                </div>
+                                <div class='input-group mb-3'>
+                                    <div class='input-group-prepend'>
+                                        <span class='input-group-text'>Email</span>
+                                    </div>
+                                <input type='text' class='form-control' value='{$row['email']}' id='emailModal' disabled>
+                                </div>
+                            </div>
+                            <div class='col-5'>
+                                <div class='input-group mb-3'>
+                                    <div class='input-group-prepend'>
+                                        <span class='input-group-text'>Phone#</span>
+                                    </div>
+                                    <input type='text' class='form-control' value='{$row['phoneNumber']}' id='phoneModal' disabled>
+                                </div>
+                                <div class='input-group mb-3'>
+                                    <div class='input-group-prepend'>
+                                        <span class='input-group-text'>Birth Date</span>
+                                    </div>
+                                <input type='date' class='form-control' value='{$row['birthDate']}' id='bdayModal' disabled>
+                                </div>
+                            </div>
+                            <div class='col-1'></div>
+                        </div>
+                    </div>
+                    <div class='modal-footer'>
+                        <form style='width:100%'>
+                            <button class='btn btn-secondary' id='editButton' onclick='EditModal(event);return false;' style='text-align:left;'>Edit</button>
+                            <button class='btn btn-secondary' id='saveButton' onclick='SaveUserModal(event);return false;' style='display:none'>Save</button>
+                            <button class='btn btn-secondary' id='cancelButton' onclick='CancelEdit(event);return false;' style='display:none'>Cancel</button>
+                            <button class='btn btn-danger' type='submit' name='deleteAcct' style='float:right'>DELETE</button>
+                        </form>
+                    </div>
+                    </div>
                 </div>
             </div>
         </div>      
