@@ -356,12 +356,134 @@
                 </div>   
             </div>      
         </div>
+        <div class="background" style='max-width:99.8%'>  
+                <div id='title' class='container-fluid titleBox'>            
+                    <h1 class='title1'>User Search</h1>            
+                </div>
+            
+                <div id="Devices" class="tabcontent" style='display:none;padding-left:0;'>
+                    <div class="row" style='max-width:100%;'>
+                <div class='col-3' style='margin-left:2rem;'>
+                    <div id='filters' class='contentBoxLight'>
+                        <h5 class='title1'>Filters</h5>
+                        <form method= "get">
+                            <div class='form-group'>
+                                <select id= "divType"name= "divType">
+                                    <option value="SelectType" selected>Select Type</option>
+                                    <option value="smartplug">Smart Plug</option>
+                                    <option value = "wifi">WIFI</option>
+                                    <option value = "printer">Printer</option>
+                                </select>
+                            </div>
+                            <div class='form-group'>
+                                <input type="text" name="divLoc" id = "divLoc" placeholder="Location">
+                            </div>
+                            <div class='form-group'>
+                                <select id = "package" name= "package">
+                                    <option value= 0 selected>Package</option>
+                                    <option value= 1>Basic</option>
+                                    <option value= 2>Premium</option>
+                                    <option value= 3>Gold</option>
+                                </select>
+                            </div>
+                            <div>
+                                <button type="submit" name="submit" value="submit">Submit</button>
+                            </div>
+                        </form> 
+                        
+                    </div>
+                </div>
+                <div class='col-1'></div>
+                <div class='col-7'>
+                    <div id='deviceList' class='contentBoxLight'>
+                        <h3 class='title1' style='margin-top:0.25rem;'>Devices</h3>
+                        <br/>
+                        <?php
+                        $type = $divLoc = $package = '';
+                        if ( isset($_GET['divType'])){
+                            $type = $_GET['divType'];
+                        }
+                        if ( isset($_GET['divLoc'])){
+                            $divLoc = $_GET['divLoc'];
+                        }
+                        if ( isset($_GET['package'])){
+                            $package = $_GET['package'];
+                        }
+                        
+                        
+                        
+                        
+                        
+                        if((strcmp($type, "SelectType") == 0 || empty($type) == true)&&
+                           (strcmp($divLoc, "Location") == 0 || empty($divLoc) == true)&&
+                           (strcmp($package, "0") == 0 || empty($package) == true)){ // if type value is select type or is empty
+//                           if(strcmp($divLoc, "Location") == 0 || empty($divLoc) == true){// if location is empty or defalt value 'location'
+//                               if(strcmp($package, "0") == 0 || empty($package) == true){// if package is empty or 'package'
+                            $query =  "select * FROM devices;";
+                            print $query; // for debugging
+                            $result = SqlQueryRaw($query);
+                            while($row = mysqli_fetch_assoc($result)){
+                                echo "<br/>{$row['id']}";
+                            }
 
-        <div id="Devices" class="tabcontent" style='display:none;padding-left:0;'>
-          <h3>Devices</h3>
-          <p>This is where Devices go.</p> 
+
+                        }
+                        
+                        
+                        
+                        
+                        
+                        else{
+                            $query = "";
+                            $query = "select * from devices ";
+                            if(strcmp($type, "SelectType") != 0 && empty($type) != true){// if type is not empty and not 'SelectType'
+                                $query .= "where id = (select id from {$type}) "; //query using where
+                            }
+                            
+                            if(strcmp($package, "0") != 0 && empty($package) != true){ // if package is not empty and not 'package'
+                                if(strcmp($type, "SelectType") == 0 || empty($type) == true){ // if type is is empty or set to 'SelectType' 
+                                    $query .= "where "; // query using where
+                                }
+                                
+                                else {
+                                    $query .= "and "; //if type is not set to a valid option
+                                }
+                                $query .= "id = (select deviceId from package_device where packageId = {$package}) ";
+                            }
+                            
+                            if(strcmp($divLoc, "Location") != 0 && empty($divLoc) != true){ // if divLoc is not 'locatioin' and empty
+                                if(preg_match('/^[0-9]{5}([- ]?[0-9]{4})?$/', $divLoc)){// if it is a valid zipcode
+                                    
+                                    //check if the type and package is set or not
+                                    if((strcmp($type, "SelectType") == 0 || empty($type) == true)&&(strcmp($package, "0") == 0 || empty($package) == true)){ //if is empty or set to 'SelectType' 
+                                       $query .= "where ";
+                                    }
+                                    
+                                    else {
+                                        $query .= "and ";
+                                    }
+                                    
+                                    $query .= "location = {$divLoc} ";
+                                }
+                            }
+                            
+                            $query .= ";";
+                            
+                            print $query; // for debugging
+                            
+                            $result = SqlQueryRaw($query);
+                            while($row = mysqli_fetch_assoc($result)){
+                                echo "<br/>{$row['id']}";
+                            }
+                            
+                        }
+                        ?>
+                    </div>
+                </div>
+                <div class='col-1'></div>
+            </div> 
         </div>
-
+        </div>
         <div id="User" class="tabcontent" style='display:none;padding-left:0;'>
             
             <div class="background" style='max-width:99.8%'>  
@@ -565,8 +687,9 @@
                                    $result = SqlQueryRaw($query);
                                    
                                    while($row = mysqli_fetch_assoc($result)){
-                                       $html .= "<button style='display:block;width:95%'>{$row['id']}</button>";
-                                       echo $row['id'];
+                                       $html .= "<button class='btn' onclick='OpenModal(0, "."{$row['id']}".");'  style='display:block;width:95%'>" . 
+                                        "{$row['firstName']} {$row['lastName']} ({$row['userName']})". 
+                                        "</button>"; 
                                    }       
                                }else{
                                    //send query

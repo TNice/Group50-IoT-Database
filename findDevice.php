@@ -158,7 +158,7 @@
                                 else {
                                     $query .= "and "; //if type is not set to a valid option
                                 }
-                                $query .= "id = (select packageId from package_device where packageId = {$package}) ";
+                                $query .= "id = (select deviceId from package_device where packageId = {$package}) ";
                             }
                             
                             if(strcmp($divLoc, "Location") != 0 && empty($divLoc) != true){ // if divLoc is not 'locatioin' and empty
