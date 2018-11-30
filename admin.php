@@ -184,6 +184,14 @@
 
         window.onload = DefaultTab;
         </script>
+        <style>
+            #addDevice{
+                width: 125px;
+                height: 1.5em;
+            }
+        
+        
+        </style>
     </head>
     <body>
     <script>
@@ -548,6 +556,7 @@
                        
                     </div>
                     <div class='col-1'></div>
+                    <button id="addDevice" type="button" name="addDevice" onclick="addDevice()">Add Device</button>
                 </div>   
             </div>    
             <div id='userModal' style='visibility:hidden;'>
