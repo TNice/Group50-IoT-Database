@@ -412,12 +412,12 @@
                     <div class='col-7'>
                         <script>
                         function OpenModal(type, id){
-                            var modal = document.getElementById(modalType[type] + "Modal");
+                            var modal = document.getElementById("Modal");
                             modal.style.visibility = 'visible';
                             var xmlhttp = new XMLHttpRequest();
                             xmlhttp.onreadystatechange = function() {
                                 if (this.readyState == 4 && this.status == 200) {
-                                    document.getElementById("userInfo").innerHTML = this.responseText;
+                                    document.getElementById("modalInfo").innerHTML = this.responseText;
                                 }
                             };
 
@@ -428,8 +428,8 @@
                         var modalType = ["user", "device", "log"];
 
                         function CloseModal(type){
-                            var modal = document.getElementById(modalType[type] + "Modal").style.visibility = 'hidden';
-                            modal.innerHTML = '';
+                            var modal = document.getElementById("Modal").style.visibility = 'hidden';
+                            document.getElementById("modalInfo").innerHTML = '';
                         }
 
                         function EditUserModal(event){
@@ -487,7 +487,18 @@
                             document.getElementById('cancelButton').style.display = 'none';
                             event.currentTarget.style.display = 'none';
                         }
-
+                        
+                        function DeleteUser(event, id){
+                            var xmlhttp = new XMLHttpRequest();
+                            xmlhttp.onreadystatechange = function() {
+                                if (this.readyState == 4 && this.status == 200) {
+                                    console.dir(this.responseText);
+                                }
+                            };
+                            xmlhttp.open("GET", "util/deleteusers.php?id=" + id, true);
+                            xmlhttp.send();
+                            CloseModal(0);
+                        }
                        </script>
                         <div id='userList' class='contentBoxLight'>
                             <h3 class='title1' style='margin-top:0.25rem;'>Users</h3>
@@ -588,9 +599,9 @@
                     <button id="addDevice" type="button" name="addDevice" onclick="addDevice()">Add Device</button>
                 </div>   
             </div>    
-            <div id='userModal' style='visibility:hidden;'>
+            <div id='Modal' style='visibility:hidden;'>
                 <div class='modal-dialog modal-lg' style='z-index:10'>
-                    <div class='modal-content' id='userInfo'>
+                    <div class='modal-content' id='modalInfo'>
                     
                     </div>
                 </div>
@@ -652,14 +663,6 @@
                             <button class='btn btn-danger' type='submit' name='deleteAcct' style='float:right'>DELETE</button>
                         </form>
                     </div>
-                    </div>
-                </div>
-            </div>
-
-            <div id='deviceModal' style='visibility:hidden;'>
-                <div class='modal-dialog modal-lg' style='z-index:10'>
-                    <div class='modal-content' id='userInfo'>
-                    
                     </div>
                 </div>
             </div>
