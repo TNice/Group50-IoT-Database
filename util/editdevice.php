@@ -25,21 +25,22 @@ if(isset ($_REQUEST['ip'])){
     $ip = $_REQUEST['ip'];
 }
 
-$query = "UPDATE devices SET location = {$location} WHERE id = {$id}";
+
+$query = "UPDATE devices SET location = '{$location}' WHERE id = {$id}";
 SqlQueryRaw($query);
 
 
 switch ($type){
     case 'plug':
-        $query = "UPDATE smartplug SET powerUseage = {$power} WHERE id = {$id}";
+        $query = "UPDATE smartplug SET powerUseage = '{$power}' WHERE id = {$id}";
         SqlQueryRaw($query);
         break;
     case 'wifi':
-        $query = "UPDATE wifi SET ipv4 = {$ip} WHERE id = {$id}";
+        $query = "UPDATE wifi SET ipv4 = '{$ip}' WHERE id = {$id}";
         SqlQueryRaw($query);
         break;
     case 'print':
-        $query = "UPDATE printer SET inkLevel = {$ink}, pageCount = {$page} WHERE id = {$id}";
+        $query = "UPDATE printer SET inkLevel = '{$ink}', pageCount = '{$page}' WHERE id = {$id}";
         SqlQueryRaw($query);
         break;
     default:

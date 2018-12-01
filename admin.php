@@ -587,16 +587,15 @@
                                     console.dir(this.responseText);
                                 }
                             };
-                            url = "util/editdevice.php?id=" + id + "&loc=" + location;
+                            url = "util/editdevice.php?id=" + id + "&loc=" + location.value;
                             if(power != null){
-                                url = "util/editdevice.php?id" + id + "&loc=" + location;
-                                url += "&type=plug&power=" + power;
+                                url += "&type=plug&power=" + power.value;
                             }
                             else if(page != null && ink != null){
-                                url += "&type=print&page=" + page + "&ink=" + ink;
+                                url += "&type=print&page=" + page.value + "&ink=" + ink.value;
                             }
                             else if(ip != null){
-                                url += "&type=wifi&ip=" + ip;
+                                url += "&type=wifi&ip=" + ip.value;
                             }
                             xmlhttp.open("GET", url, true);
                             xmlhttp.send();
