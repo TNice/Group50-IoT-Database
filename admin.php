@@ -630,13 +630,19 @@
                             document.getElementById('cancelButton').style.display = 'none';
                         }
 
-                        function DeleteDeviceModal(id){
+                        function DeleteDeviceModal(event, id){
+                            console.dir(id);
                             var location = document.getElementById('locationModal');
                             var power = document.getElementById('powerModal');
                             var page = document.getElementById('pageModal');
                             var ink = document.getElementById('inkModal');
                             var ip =document.getElementById('ipModal');
                             var xmlhttp = new XMLHttpRequest();
+                            xmlhttp.onreadystatechange = function() {
+                                if (this.readyState == 4 && this.status == 200) {
+                                    console.dir(this.responseText);
+                                }
+                            };
                             url = "util/deletedevice.php?id=" + id;
                             if(power != null){
                                 url += "&type=plug";
