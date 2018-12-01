@@ -412,29 +412,32 @@
                             $package = $_GET['package'];
                         }
                         
-                        $result = '';
-                        $query = '';
                         if((strcmp($type, "SelectType") == 0 || empty($type) == true)&&
                            (strcmp($divLoc, "Location") == 0 || empty($divLoc) == true)&&
-                           (strcmp($package, "0") == 0 || empty($package) == true)){ 
+                           (strcmp($package, "0") == 0 || empty($package) == true)){ // if type value is select type or is empty
+//                           if(strcmp($divLoc, "Location") == 0 || empty($divLoc) == true){// if location is empty or defalt value 'location'
+//                               if(strcmp($package, "0") == 0 || empty($package) == true){// if package is empty or 'package'
                             $query =  "select * FROM devices;";
+                            print $query; // for debugging
                             $result = SqlQueryRaw($query);
+                            while($row = mysqli_fetch_assoc($result)){
+                                echo "<br/>{$row['id']}";
+                            }
                         }
-                        
                         else{
                             $query = "";
                             $query = "select * from devices ";
-                            if(strcmp($type, "SelectType") != 0 && empty($type) != true){
-                                $query .= "where id = (select id from {$type}) ";
+                            if(strcmp($type, "SelectType") != 0 && empty($type) != true){// if type is not empty and not 'SelectType'
+                                $query .= "where id = (select id from {$type}) "; //query using where
                             }
                             
-                            if(strcmp($package, "0") != 0 && empty($package) != true){
-                                if(strcmp($type, "SelectType") == 0 || empty($type) == true){ 
-                                    $query .= "where ";
+                            if(strcmp($package, "0") != 0 && empty($package) != true){ // if package is not empty and not 'package'
+                                if(strcmp($type, "SelectType") == 0 || empty($type) == true){ // if type is is empty or set to 'SelectType' 
+                                    $query .= "where "; // query using where
                                 }
                                 
                                 else {
-                                    $query .= "and "; 
+                                    $query .= "and "; //if type is not set to a valid option
                                 }
                                 $query .= "id = (select deviceId from package_device where packageId = {$package}) ";
                             }
@@ -457,19 +460,20 @@
                             
                             $query .= ";";
                             
-
+                            print $query; // for debugging
                             
+                            $result = SqlQueryRaw($query);
+                            while($row = mysqli_fetch_assoc($result)){
+                                echo "<br/>{$row['id']}";
+                            }
+                            $result = SqlQueryRaw($query);
+                                    //echo $result;
+                                    while($row = mysqli_fetch_assoc($result)){
+                                        $html .= "<button class='btn' onclick='OpenModal(0, "."{$row['id']}".");'  style='display:block;width:95%'>" . 
+                                        "{$row['firstName']} {$row['lastName']} ({$row['userName']})". 
+                                        "</button><br>";  
+                                    }
                         }
-                        
-                        $result = SqlQueryRaw($query);
-                        $html = "<div style='overflow: hidden; overflow-y: scroll; height: 15em; max-height:90%'><div class='list-group'>";
-                        while($row = mysqli_fetch_assoc($result)){
-                        $html .= "<button class='btn list-group-item' onclick='OpenModal(1, "."{$row['id']}"."); return false;'  style='display:block;width:95%;word-spacing: 50px;margin-bottom:.5em;'>";
-                        $html.= "id:{$row['id']}            location:{$row['location']}";
-                        $html .= "</button>";
-                        }
-                        $html .= "</div></div>";  
-                        echo $html;
                         ?>                 
                     </div>
                 </div>
@@ -527,8 +531,6 @@
                     <div class='col-7'>
                         <script>
                         function OpenModal(type, id){
-                            console.dir(modalType[type]);
-                            console.dir(type);
                             var modal = document.getElementById("Modal");
                             modal.style.visibility = 'visible';
                             var xmlhttp = new XMLHttpRequest();
@@ -732,65 +734,7 @@
                     
                 </div>   
             </div>    
-            <div class='modal' id='addDeviceModal' style='visibility:hidden;'>
-                <div class='modal-dialog modal-lg' style='z-index:10'>
-                    <div class='modal-content' id='userEdit'>
-                    <div class='modal-header'>
-                        <h4 class='modal-title' id='idModal' style='margin:auto;width:100%;text-align:center'>"."{$row['id']}"."</h4>
-                        <button type='button' class='close' onclick='CloseModal(0);'>×</button>
-                    </div>
-                    <div class='modal-body'>
-                        <div class='row'>
-                            <div class='col-1'></div>
-                            <div class='col-5'>
-                                <div class='input-group mb-3'>
-                                    <div class='input-group-prepend'>
-                                        <span class='input-group-text'>Name</span>
-                                    </div>
-                                    <input type='text' class='form-control' placeholder='firstName' id='fnameModal'>
-                                    <input type='text' class='form-control' placeholder='lastName' id='lnameModal'> 
-                                </div>
-                                <div class='input-group mb-3'>
-                                    <div class='input-group-prepend'>
-                                        <span class='input-group-text'>Username</span>
-                                    </div>
-                                <input type='text' class='form-control' placeholder='userName' id='usernameModal'>
-                                </div>
-                                <div class='input-group mb-3'>
-                                    <div class='input-group-prepend'>
-                                        <span class='input-group-text'>Email</span>
-                                    </div>
-                                <input type='text' class='form-control' placeholder='email' id='emailModal'>
-                                </div>
-                            </div>
-                            <div class='col-5'>
-                                <div class='input-group mb-3'>
-                                    <div class='input-group-prepend'>
-                                        <span class='input-group-text'>Phone#</span>
-                                    </div>
-                                    <input type='text' class='form-control' placeholder='555-555-5555' id='phoneModal'>
-                                </div>
-                                <div class='input-group mb-3'>
-                                    <div class='input-group-prepend'>
-                                        <span class='input-group-text'>Birth Date</span>
-                                    </div>
-                                <input type='date' class='form-control' id='bdayModal'>
-                                </div>
-                            </div>
-                            <div class='col-1'></div>
-                        </div>
-                    </div>
-                    <div class='modal-footer'>
-                        <form style='width:100%'>
-                            <button class='btn btn-secondary' id='editButton' onclick='EditModal(event);return false;' style='text-align:left;'>Edit</button>
-                            <button class='btn btn-secondary' id='saveButton' onclick='SaveUserModal(event);return false;' style='display:none'>Save</button>
-                            <button class='btn btn-secondary' id='cancelButton' onclick='CancelEdit(event);return false;' style='display:none'>Cancel</button>
-                            <button class='btn btn-danger' type='submit' name='deleteAcct' style='float:right'>DELETE</button>
-                        </form>
-                    </div>
-                    </div>
-                </div>
-            </div>
+            
         </div> 
         <div id='Modal' style='visibility:hidden;'>
             <div class='modal-dialog modal-lg' style='z-index:10'>

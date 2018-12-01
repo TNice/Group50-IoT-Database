@@ -73,13 +73,13 @@
             </div>
             <?php include 'navmenu.php'; ?>
             
-            <div id='Modal' style='visibility:hidden; z-index:2; margin-left:25%; position: absolute'>
+            <div id='Modal' style='visibility:hidden; z-index:2; width:100%; position: absolute;'>
                 <div class='modal-dialog modal-lg' style='z-index:2'>
-                <div class='modal-content' id='modalInfo'>
-                    
+                    <div class='modal-content' id='modalInfo'>
+                        
+                    </div>
                 </div>
             </div>
-        </div>
             
             <script>
 
@@ -95,6 +95,22 @@
                 };
                 xmlhttp.open("GET", "util/finddevice.php?id=" + id, true);
                 xmlhttp.send();  
+            }
+
+            function CloseModal(type){
+                var modal = document.getElementById("Modal").style.visibility = 'hidden';
+                document.getElementById("modalInfo").innerHTML = '';
+            }
+
+            function TryConnectToDevice(id){
+                var xmlhttp = new XMLHttpRequest();
+                xmlhttp.onreadystatechage = function(){
+                    if(this.readyState == 4 && this.status == 200){
+                        
+                    }
+                }
+                xmlhttp.open("GET", "util/deviceconnect.php?id=" + id, true);
+                xmlhttp.send();
             }
             </script>
             <div class="row" style='max-width:100%;'>
