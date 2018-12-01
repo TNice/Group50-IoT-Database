@@ -40,10 +40,8 @@ echo "<div class='modal-header'>
 </div>
 <div class='modal-footer'>
 <form style='width:100%'>
-    <button class='btn btn-secondary' id='editButton' onclick='EditModal(event);return false;' style='text-align:left;'>Edit</button>
-    <button class='btn btn-secondary' id='saveButton' onclick='SaveUserModal(event);return false;' style='display:none'>Save</button>
-    <button class='btn btn-secondary' id='cancelButton' onclick='CancelEdit(event);return false;' style='display:none'>Cancel</button>
-    <button class='btn btn-danger' type='submit' name='deleteAcct' style='float:right'>DELETE</button>
+    <button class='btn btn-secondary' id='cancelButton' onclick='EditModal(event);return false;' style='text-align:left;'>Cancel</button>
+    <button class='btn btn-secondary' onclick='' name='saveDevice' style='float:right'>Save</button>
 </form>
 </div>";
 ?>
