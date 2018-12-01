@@ -72,8 +72,19 @@
                 <h1 class='title1'>Find Device</h1>            
             </div>
             <?php include 'navmenu.php'; ?>
+            
+            <div id='Modal' style='visibility:hidden; z-index:2; margin-left:25%; position: absolute'>
+                <div class='modal-dialog modal-lg' style='z-index:2'>
+                <div class='modal-content' id='modalInfo'>
+                    
+                </div>
+            </div>
+        </div>
+            
             <script>
+
             function OpenModal(id){
+                console.dir(id);
                 var modal = document.getElementById("Modal");
                 modal.style.visibility = 'visible';
                 var xmlhttp = new XMLHttpRequest();
@@ -186,7 +197,7 @@
                         $result = SqlQueryRaw($query);
                         $html = "<div style='overflow: hidden; overflow-y: scroll; height: 15em; max-height:90%'><div class='list-group'>";
                         while($row = mysqli_fetch_assoc($result)){
-                        $html .= "<button class='btn list-group-item' onclick='OpenModal(1, "."{$row['id']}".");'  style='display:block;width:95%;word-spacing: 50px;margin-bottom:.5em;'>";
+                        $html .= "<button class='btn list-group-item' onclick='OpenModal("."{$row['id']}".");'  style='display:block;width:95%;word-spacing: 50px;margin-bottom:.5em;'>";
                         $html.= "id:{$row['id']}            location:{$row['location']}";
                         $html .= "</button>";
                         }
@@ -194,11 +205,14 @@
                         echo $html;
                         
                         ?>
-                        <?php include 'createDeviceList.php'; ?>
+
                     </div></div>
                 </div>
                 <div class='col-1'></div>
-            </div>   
+                
+            </div>
+            
         </div>
+        
     </body>
 </html>

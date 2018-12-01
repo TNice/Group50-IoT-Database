@@ -43,7 +43,7 @@ function IsAdmin($id){
 }
 ?>
 
-<nav class="navbar navbar-expand-sm bg-dark navbar-dark sticky-top">
+<nav class="navbar navbar-expand-sm bg-dark navbar-dark sticky-top z-index:1">
   <a class="navbar-brand" href="#">IoT</a>
   <ul class="navbar-nav">
     <li class="nav-link">|</li>
