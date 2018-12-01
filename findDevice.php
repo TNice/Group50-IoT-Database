@@ -103,12 +103,14 @@
             }
 
             function TryConnectToDevice(id){
-                var xmlhttp = new XMLHttpRequest();
-                xmlhttp.onreadystatechage = function(){
-                    if(this.readyState == 4 && this.status == 200){
-                        
+                console.dir(id);
+              var xmlhttp = new XMLHttpRequest();
+                xmlhttp.onreadystatechange = function() {
+                    if (this.readyState == 4 && this.status == 200) {
+                        console.dir("helo");
+                       document.getElementById("modalInfo").innerHTML = this.responseText;
                     }
-                }
+                };
                 xmlhttp.open("GET", "util/deviceconnect.php?id=" + id, true);
                 xmlhttp.send();
             }
