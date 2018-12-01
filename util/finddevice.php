@@ -84,4 +84,6 @@ else{
 }
 
 $html .= "</form></div>";
+
+echo $html;
 ?>

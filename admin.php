@@ -189,8 +189,6 @@
                 width: 125px;
                 height: 1.5em;
             }
-        
-        
         </style>
     </head>
     <body>
@@ -534,8 +532,12 @@
                                     document.getElementById("modalInfo").innerHTML = this.responseText;
                                 }
                             };
-
-                            xmlhttp.open("GET", "util/find" + modalType[type] + ".php?id=" + id, true);
+                            if(type = "device"){
+                                xmlhttp.open("GET", "util/find" + modalType[type] + ".php?id=" + id + "&admin=true", true);
+                            }
+                            else{
+                                xmlhttp.open("GET", "util/find" + modalType[type] + ".php?id=" + id, true);
+                            }
                             xmlhttp.send();  
                         }
 
