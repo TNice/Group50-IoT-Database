@@ -189,8 +189,6 @@
                 width: 125px;
                 height: 1.5em;
             }
-        
-        
         </style>
     </head>
     <body>
@@ -219,7 +217,6 @@
         </div>
 
         <div id="Logs" class="tabcontent" style='display:none;padding-left:0;'>
-          
             <div class="background" style='max-width:99.8%'>  
                 <div id='title' class='container-fluid titleBox'>            
                     <h1 class='title1'>Log Search</h1>            
@@ -245,7 +242,6 @@
                                 <div class='form-group'>
                                     <input type="text" name="divDeviceId" placeholder="Device Id">
                                 </div>
-<!--
                                 <div class='form-group'>
                                     <select name="divDevice">
                                         <option>Device</option>
@@ -254,7 +250,6 @@
                                         <option>WiFi</option>
                                     </select>
                                 </div>
--->
                                 <div class='form-group'>
                                     <select name="divRole">
                                         <option>Role</option>
@@ -275,16 +270,20 @@
                             <h3 class='title1' style='margin-top:0.25rem;'>Logs</h3>
                             <?php include 'createDeviceList.php'; ?>
                             <?php 
-                                $html ="<div><ul>";
+                                $html ="<div style='overflow:hidden;overflow-y:scroll;height:15em;max-height:90%'><div class='list-group' style='width:100%'>";
                                 $query = "Select * From deviceLogs d";
                                if(useLogFilter()){
                                    
-                                   roleCheck();
+                                roleCheck();
+//                                   useLogFilter();
                                    if(isset($_POST['divRole']) && !empty($_POST['divRole'])){ 
                                        $query .= ", user_role r Where d.userId = r.userId ";
                                     }     
                                    else{
-                                       $query .= " WHERE ";
+                                        roleCheck();
+                                        if(useLogFilter()){
+                                            $query .= " WHERE ";
+                                        }
                                    }
                                                               
                                    if(isset($_POST['divRole']) && !empty($_POST['divRole'])){
@@ -331,7 +330,9 @@
                                    $result = SqlQueryRaw($query);
                                    
                                    while($row = mysqli_fetch_assoc($result)){
-                                       $html .= "<li> {$row['id']} </li>";
+                                       $html .= "<button class='btn list-group-item' onclick='OpenModal(2, "."{$row['logId']}".");'  style='display:block;width:95%; margin-bottom:0.5em'>" . 
+                                       "{$row['logId']} {$row['deviceId']} ({$row['userId']})". 
+                                        "</button>";  
                                        //echo $row['id'];
                                    }
                                                              
@@ -341,26 +342,29 @@
                                     $result = SqlQueryRaw($query);
                                     //echo $result;
                                     while($row = mysqli_fetch_assoc($result)){
-                                        $html .= "<li> {$row['id']} </li>";  
+                                        $html .= "<button class='btn list-group-item' onclick='OpenModal(2, "."{$row['logId']}".");'  style='display:block;width:95% margin-bottom:0.5em'>" . 
+                                        "{$row['logId']} {$row['deviceId']} ({$row['userId']})". 
+                                        "</button>";    
                                     }
                                     
                                }
-                               $html .= "</ul></div>";
+                               $html .= "</div></div>";
                                 echo $html;
                              ?>
                         </div>
                     </div>
                     <div class='col-1'></div>
-                </div>   
-            </div>      
-        </div>
-        <div class="background" style='max-width:99.8%'>  
-                <div id='title' class='container-fluid titleBox'>            
-                    <h1 class='title1'>User Search</h1>            
+
                 </div>
-            
-                <div id="Devices" class="tabcontent" style='display:none;padding-left:0;'>
-                    <div class="row" style='max-width:100%;'>
+            </div>   
+        </div>      
+        
+    <div id="Devices" class="tabcontent" style='display:none;padding-left:0;'>    
+        <div class="background" style='max-width:99.8%'> 
+            <div id='title' class='container-fluid titleBox'>            
+                <h1 class='title1'>Find Device</h1>            
+            </div>     
+            <div class="row" style='max-width:100%;'>
                 <div class='col-3' style='margin-left:2rem;'>
                     <div id='filters' class='contentBoxLight'>
                         <h5 class='title1'>Filters</h5>
@@ -385,10 +389,10 @@
                                 </select>
                             </div>
                             <div>
-                                <button type="submit" name="submit" value="submit">Submit</button>
+                                <button type="submit" name="submit" value="submit">Submit</button> 
                             </div>
                         </form> 
-                        
+                            <button id="addDeviceButton" onclick="OpenAddDeviceModal()">Add Device</button>
                     </div>
                 </div>
                 <div class='col-1'></div>
@@ -470,14 +474,13 @@
                                         "</button><br>";  
                                     }
                         }
-                        ?>
+                        ?>                 
                     </div>
                 </div>
                 <div class='col-1'></div>
-                <button id="addDevice" type="button" name="addDevice" onclick="addDevice()">Add Device</button>
-            </div> 
+            </div>   
         </div>
-        </div>
+    </div>       
         <div id="User" class="tabcontent" style='display:none;padding-left:0;'>
             
             <div class="background" style='max-width:99.8%'>  
@@ -536,8 +539,26 @@
                                     document.getElementById("modalInfo").innerHTML = this.responseText;
                                 }
                             };
+                            if(type = "device"){
+                                xmlhttp.open("GET", "util/find" + modalType[type] + ".php?id=" + id + "&admin=true", true);
+                            }
+                            else{
+                                xmlhttp.open("GET", "util/find" + modalType[type] + ".php?id=" + id, true);
+                            }
+                            xmlhttp.send();  
+                        }
 
-                            xmlhttp.open("GET", "util/find" + modalType[type] + ".php?id=" + id, true);
+                        function OpenAddDeviceModal(){
+                            var modal = document.getElementById("Modal");
+                            modal.style.visibility = 'visible';
+                            var xmlhttp = new XMLHttpRequest();
+                            xmlhttp.onreadystatechange = function() {
+                                if (this.readyState == 4 && this.status == 200) {
+                                    document.getElementById("modalInfo").innerHTML = this.responseText;
+                                }
+                            };
+
+                            xmlhttp.open("GET", "util/adddevice.php", true);
                             xmlhttp.send();  
                         }
                         
@@ -619,7 +640,7 @@
                         <div id='userList' class='contentBoxLight'>
                             <h3 class='title1' style='margin-top:0.25rem;'>Users</h3>
                             <?php 
-                                $html ="<div class='container' style='overflow:hidden;overflow-y:scroll;height:15em;max-height:90%'><div class='btn-group' style='width:100%'>";
+                                $html ="<div class='container' style='overflow:hidden;overflow-y:scroll;height:15em;max-height:90%'><div class='list-group' style='width:100%'>";
                                 $query = "Select * From users u";
                                if(useUserFilter()){
                                    
@@ -692,22 +713,22 @@
                                    $result = SqlQueryRaw($query);
                                    
                                    while($row = mysqli_fetch_assoc($result)){
-                                       $html .= "<button class='btn' onclick='OpenModal(0, "."{$row['id']}".");'  style='display:block;width:95%'>" . 
+                                       $html .= "<button class='btn list-group-item' onclick='OpenModal(0, "."{$row['id']}".");'  style='display:block;width:95%; margin-bottom:0.5em'>" . 
                                         "{$row['firstName']} {$row['lastName']} ({$row['userName']})". 
-                                        "</button><br>"; 
+                                        "</button>"; 
                                    }       
                                }else{
                                    //send query
                                     $result = SqlQueryRaw($query);
                                     //echo $result;
                                     while($row = mysqli_fetch_assoc($result)){
-                                        $html .= "<button class='btn' onclick='OpenModal(0, "."{$row['id']}".");'  style='display:block;width:95%'>" . 
+                                        $html .= "<button class='btn list-group-item' onclick='OpenModal(0, "."{$row['id']}".");'  style='display:block;width:95% margin-bottom:0.5em'>" . 
                                         "{$row['firstName']} {$row['lastName']} ({$row['userName']})". 
-                                        "</button><br>";  
+                                        "</button>";  
                                     }        
                                }
                                $html .= "</div></div>";
-                                echo $html;
+                            echo $html;
                              ?>
                         </div>
                        
@@ -716,14 +737,6 @@
                     
                 </div>   
             </div>    
-            <div id='Modal' style='visibility:hidden;'>
-                <div class='modal-dialog modal-lg' style='z-index:10'>
-                    <div class='modal-content' id='modalInfo'>
-                    
-                    </div>
-                </div>
-            </div>
-
             <div class='modal' id='addDeviceModal' style='visibility:hidden;'>
                 <div class='modal-dialog modal-lg' style='z-index:10'>
                     <div class='modal-content' id='userEdit'>
@@ -783,66 +796,15 @@
                     </div>
                 </div>
             </div>
-
-            <div class='modal' id='addDeviceModal' style='visibility:hidden;'>
-                <div class='modal-dialog modal-lg' style='z-index:10'>
-                    <div class='modal-content' id='userEdit'>
-                    <div class='modal-header'>
-                        <h4 class='modal-title' id='idModal' style='margin:auto;width:100%;text-align:center'>"."{$row['id']}"."</h4>
-                        <button type='button' class='close' onclick='CloseModal(0);'>×</button>
-                    </div>
-                    <div class='modal-body'>
-                        <div class='row'>
-                            <div class='col-1'></div>
-                            <div class='col-5'>
-                                <div class='input-group mb-3'>
-                                    <div class='input-group-prepend'>
-                                        <span class='input-group-text'>Name</span>
-                                    </div>
-                                    <input type='text' class='form-control' value='firstName' id='fnameModal' disabled>
-                                    <input type='text' class='form-control' value='lastName' id='lnameModal' disabled> 
-                                </div>
-                                <div class='input-group mb-3'>
-                                    <div class='input-group-prepend'>
-                                        <span class='input-group-text'>Username</span>
-                                    </div>
-                                <input type='text' class='form-control' value='userName' id='usernameModal' disabled>
-                                </div>
-                                <div class='input-group mb-3'>
-                                    <div class='input-group-prepend'>
-                                        <span class='input-group-text'>Email</span>
-                                    </div>
-                                <input type='text' class='form-control' value='email' id='emailModal' disabled>
-                                </div>
-                            </div>
-                            <div class='col-5'>
-                                <div class='input-group mb-3'>
-                                    <div class='input-group-prepend'>
-                                        <span class='input-group-text'>Phone#</span>
-                                    </div>
-                                    <input type='text' class='form-control' value='phoneNumber' id='phoneModal' disabled>
-                                </div>
-                                <div class='input-group mb-3'>
-                                    <div class='input-group-prepend'>
-                                        <span class='input-group-text'>Birth Date</span>
-                                    </div>
-                                <input type='date' class='form-control' value='birthDate' id='bdayModal' disabled>
-                                </div>
-                            </div>
-                            <div class='col-1'></div>
-                        </div>
-                    </div>
-                    <div class='modal-footer'>
-                        <form style='width:100%'>
-                            <button class='btn btn-secondary' id='editButton' onclick='EditModal(event);return false;' style='text-align:left;'>Edit</button>
-                            <button class='btn btn-secondary' id='saveButton' onclick='SaveUserModal(event);return false;' style='display:none'>Save</button>
-                            <button class='btn btn-secondary' id='cancelButton' onclick='CancelEdit(event);return false;' style='display:none'>Cancel</button>
-                            <button class='btn btn-danger' type='submit' name='deleteAcct' style='float:right'>DELETE</button>
-                        </form>
-                    </div>
-                    </div>
+        </div> 
+        <div id='Modal' style='visibility:hidden;'>
+            <div class='modal-dialog modal-lg' style='z-index:10'>
+                <div class='modal-content' id='modalInfo'>
+                    
+                </div>
                 </div>
             </div>
-        </div>      
+<!--        </div>      -->
+
     </body>
 </html>
