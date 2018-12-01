@@ -559,6 +559,21 @@
                             document.getElementById("modalInfo").innerHTML = '';
                         }
 
+                        function CreateDeviceModal(){
+                            var type, location;
+                            location = document.getElementById("locationModal").value;
+                            type = document.getElementById("typeModal");
+                            type = type.options[type.selectedIndex].value;
+
+                            var xmlhttp = new XMLHttpRequest();
+                            xmlhttp.onreadystatechange = function() {
+                                if (this.readyState == 4 && this.status == 200) {
+                                    console.dir(this.responseText);
+                                }
+                            };
+                            xmlhttp.send("GET", "util/createdevice.php?loc=" + $location + "&type=" + type);
+                        }
+
                         function EditDeviceModal(event){
                             event.currentTarget.disabled = true;
                             var location = document.getElementById('locationModal');
