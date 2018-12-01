@@ -40,6 +40,7 @@ switch ($type){
         SqlQueryRaw($query);
         break;
     case 'print':
+    
         $query = "UPDATE printer SET inkLevel = '{$ink}', pageCount = '{$page}' WHERE id = {$id}";
         SqlQueryRaw($query);
         break;
