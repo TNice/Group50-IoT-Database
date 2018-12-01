@@ -32,7 +32,7 @@ $html = "
             </div>";
 if(isset($plugRow)){
     $type = 'plug';
-    "<div class='input-group mb-3'>
+   $html .= "<div class='input-group mb-3'>
         <div class='input-group-prepend'>
             <span class='input-group-text'>PowerUsage</span>
         </div>
@@ -41,7 +41,7 @@ if(isset($plugRow)){
 }
 else if(isset($printRow)){
     $type = 'print';
-    "<div class='input-group mb-3'>
+    $html .= "<div class='input-group mb-3'>
         <div class='input-group-prepend'>
             <span class='input-group-text'>Page Count</span>
         </div>
@@ -56,7 +56,7 @@ else if(isset($printRow)){
 }
 else if(isset($wifiRow)){
     $type = 'wifi';
-    "<div class='input-group mb-3'>
+    $html .= "<div class='input-group mb-3'>
         <div class='input-group-prepend'>
             <span class='input-group-text'>Ip</span>
         </div>
