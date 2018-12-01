@@ -272,7 +272,7 @@
                             <h3 class='title1' style='margin-top:0.25rem;'>Logs</h3>
                             <?php include 'createDeviceList.php'; ?>
                             <?php 
-                                $html ="<div><ul>";
+                                $html ="<div style='overflow:hidden;overflow-y:scroll;height:15em;max-height:90%'><div class='list-group' style='width:100%'>";
                                 $query = "Select * From deviceLogs d";
                                if(useLogFilter()){
                                    
@@ -332,9 +332,9 @@
                                    $result = SqlQueryRaw($query);
                                    
                                    while($row = mysqli_fetch_assoc($result)){
-                                       $html .= "<button class='btn' onclick='OpenModal(2, "."{$row['logId']}".");'  style='display:block;width:95%'>" . 
+                                       $html .= "<button class='btn list-group-item' onclick='OpenModal(2, "."{$row['logId']}".");'  style='display:block;width:95%; margin-bottom:0.5em'>" . 
                                        "{$row['logId']} {$row['deviceId']} ({$row['userId']})". 
-                                        "</button><br>";  
+                                        "</button>";  
                                        //echo $row['id'];
                                    }
                                                              
@@ -344,13 +344,13 @@
                                     $result = SqlQueryRaw($query);
                                     //echo $result;
                                     while($row = mysqli_fetch_assoc($result)){
-                                        $html .= "<button class='btn' onclick='OpenModal(2, "."{$row['logId']}".");'  style='display:block;width:95%'>" . 
+                                        $html .= "<button class='btn list-group-item' onclick='OpenModal(2, "."{$row['logId']}".");'  style='display:block;width:95% margin-bottom:0.5em'>" . 
                                         "{$row['logId']} {$row['deviceId']} ({$row['userId']})". 
-                                        "</button><br>";    
+                                        "</button>";    
                                     }
                                     
                                }
-                               $html .= "</ul></div>";
+                               $html .= "</div></div>";
                                 echo $html;
                              ?>
                         </div>
@@ -631,7 +631,7 @@
                         <div id='userList' class='contentBoxLight'>
                             <h3 class='title1' style='margin-top:0.25rem;'>Users</h3>
                             <?php 
-                                $html ="<div class='container' style='overflow:hidden;overflow-y:scroll;height:15em;max-height:90%'><div class='btn-group' style='width:100%'>";
+                                $html ="<div class='container' style='overflow:hidden;overflow-y:scroll;height:15em;max-height:90%'><div class='list-group' style='width:100%'>";
                                 $query = "Select * From users u";
                                if(useUserFilter()){
                                    
@@ -704,22 +704,22 @@
                                    $result = SqlQueryRaw($query);
                                    
                                    while($row = mysqli_fetch_assoc($result)){
-                                       $html .= "<button class='btn' onclick='OpenModal(0, "."{$row['id']}".");'  style='display:block;width:95%'>" . 
+                                       $html .= "<button class='btn list-group-item' onclick='OpenModal(0, "."{$row['id']}".");'  style='display:block;width:95%; margin-bottom:0.5em'>" . 
                                         "{$row['firstName']} {$row['lastName']} ({$row['userName']})". 
-                                        "</button><br>"; 
+                                        "</button>"; 
                                    }       
                                }else{
                                    //send query
                                     $result = SqlQueryRaw($query);
                                     //echo $result;
                                     while($row = mysqli_fetch_assoc($result)){
-                                        $html .= "<button class='btn' onclick='OpenModal(0, "."{$row['id']}".");'  style='display:block;width:95%'>" . 
+                                        $html .= "<button class='btn list-group-item' onclick='OpenModal(0, "."{$row['id']}".");'  style='display:block;width:95% margin-bottom:0.5em'>" . 
                                         "{$row['firstName']} {$row['lastName']} ({$row['userName']})". 
-                                        "</button><br>";  
+                                        "</button>";  
                                     }        
                                }
                                $html .= "</div></div>";
-                                echo $html;
+                            echo $html;
                              ?>
                         </div>
                        
@@ -795,7 +795,7 @@
                 </div>
                 </div>
             </div>
-        </div>      
+<!--        </div>      -->
 
     </body>
 </html>
