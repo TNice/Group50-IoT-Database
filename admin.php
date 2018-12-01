@@ -582,15 +582,20 @@
                             var ink = document.getElementById('inkModal');
                             var ip =document.getElementById('ipModal');
                             var xmlhttp = new XMLHttpRequest();
-                            url = "util/editdevice.php?id" + id + "&loc=" + location;
+                            xmlhttp.onreadystatechange = function() {
+                                if (this.readyState == 4 && this.status == 200) {
+                                    console.dir(this.responseText);
+                                }
+                            };
+                            url = "util/editdevice.php?id=" + id + "&loc=" + location.value;
                             if(power != null){
-                                url += "&type=plug&power=" + power;
+                                url += "&type=plug&power=" + power.value;
                             }
                             else if(page != null && ink != null){
-                                url += "&type=print&page=" + page + "&ink=" + ink;
+                                url += "&type=print&page=" + page.value + "&ink=" + ink.value;
                             }
                             else if(ip != null){
-                                url += "&type=wifi&ip=" + ip;
+                                url += "&type=wifi&ip=" + ip.value;
                             }
                             xmlhttp.open("GET", url, true);
                             xmlhttp.send();
@@ -608,6 +613,32 @@
                             document.getElementById('editButton').disabled = false;
                             document.getElementById('saveButton').style.display = 'none';
                             document.getElementById('cancelButton').style.display = 'none';
+                        }
+
+                        function DeleteDeviceModal(id){
+                            var location = document.getElementById('locationModal');
+                            var power = document.getElementById('powerModal');
+                            var page = document.getElementById('pageModal');
+                            var ink = document.getElementById('inkModal');
+                            var ip =document.getElementById('ipModal');
+                            var xmlhttp = new XMLHttpRequest();
+                            url = "util/deletedevice.php?id=" + id;
+                            if(power != null){
+                                url += "&type=plug";
+                            }
+                            else if(page != null && ink != null){
+                                url += "&type=print";
+                            }
+                            else if(ip != null){
+                                url += "&type=wifi";
+                            }
+                            else{
+                                url += "&type=none";
+                            }
+                            xmlhttp.open("GET", url, true);
+                            xmlhttp.send();
+
+                            CloseModal(1);
                         }
 
                         function CancelDeviceModal(event){
