@@ -1,13 +1,27 @@
 <?php
 include 'sqlFunctions.php';
-$id = $_REQUEST['id'];
-$location = $_REQUEST['loc'];
-$type = $_REQUEST['type'];
-$power = $_REQUEST['power'];
-$ink = $_REQUEST['ink'];
-$page = $_REQUEST['page'];
-$ip = $_REQUEST['ip'];
 
+if (isset ($_REQUEST['id'])){
+    $id = $_REQUEST['id'];
+}
+if (isset ($_REQUEST['loc'])){
+    $location = $_REQUEST['loc'];
+}
+if (isset ($_REQUEST['type'])){
+    $type = $_REQUEST['type'];
+}
+if (isset ($_REQUEST['power'])){
+    $power = $_REQUEST['power'];
+}
+if (isset ($_REQUEST['link'])){
+    $ink = $_REQUEST['ink'];
+}
+if (isset ($_REQUEST['page'])){
+    $page = $_REQUEST['page'];
+}
+if (isset ($_REQUEST['ip'])){
+    $ip = $_REQUEST['ip'];
+}
 $query = "UPDATE devices SET location = {$location} WHERE id = {$id}";
 SqlQueryRaw($query);
 

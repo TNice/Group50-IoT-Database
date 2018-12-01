@@ -582,8 +582,17 @@
                             var ink = document.getElementById('inkModal');
                             var ip =document.getElementById('ipModal');
                             var xmlhttp = new XMLHttpRequest();
+<<<<<<< HEAD
+                            xmlhttp.onreadystatechange = function() {
+                                if (this.readyState == 4 && this.status == 200) {
+                                    console.dir(this.responseText);
+                                }
+                            };
+=======
                             url = "util/editdevice.php?id=" + id + "&loc=" + location;
+>>>>>>> 4a4cd0b6ebed7186dc30d141e99ce775af90fa76
                             if(power != null){
+                                url = "util/editdevice.php?id" + id + "&loc=" + location;
                                 url += "&type=plug&power=" + power;
                             }
                             else if(page != null && ink != null){
