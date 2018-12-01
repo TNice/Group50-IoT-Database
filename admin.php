@@ -245,7 +245,6 @@
                                 <div class='form-group'>
                                     <input type="text" name="divDeviceId" placeholder="Device Id">
                                 </div>
-<!--
                                 <div class='form-group'>
                                     <select name="divDevice">
                                         <option>Device</option>
@@ -254,7 +253,6 @@
                                         <option>WiFi</option>
                                     </select>
                                 </div>
--->
                                 <div class='form-group'>
                                     <select name="divRole">
                                         <option>Role</option>
@@ -359,13 +357,6 @@
                         </div>
                     </div>
                     <div class='col-1'></div>
-                    <div id='Modal' style='visibility:hidden;'>
-                        <div class='modal-dialog modal-lg' style='z-index:10'>
-                            <div class='modal-content' id='modalInfo'>
-                                    
-                            </div>
-                        </div>
-                </div>
                 </div>   
             </div>      
         </div>
@@ -404,7 +395,7 @@
                                 <button type="submit" name="submit" value="submit">Submit</button>
                             </div>
                         </form> 
-                        
+                            <button id="addDeviceButton" onclick="OpenAddDeviceModal()">Add Device</button>
                     </div>
                 </div>
                 <div class='col-1'></div>
@@ -730,13 +721,7 @@
                     
                 </div>   
             </div>    
-            <div id='Modal' style='visibility:hidden;'>
-                <div class='modal-dialog modal-lg' style='z-index:10'>
-                    <div class='modal-content' id='modalInfo'>
-                    
-                    </div>
-                </div>
-            </div>
+            
 
             <div class='modal' id='addDeviceModal' style='visibility:hidden;'>
                 <div class='modal-dialog modal-lg' style='z-index:10'>
@@ -797,66 +782,14 @@
                     </div>
                 </div>
             </div>
-
-            <div class='modal' id='addDeviceModal' style='visibility:hidden;'>
+        </div> 
+        <div id='Modal' style='visibility:hidden;'>
                 <div class='modal-dialog modal-lg' style='z-index:10'>
-                    <div class='modal-content' id='userEdit'>
-                    <div class='modal-header'>
-                        <h4 class='modal-title' id='idModal' style='margin:auto;width:100%;text-align:center'>"."{$row['id']}"."</h4>
-                        <button type='button' class='close' onclick='CloseModal(0);'>×</button>
-                    </div>
-                    <div class='modal-body'>
-                        <div class='row'>
-                            <div class='col-1'></div>
-                            <div class='col-5'>
-                                <div class='input-group mb-3'>
-                                    <div class='input-group-prepend'>
-                                        <span class='input-group-text'>Name</span>
-                                    </div>
-                                    <input type='text' class='form-control' value='firstName' id='fnameModal' disabled>
-                                    <input type='text' class='form-control' value='lastName' id='lnameModal' disabled> 
-                                </div>
-                                <div class='input-group mb-3'>
-                                    <div class='input-group-prepend'>
-                                        <span class='input-group-text'>Username</span>
-                                    </div>
-                                <input type='text' class='form-control' value='userName' id='usernameModal' disabled>
-                                </div>
-                                <div class='input-group mb-3'>
-                                    <div class='input-group-prepend'>
-                                        <span class='input-group-text'>Email</span>
-                                    </div>
-                                <input type='text' class='form-control' value='email' id='emailModal' disabled>
-                                </div>
-                            </div>
-                            <div class='col-5'>
-                                <div class='input-group mb-3'>
-                                    <div class='input-group-prepend'>
-                                        <span class='input-group-text'>Phone#</span>
-                                    </div>
-                                    <input type='text' class='form-control' value='phoneNumber' id='phoneModal' disabled>
-                                </div>
-                                <div class='input-group mb-3'>
-                                    <div class='input-group-prepend'>
-                                        <span class='input-group-text'>Birth Date</span>
-                                    </div>
-                                <input type='date' class='form-control' value='birthDate' id='bdayModal' disabled>
-                                </div>
-                            </div>
-                            <div class='col-1'></div>
-                        </div>
-                    </div>
-                    <div class='modal-footer'>
-                        <form style='width:100%'>
-                            <button class='btn btn-secondary' id='editButton' onclick='EditModal(event);return false;' style='text-align:left;'>Edit</button>
-                            <button class='btn btn-secondary' id='saveButton' onclick='SaveUserModal(event);return false;' style='display:none'>Save</button>
-                            <button class='btn btn-secondary' id='cancelButton' onclick='CancelEdit(event);return false;' style='display:none'>Cancel</button>
-                            <button class='btn btn-danger' type='submit' name='deleteAcct' style='float:right'>DELETE</button>
-                        </form>
-                    </div>
+                    <div class='modal-content' id='modalInfo'>
+                    
                     </div>
                 </div>
             </div>
-        </div>      
+        
     </body>
 </html>
