@@ -356,12 +356,9 @@
                         </div>
                     </div>
                     <div class='col-1'></div>
-<<<<<<< HEAD
 
                 </div>
 
-=======
->>>>>>> cabb0d8f449ae126cac51d7973210282da5741b2
                 </div>   
             </div>      
         
@@ -734,12 +731,9 @@
                     
                 </div>   
             </div>    
-<<<<<<< HEAD
 
             
 
-=======
->>>>>>> cabb0d8f449ae126cac51d7973210282da5741b2
             <div class='modal' id='addDeviceModal' style='visibility:hidden;'>
                 <div class='modal-dialog modal-lg' style='z-index:10'>
                     <div class='modal-content' id='userEdit'>
@@ -801,24 +795,17 @@
             </div>
         </div> 
         <div id='Modal' style='visibility:hidden;'>
-<<<<<<< HEAD
 
             <div id='Modal' style='visibility:visible;'>
 
-=======
->>>>>>> 34ca535496a75540e1615eecfb92fde17c9d066c
                 <div class='modal-dialog modal-lg' style='z-index:10'>
                     <div class='modal-content' id='modalInfo'>
                     
                     </div>
                 </div>
             </div>
-<<<<<<< HEAD
 
         </div>      
 
-=======
-        </div>      
->>>>>>> 34ca535496a75540e1615eecfb92fde17c9d066c
     </body>
 </html>
