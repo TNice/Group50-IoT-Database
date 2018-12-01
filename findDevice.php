@@ -72,6 +72,20 @@
                 <h1 class='title1'>Find Device</h1>            
             </div>
             <?php include 'navmenu.php'; ?>
+            <script>
+            function OpenModal(id){
+                var modal = document.getElementById("Modal");
+                modal.style.visibility = 'visible';
+                var xmlhttp = new XMLHttpRequest();
+                xmlhttp.onreadystatechange = function() {
+                    if (this.readyState == 4 && this.status == 200) {
+                       document.getElementById("modalInfo").innerHTML = this.responseText;
+                    }
+                };
+                xmlhttp.open("GET", "util/finddevice.php?id=" + id, true);
+                xmlhttp.send();  
+            }
+            </script>
             <div class="row" style='max-width:100%;'>
                 <div class='col-3' style='margin-left:2rem;'>
                     <div id='filters' class='contentBoxLight'>
