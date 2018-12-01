@@ -60,7 +60,7 @@ else if(isset($wifiRow)){
         <div class='input-group-prepend'>
             <span class='input-group-text'>Ip</span>
         </div>
-        <input type='text' class='form-control' value='{$wifiRow['ipv4']}' id='emailModal' disabled>
+        <input type='text' class='form-control' value='{$wifiRow['ipv4']}' id='ipModal' disabled>
     </div>";
 }
 $html .= "</div>
@@ -75,11 +75,11 @@ $html .= "</div>
 
 if(isset($_REQUEST['isAdmin'])){   
     $html .= "<button class='btn btn-secondary' id='editButton' onclick='EditDeviceModal(event);return false;' style='text-align:left;'>Edit</button>
-        <button class='btn btn-secondary' id='saveButton' onclick='SaveDeviceModal(event, );return false;' style='display:none'>Save</button>
-        <button class='btn btn-secondary' id='cancelButton' onclick='CancelDeviceEdit(event);return false;' style='display:none'>Cancel</button>
+        <button class='btn btn-secondary' id='saveButton' onclick='SaveDeviceModal({$id});return false;' style='display:none'>Save</button>
+        <button class='btn btn-secondary' id='cancelButton' onclick='CancelDeviceModal(event);return false;' style='display:none'>Cancel</button>
         <button class='btn btn-danger' onclick='DeleteDevice(event, {$id});' name='deleteAcct' style='float:right'>DELETE</button>";
 }
-else{
+else if(isset($_SESSION['currentUser'])){
     $html .= "<button class='btn btn-secondary' onclick='ConnectDevice(event, {$id});' name='connect' style='float:right'>Connect</button>";
 }
 

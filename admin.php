@@ -2,10 +2,6 @@
 
     session_start();
     include 'util/sqlFunctions.php';
-    
-    if(!isset($_SESSION['filter'])){
-        $_SESSION['filter'] = 'NONE';
-    }
 
     $daysOfWeek = array('Sun', 'Mon', 'Tues', 'Wed', 'Thur', 'Fri', 'Sat');
     
@@ -561,6 +557,73 @@
                         function CloseModal(type){
                             var modal = document.getElementById("Modal").style.visibility = 'hidden';
                             document.getElementById("modalInfo").innerHTML = '';
+                        }
+
+                        function EditDeviceModal(event){
+                            event.currentTarget.disabled = true;
+                            var location = document.getElementById('locationModal');
+                            if(location != null) location.disabled = false;
+                            var power = document.getElementById('powerModal');
+                            if(power != null) power.disabled = false;
+                            var page = document.getElementById('pageModal');
+                            if(page != null) page.disabled = false;
+                            var ink = document.getElementById('inkModal');
+                            if(ink  != null) ink.disabled = false;
+                            var ip =document.getElementById('ipModal');
+                            if(ip != null) ip.disabled = false;
+                            document.getElementById('saveButton').style.display = 'inline';
+                            document.getElementById('cancelButton').style.display = 'inline';
+                        }
+                        
+                        function SaveDeviceModal(id){
+                            var location = document.getElementById('locationModal');
+                            var power = document.getElementById('powerModal');
+                            var page = document.getElementById('pageModal');
+                            var ink = document.getElementById('inkModal');
+                            var ip =document.getElementById('ipModal');
+                            var xmlhttp = new XMLHttpRequest();
+                            url = "util/editdevice.php?id" + id + "&loc=" + location;
+                            if(power != null){
+                                url += "&type=plug&power=" + power;
+                            }
+                            else if(page != null && ink != null){
+                                url += "&type=print&page=" + page + "&ink=" + ink;
+                            }
+                            else if(ip != null){
+                                url += "&type=wifi&ip=" + ip;
+                            }
+                            xmlhttp.open("GET", url, true;)
+                            xmlhttp.send();
+
+                            var location = document.getElementById('locationModal');
+                            if(location != null) location.disabled = true;
+                            var power = document.getElementById('powerModal');
+                            if(power != null) power.disabled = true;
+                            var page = document.getElementById('pageModal');
+                            if(page != null) page.disabled = true;
+                            var ink = document.getElementById('inkModal');
+                            if(ink  != null) ink.disabled = true;
+                            var ip =document.getElementById('ipModal');
+                            if(ip != null) ip.disabled = true;
+                            document.getElementById('editButton').disabled = false;
+                            document.getElementById('saveButton').style.display = 'none';
+                            document.getElementById('cancelButton').style.display = 'none';
+                        }
+
+                        function CancelDeviceModal(event){
+                            var location = document.getElementById('locationModal');
+                            if(location != null) location.disabled = true;
+                            var power = document.getElementById('powerModal');
+                            if(power != null) power.disabled = true;
+                            var page = document.getElementById('pageModal');
+                            if(page != null) page.disabled = true;
+                            var ink = document.getElementById('inkModal');
+                            if(ink  != null) ink.disabled = true;
+                            var ip =document.getElementById('ipModal');
+                            if(ip != null) ip.disabled = true;
+                            document.getElementById('editButton').disabled = false;
+                            document.getElementById('saveButton').style.display = 'none';
+                            event.currentTarget.style.display = 'none';
                         }
 
                         function EditUserModal(event){
