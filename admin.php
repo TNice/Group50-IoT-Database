@@ -617,7 +617,7 @@
                             var ink = document.getElementById('inkModal');
                             var ip =document.getElementById('ipModal');
                             var xmlhttp = new XMLHttpRequest();
-                            url = "util/editdevice.php?id=" + id;
+                            url = "util/deletedevice.php?id=" + id;
                             if(power != null){
                                 url += "&type=plug";
                             }
