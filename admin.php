@@ -356,13 +356,11 @@
                         </div>
                     </div>
                     <div class='col-1'></div>
-<<<<<<< HEAD
-=======
+
                 </div>
->>>>>>> 521a518ffabf5de3cbf30814067f9f211b1e23a3
+
                 </div>   
             </div>      
-        </div>
         
     <div id="Devices" class="tabcontent" style='display:none;padding-left:0;'>    
         <div class="background" style='max-width:99.8%'> 
@@ -395,7 +393,7 @@
                                 </select>
                             </div>
                             <div>
-                                <button type="submit" name="submit" value="submit">Submit</button>
+                                <button type="submit" name="submit" value="submit">Submit</button> 
                             </div>
                         </form> 
                             <button id="addDeviceButton" onclick="OpenAddDeviceModal()">Add Device</button>
@@ -738,7 +736,7 @@
                     
                 </div>   
             </div>    
-<<<<<<< HEAD
+
             
 
             <div class='modal' id='addDeviceModal' style='visibility:hidden;'>
@@ -802,19 +800,17 @@
             </div>
         </div> 
         <div id='Modal' style='visibility:hidden;'>
-=======
+
             <div id='Modal' style='visibility:visible;'>
->>>>>>> 521a518ffabf5de3cbf30814067f9f211b1e23a3
+
                 <div class='modal-dialog modal-lg' style='z-index:10'>
                     <div class='modal-content' id='modalInfo'>
                     
                     </div>
                 </div>
             </div>
-<<<<<<< HEAD
-        
-=======
+
         </div>      
->>>>>>> 521a518ffabf5de3cbf30814067f9f211b1e23a3
+
     </body>
 </html>
