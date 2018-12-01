@@ -80,7 +80,7 @@ if(isset($_REQUEST['isAdmin'])){
         <button class='btn btn-danger' onclick='DeleteDevice(event, {$id});' name='deleteAcct' style='float:right'>DELETE</button>";
 }
 else{
-    $html .= "<button class='btn btn-secondary' onclick='ConnectDevice(event, {$id});' name='connect' style='float:right'>Connect</button>";
+    $html .= "<button class='btn btn-secondary' onclick='TryConnectToDevice({$id}); return false;' name='connect' style='float:right'>Connect</button>";
 }
 
 $html .= "</form></div>";
