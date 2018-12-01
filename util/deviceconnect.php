@@ -1,4 +1,5 @@
 <?php
+    session_start();
     include 'sqlFunctions.php';
     $id = $_REQUEST['id'];
     $query = "select roleId from user_role where userId = {$_SESSION['currentUser']};";

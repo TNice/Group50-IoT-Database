@@ -107,8 +107,7 @@
               var xmlhttp = new XMLHttpRequest();
                 xmlhttp.onreadystatechange = function() {
                     if (this.readyState == 4 && this.status == 200) {
-                        console.dir("helo");
-                       document.getElementById("modalInfo").innerHTML = this.responseText;
+                        var response = this.responseText;
                     }
                 };
                 xmlhttp.open("GET", "util/deviceconnect.php?id=" + id, true);
@@ -212,12 +211,12 @@
                             
                         }
                         
-                        $result = SqlQueryRaw($query);
-                        $html = "<div style='overflow: hidden; overflow-y: scroll; height: 15em; max-height:90%'><div class='list-group'>";
-                        while($row = mysqli_fetch_assoc($result)){
-                        $html .= "<button class='btn list-group-item' onclick='OpenModal("."{$row['id']}".");'  style='display:block;width:95%;word-spacing: 50px;margin-bottom:.5em;'>";
-                        $html.= "id:{$row['id']}            location:{$row['location']}";
-                        $html .= "</button>";
+                            $result = SqlQueryRaw($query);
+                            $html = "<div style='overflow: hidden; overflow-y: scroll; height: 15em; max-height:90%'><div class='list-group'>";
+                            while($row = mysqli_fetch_assoc($result)){
+                            $html .= "<button class='btn list-group-item' onclick='OpenModal("."{$row['id']}".");'  style='display:block;width:95%;word-spacing: 50px;margin-bottom:.5em;'>";
+                            $html.= "id:{$row['id']}            location:{$row['location']}";
+                            $html .= "</button>";
                         }
                         $html .= "</div></div>";  
                         echo $html;

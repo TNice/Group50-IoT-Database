@@ -1,4 +1,5 @@
 <?php
+session_start();
 include 'sqlFunctions.php';
 $id = $_REQUEST['id'];
 $query = "SELECT * FROM devices WHERE id = {$id}";
