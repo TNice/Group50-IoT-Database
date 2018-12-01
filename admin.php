@@ -219,7 +219,6 @@
         </div>
 
         <div id="Logs" class="tabcontent" style='display:none;padding-left:0;'>
-          
             <div class="background" style='max-width:99.8%'>  
                 <div id='title' class='container-fluid titleBox'>            
                     <h1 class='title1'>Log Search</h1>            
@@ -334,7 +333,7 @@
                                    
                                    while($row = mysqli_fetch_assoc($result)){
                                        $html .= "<button class='btn' onclick='OpenModal(2, "."{$row['logId']}".");'  style='display:block;width:95%'>" . 
-                                        "{$row['logId']} {$row['deviceId']} ({$row['userId']})". 
+                                       "{$row['logId']} {$row['deviceId']} ({$row['userId']})". 
                                         "</button><br>";  
                                        //echo $row['id'];
                                    }
@@ -357,6 +356,10 @@
                         </div>
                     </div>
                     <div class='col-1'></div>
+<<<<<<< HEAD
+=======
+                </div>
+>>>>>>> 521a518ffabf5de3cbf30814067f9f211b1e23a3
                 </div>   
             </div>      
         </div>
@@ -545,6 +548,20 @@
                             xmlhttp.open("GET", "util/find" + modalType[type] + ".php?id=" + id, true);
                             xmlhttp.send();  
                         }
+
+                        function OpenAddDeviceModal(){
+                            var modal = document.getElementById("Modal");
+                            modal.style.visibility = 'visible';
+                            var xmlhttp = new XMLHttpRequest();
+                            xmlhttp.onreadystatechange = function() {
+                                if (this.readyState == 4 && this.status == 200) {
+                                    document.getElementById("modalInfo").innerHTML = this.responseText;
+                                }
+                            };
+
+                            xmlhttp.open("GET", "util/adddevice.php", true);
+                            xmlhttp.send();  
+                        }
                         
                         var modalType = ["user", "device", "log"];
 
@@ -721,6 +738,7 @@
                     
                 </div>   
             </div>    
+<<<<<<< HEAD
             
 
             <div class='modal' id='addDeviceModal' style='visibility:hidden;'>
@@ -784,12 +802,19 @@
             </div>
         </div> 
         <div id='Modal' style='visibility:hidden;'>
+=======
+            <div id='Modal' style='visibility:visible;'>
+>>>>>>> 521a518ffabf5de3cbf30814067f9f211b1e23a3
                 <div class='modal-dialog modal-lg' style='z-index:10'>
                     <div class='modal-content' id='modalInfo'>
                     
                     </div>
                 </div>
             </div>
+<<<<<<< HEAD
         
+=======
+        </div>      
+>>>>>>> 521a518ffabf5de3cbf30814067f9f211b1e23a3
     </body>
 </html>
