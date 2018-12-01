@@ -332,7 +332,9 @@
                                    $result = SqlQueryRaw($query);
                                    
                                    while($row = mysqli_fetch_assoc($result)){
-                                       $html .= "<li> {$row['id']} </li>";
+                                       $html .= "<button class='btn' onclick='OpenModal(2, "."{$row['logId']}".");'  style='display:block;width:95%'>" . 
+                                        "{$row['logId']} {$row['deviceId']} ({$row['userId']})". 
+                                        "</button><br>";  
                                        //echo $row['id'];
                                    }
                                      
@@ -343,7 +345,9 @@
                                     $result = SqlQueryRaw($query);
                                     //echo $result;
                                     while($row = mysqli_fetch_assoc($result)){
-                                        $html .= "<li> {$row['id']} </li>";  
+                                        $html .= "<button class='btn' onclick='OpenModal(2, "."{$row['logId']}".");'  style='display:block;width:95%'>" . 
+                                        "{$row['logId']} {$row['deviceId']} ({$row['userId']})". 
+                                        "</button><br>";    
                                     }
                                     
                                }
@@ -353,16 +357,24 @@
                         </div>
                     </div>
                     <div class='col-1'></div>
+                    <div id='Modal' style='visibility:hidden;'>
+                        <div class='modal-dialog modal-lg' style='z-index:10'>
+                            <div class='modal-content' id='modalInfo'>
+                                    
+                            </div>
+                        </div>
+                </div>
                 </div>   
             </div>      
         </div>
-        <div class="background" style='max-width:99.8%'>  
-                <div id='title' class='container-fluid titleBox'>            
-                    <h1 class='title1'>User Search</h1>            
-                </div>
-            
-                <div id="Devices" class="tabcontent" style='display:none;padding-left:0;'>
-                    <div class="row" style='max-width:100%;'>
+        
+    <div id="Devices" class="tabcontent" style='display:none;padding-left:0;'>    
+        <div class="background" style='max-width:99.8%'> 
+            <div id='title' class='container-fluid titleBox'>            
+                <h1 class='title1'>Find Device</h1>            
+            </div>
+           
+            <div class="row" style='max-width:100%;'>
                 <div class='col-3' style='margin-left:2rem;'>
                     <div id='filters' class='contentBoxLight'>
                         <h5 class='title1'>Filters</h5>
@@ -478,13 +490,18 @@
                             
                         }
                         ?>
+                        
                     </div>
                 </div>
                 <div class='col-1'></div>
-                <button id="addDevice" type="button" name="addDevice" onclick="addDevice()">Add Device</button>
-            </div> 
+            </div>   
         </div>
-        </div>
+    </div>
+        
+        
+        
+        
+               
         <div id="User" class="tabcontent" style='display:none;padding-left:0;'>
             
             <div class="background" style='max-width:99.8%'>  
