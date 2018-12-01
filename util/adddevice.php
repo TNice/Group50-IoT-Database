@@ -10,31 +10,24 @@ echo "<div class='modal-header'>
     <div class='col-5'>
         <div class='input-group mb-3'>
             <div class='input-group-prepend'>
-                <span class='input-group-text'>Username</span>
+                <span class='input-group-text'>Location</span>
             </div>
-        <input type='text' class='form-control' value='userName' id='usernameModal' disabled>
+        <input type='text' class='form-control' value='userName' id='locationModal' disabled>
         </div>
         <div class='input-group mb-3'>
             <div class='input-group-prepend'>
-                <span class='input-group-text'>Email</span>
+                <span class='input-group-text'>Type</span>
             </div>
-        <input type='text' class='form-control' value='email' id='emailModal' disabled>
+            <div class='form-group input-group-text'>
+                <select id='typeModal'>
+                    <option>Smart Plug</option>
+                    <option>Printer</option>
+                    <option>WiFi</option>
+                </select>
+            </div>
         </div>
     </div>
-    <div class='col-5'>
-        <div class='input-group mb-3'>
-            <div class='input-group-prepend'>
-                <span class='input-group-text'>Phone#</span>
-            </div>
-            <input type='text' class='form-control' value='phoneNumber' id='phoneModal' disabled>
-        </div>
-        <div class='input-group mb-3'>
-            <div class='input-group-prepend'>
-                <span class='input-group-text'>Birth Date</span>
-            </div>
-        <input type='date' class='form-control' value='birthDate' id='bdayModal' disabled>
-        </div>
-    </div>
+   
     <div class='col-1'></div>
 </div>
 </div>
