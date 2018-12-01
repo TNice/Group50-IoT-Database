@@ -51,7 +51,7 @@ else if(isset($printRow)){
         <div class='input-group-prepend'>
             <span class='input-group-text'>Ink Level</span>
         </div>
-        <input type='text' class='form-control' value='{$printRow['inklevel']}' id='inkModal' disabled>
+        <input type='text' class='form-control' value='{$printRow['inkLevel']}' id='inkModal' disabled>
     </div>";
 }
 else if(isset($wifiRow)){
