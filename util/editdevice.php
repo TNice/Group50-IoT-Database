@@ -24,6 +24,7 @@ if(isset ($_REQUEST['page'])){
 if(isset ($_REQUEST['ip'])){
     $ip = $_REQUEST['ip'];
 }
+
 $query = "UPDATE devices SET location = {$location} WHERE id = {$id}";
 SqlQueryRaw($query);
 
