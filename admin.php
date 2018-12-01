@@ -800,17 +800,24 @@
             </div>
         </div> 
         <div id='Modal' style='visibility:hidden;'>
+<<<<<<< HEAD
 
             <div id='Modal' style='visibility:visible;'>
 
+=======
+>>>>>>> 34ca535496a75540e1615eecfb92fde17c9d066c
                 <div class='modal-dialog modal-lg' style='z-index:10'>
                     <div class='modal-content' id='modalInfo'>
                     
                     </div>
                 </div>
             </div>
+<<<<<<< HEAD
 
         </div>      
 
+=======
+        </div>      
+>>>>>>> 34ca535496a75540e1615eecfb92fde17c9d066c
     </body>
 </html>
