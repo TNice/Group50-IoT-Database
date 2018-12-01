@@ -180,7 +180,7 @@
                         echo $html;
                         
                         ?>
-                        <?php include 'createDeviceList.php'; ?>
+
                     </div></div>
                 </div>
                 <div class='col-1'></div>
