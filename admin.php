@@ -356,9 +356,12 @@
                         </div>
                     </div>
                     <div class='col-1'></div>
+<<<<<<< HEAD
 
                 </div>
 
+=======
+>>>>>>> cabb0d8f449ae126cac51d7973210282da5741b2
                 </div>   
             </div>      
         
@@ -478,12 +481,7 @@
                 <div class='col-1'></div>
             </div>   
         </div>
-    </div>
-        
-        
-        
-        
-               
+    </div>       
         <div id="User" class="tabcontent" style='display:none;padding-left:0;'>
             
             <div class="background" style='max-width:99.8%'>  
@@ -736,9 +734,12 @@
                     
                 </div>   
             </div>    
+<<<<<<< HEAD
 
             
 
+=======
+>>>>>>> cabb0d8f449ae126cac51d7973210282da5741b2
             <div class='modal' id='addDeviceModal' style='visibility:hidden;'>
                 <div class='modal-dialog modal-lg' style='z-index:10'>
                     <div class='modal-content' id='userEdit'>
