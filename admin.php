@@ -587,7 +587,7 @@
                                     console.dir(this.responseText);
                                 }
                             };
-                            url = "util/editdevice.php?id= " + id + "&loc=" + location;
+                            url = "util/editdevice.php?id=" + id + "&loc=" + location;
                             if(power != null){
                                 url = "util/editdevice.php?id" + id + "&loc=" + location;
                                 url += "&type=plug&power=" + power;
@@ -623,7 +623,7 @@
                             var ink = document.getElementById('inkModal');
                             var ip =document.getElementById('ipModal');
                             var xmlhttp = new XMLHttpRequest();
-                            url = "util/editdevice.php?id=" + id;
+                            url = "util/deletedevice.php?id=" + id;
                             if(power != null){
                                 url += "&type=plug";
                             }
