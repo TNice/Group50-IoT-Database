@@ -461,7 +461,14 @@
                             $result = SqlQueryRaw($query);
                             while($row = mysqli_fetch_assoc($result)){
                                 echo "<br/>{$row['id']}";
-                            }  
+                            }
+                            $result = SqlQueryRaw($query);
+                                    //echo $result;
+                                    while($row = mysqli_fetch_assoc($result)){
+                                        $html .= "<button class='btn' onclick='OpenModal(0, "."{$row['id']}".");'  style='display:block;width:95%'>" . 
+                                        "{$row['firstName']} {$row['lastName']} ({$row['userName']})". 
+                                        "</button><br>";  
+                                    }
                         }
                         ?>
                     </div>

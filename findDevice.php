@@ -120,43 +120,29 @@
                             $package = $_GET['package'];
                         }
                         
-                        
-                        
-                        
-                        
+                        $result = '';
+                        $query = '';
                         if((strcmp($type, "SelectType") == 0 || empty($type) == true)&&
                            (strcmp($divLoc, "Location") == 0 || empty($divLoc) == true)&&
-                           (strcmp($package, "0") == 0 || empty($package) == true)){ // if type value is select type or is empty
-//                           if(strcmp($divLoc, "Location") == 0 || empty($divLoc) == true){// if location is empty or defalt value 'location'
-//                               if(strcmp($package, "0") == 0 || empty($package) == true){// if package is empty or 'package'
+                           (strcmp($package, "0") == 0 || empty($package) == true)){ 
                             $query =  "select * FROM devices;";
-                            print $query; // for debugging
                             $result = SqlQueryRaw($query);
-                            while($row = mysqli_fetch_assoc($result)){
-                                echo "<br/>{$row['id']}";
-                            }
-
-
                         }
-                        
-                        
-                        
-                        
                         
                         else{
                             $query = "";
                             $query = "select * from devices ";
-                            if(strcmp($type, "SelectType") != 0 && empty($type) != true){// if type is not empty and not 'SelectType'
-                                $query .= "where id = (select id from {$type}) "; //query using where
+                            if(strcmp($type, "SelectType") != 0 && empty($type) != true){
+                                $query .= "where id = (select id from {$type}) ";
                             }
                             
-                            if(strcmp($package, "0") != 0 && empty($package) != true){ // if package is not empty and not 'package'
-                                if(strcmp($type, "SelectType") == 0 || empty($type) == true){ // if type is is empty or set to 'SelectType' 
-                                    $query .= "where "; // query using where
+                            if(strcmp($package, "0") != 0 && empty($package) != true){
+                                if(strcmp($type, "SelectType") == 0 || empty($type) == true){ 
+                                    $query .= "where ";
                                 }
                                 
                                 else {
-                                    $query .= "and "; //if type is not set to a valid option
+                                    $query .= "and "; 
                                 }
                                 $query .= "id = (select deviceId from package_device where packageId = {$package}) ";
                             }
@@ -179,17 +165,23 @@
                             
                             $query .= ";";
                             
-                            print $query; // for debugging
-                            
-                            $result = SqlQueryRaw($query);
-                            while($row = mysqli_fetch_assoc($result)){
-                                echo "<br/>{$row['id']}";
-                            }
+
                             
                         }
+                        
+                        $result = SqlQueryRaw($query);
+                        $html = "<div style='overflow: hidden; overflow-y: scroll; height: 15em; max-height:90%'><div class='list-group'>";
+                        while($row = mysqli_fetch_assoc($result)){
+                        $html .= "<button class='btn list-group-item' onclick='OpenModal(1, "."{$row['id']}".");'  style='display:block;width:95%;word-spacing: 50px;margin-bottom:.5em;'>";
+                        $html.= "id:{$row['id']}            location:{$row['location']}";
+                        $html .= "</button>";
+                        }
+                        $html .= "</div></div>";  
+                        echo $html;
+                        
                         ?>
                         <?php include 'createDeviceList.php'; ?>
-                    </div>
+                    </div></div>
                 </div>
                 <div class='col-1'></div>
             </div>   
