@@ -582,8 +582,13 @@
                             var ink = document.getElementById('inkModal');
                             var ip =document.getElementById('ipModal');
                             var xmlhttp = new XMLHttpRequest();
-                            url = "util/editdevice.php?id" + id + "&loc=" + location;
+                            xmlhttp.onreadystatechange = function() {
+                                if (this.readyState == 4 && this.status == 200) {
+                                    console.dir(this.responseText);
+                                }
+                            };
                             if(power != null){
+                                url = "util/editdevice.php?id" + id + "&loc=" + location;
                                 url += "&type=plug&power=" + power;
                             }
                             else if(page != null && ink != null){
