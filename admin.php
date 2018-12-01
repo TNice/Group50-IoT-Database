@@ -286,8 +286,7 @@
                                    else{
                                        $query .= " WHERE ";
                                    }
-                                   
-                                   
+                                                              
                                    if(isset($_POST['divRole']) && !empty($_POST['divRole'])){
                                        if(strpos($query, "=")){
                                            $query .= ' and ';
@@ -337,8 +336,7 @@
                                         "</button><br>";  
                                        //echo $row['id'];
                                    }
-                                     
-                                   
+                                                             
                                }else{
                                    //send query
                                    echo "No Logs Found";
@@ -422,10 +420,6 @@
                             $package = $_GET['package'];
                         }
                         
-                        
-                        
-                        
-                        
                         if((strcmp($type, "SelectType") == 0 || empty($type) == true)&&
                            (strcmp($divLoc, "Location") == 0 || empty($divLoc) == true)&&
                            (strcmp($package, "0") == 0 || empty($package) == true)){ // if type value is select type or is empty
@@ -437,14 +431,7 @@
                             while($row = mysqli_fetch_assoc($result)){
                                 echo "<br/>{$row['id']}";
                             }
-
-
                         }
-                        
-                        
-                        
-                        
-                        
                         else{
                             $query = "";
                             $query = "select * from devices ";
@@ -486,8 +473,7 @@
                             $result = SqlQueryRaw($query);
                             while($row = mysqli_fetch_assoc($result)){
                                 echo "<br/>{$row['id']}";
-                            }
-                            
+                            }  
                         }
                         ?>
                         
