@@ -537,12 +537,9 @@
                                     document.getElementById("modalInfo").innerHTML = this.responseText;
                                 }
                             };
-                            if(type = "device"){
-                                xmlhttp.open("GET", "util/find" + modalType[type] + ".php?id=" + id + "&admin=true", true);
-                            }
-                            else{
-                                xmlhttp.open("GET", "util/find" + modalType[type] + ".php?id=" + id, true);
-                            }
+                            
+                            xmlhttp.open("GET", "util/find" + modalType[type] + ".php?id=" + id + "&isAdmin=true", true);
+                            
                             xmlhttp.send();  
                         }
 
@@ -800,9 +797,7 @@
                 <div class='modal-content' id='modalInfo'>
                     
                 </div>
-                </div>
             </div>
-<!--        </div>      -->
-
+        </div>
     </body>
 </html>
