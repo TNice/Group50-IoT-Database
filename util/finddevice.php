@@ -28,7 +28,7 @@ $html = "
                 <div class='input-group-prepend'>
                     <span class='input-group-text'>Location</span>
                 </div>
-               <input type='text' class='form-control' value='{$row['location']}' id='usernameModal' disabled>
+               <input type='text' class='form-control' value='{$row['location']}' id='locationModal' disabled>
             </div>";
 if(isset($plugRow)){
     $type = 'plug';
