@@ -592,7 +592,7 @@
                             else if(ip != null){
                                 url += "&type=wifi&ip=" + ip;
                             }
-                            xmlhttp.open("GET", url, true;)
+                            xmlhttp.open("GET", url, true);
                             xmlhttp.send();
 
                             var location = document.getElementById('locationModal');
