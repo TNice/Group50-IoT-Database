@@ -802,19 +802,12 @@
             </div>
         </div> 
         <div id='Modal' style='visibility:hidden;'>
-=======
-            <div id='Modal' style='visibility:visible;'>
->>>>>>> 521a518ffabf5de3cbf30814067f9f211b1e23a3
                 <div class='modal-dialog modal-lg' style='z-index:10'>
                     <div class='modal-content' id='modalInfo'>
                     
                     </div>
                 </div>
             </div>
-<<<<<<< HEAD
-        
-=======
         </div>      
->>>>>>> 521a518ffabf5de3cbf30814067f9f211b1e23a3
     </body>
 </html>
