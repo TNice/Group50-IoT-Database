@@ -78,7 +78,7 @@ if(isset($_REQUEST['isAdmin'])){
     $html .= "<button class='btn btn-secondary' id='editButton' onclick='EditDeviceModal(event);return false;' style='text-align:left;'>Edit</button>
         <button class='btn btn-secondary' id='saveButton' onclick='SaveDeviceModal({$id});return false;' style='display:none'>Save</button>
         <button class='btn btn-secondary' id='cancelButton' onclick='CancelDeviceModal(event);return false;' style='display:none'>Cancel</button>
-        <button class='btn btn-danger' onclick='DeleteDeviceModal(event, {$id});' name='deleteAcct' style='float:right'>DELETE</button>";
+        <button class='btn btn-danger' onclick='DeleteDeviceModal(event, {$id});return false;' name='deleteDevice' style='float:right'>DELETE</button>";
 }
 else if(isset($_SESSION['currentUser'])){
     $html .= "<button class='btn btn-secondary' onclick='TryConnectToDevice({$id}); return false;' name='connect' style='float:right'>Connect</button>";
