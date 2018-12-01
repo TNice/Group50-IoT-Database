@@ -36,7 +36,7 @@ if(isset($plugRow)){
         <div class='input-group-prepend'>
             <span class='input-group-text'>PowerUsage</span>
         </div>
-        <input type='text' class='form-control' value='{$plugRow['powerUsage']}' id='powerModal' disabled>
+        <input type='text' class='form-control' value='{$plugRow['powerUseage']}' id='powerModal' disabled>
     </div>";
 }
 else if(isset($printRow)){
