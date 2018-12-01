@@ -278,12 +278,16 @@
                                 $query = "Select * From deviceLogs d";
                                if(useLogFilter()){
                                    
-                                   roleCheck();
+                                roleCheck();
+//                                   useLogFilter();
                                    if(isset($_POST['divRole']) && !empty($_POST['divRole'])){ 
                                        $query .= ", user_role r Where d.userId = r.userId ";
                                     }     
                                    else{
-                                       $query .= " WHERE ";
+                                        roleCheck();
+                                        if(useLogFilter()){
+                                            $query .= " WHERE ";
+                                        }
                                    }
                                                               
                                    if(isset($_POST['divRole']) && !empty($_POST['divRole'])){
