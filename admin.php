@@ -358,16 +358,14 @@
                     <div class='col-1'></div>
 
                 </div>
-
-                </div>   
-            </div>      
+            </div>   
+        </div>      
         
     <div id="Devices" class="tabcontent" style='display:none;padding-left:0;'>    
         <div class="background" style='max-width:99.8%'> 
             <div id='title' class='container-fluid titleBox'>            
                 <h1 class='title1'>Find Device</h1>            
-            </div>
-           
+            </div>     
             <div class="row" style='max-width:100%;'>
                 <div class='col-3' style='margin-left:2rem;'>
                     <div id='filters' class='contentBoxLight'>
@@ -471,8 +469,7 @@
                                 echo "<br/>{$row['id']}";
                             }  
                         }
-                        ?>
-                        
+                        ?>                 
                     </div>
                 </div>
                 <div class='col-1'></div>
@@ -731,9 +728,6 @@
                     
                 </div>   
             </div>    
-
-            
-
             <div class='modal' id='addDeviceModal' style='visibility:hidden;'>
                 <div class='modal-dialog modal-lg' style='z-index:10'>
                     <div class='modal-content' id='userEdit'>
@@ -795,16 +789,12 @@
             </div>
         </div> 
         <div id='Modal' style='visibility:hidden;'>
-
-            <div id='Modal' style='visibility:visible;'>
-
-                <div class='modal-dialog modal-lg' style='z-index:10'>
-                    <div class='modal-content' id='modalInfo'>
+            <div class='modal-dialog modal-lg' style='z-index:10'>
+                <div class='modal-content' id='modalInfo'>
                     
-                    </div>
+                </div>
                 </div>
             </div>
-
         </div>      
 
     </body>
