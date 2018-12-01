@@ -79,13 +79,8 @@ if(isset($_REQUEST['isAdmin'])){
         <button class='btn btn-secondary' id='cancelButton' onclick='CancelDeviceModal(event);return false;' style='display:none'>Cancel</button>
         <button class='btn btn-danger' onclick='DeleteDevice(event, {$id});' name='deleteAcct' style='float:right'>DELETE</button>";
 }
-<<<<<<< HEAD
 else if(isset($_SESSION['currentUser'])){
-    $html .= "<button class='btn btn-secondary' onclick='ConnectDevice(event, {$id});' name='connect' style='float:right'>Connect</button>";
-=======
-else{
     $html .= "<button class='btn btn-secondary' onclick='TryConnectToDevice({$id}); return false;' name='connect' style='float:right'>Connect</button>";
->>>>>>> b84371f8677a40acd522f215d76a7a3f26133ff2
 }
 
 $html .= "</form></div>";
