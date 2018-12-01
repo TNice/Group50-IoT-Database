@@ -26,13 +26,12 @@ $response = false;
 echo " {$query} ";
 //echo "{$row['accessDate']} date ";
 while($row = mysqli_fetch_assoc($result)){
-    echo $today;
-    echo $row['accessDate'];
+
     if(strcmp($row['accessDate'], "any")){
         $response = true;
         break;
     }
-    if(strcmp($row['accessDate'], $today)){
+    if(strcmp($row['accessDay'], $today)){
         $response = true;
         break;
     }
