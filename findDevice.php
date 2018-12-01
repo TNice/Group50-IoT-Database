@@ -108,6 +108,7 @@
                 xmlhttp.onreadystatechange = function() {
                     if (this.readyState == 4 && this.status == 200) {
                         var response = this.responseText;
+                        console.dir(response);
                     }
                 };
                 xmlhttp.open("GET", "util/deviceconnect.php?id=" + id, true);
