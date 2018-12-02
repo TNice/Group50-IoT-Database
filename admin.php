@@ -555,6 +555,8 @@
 
                             xmlhttp.open("GET", "util/adddevice.php", true);
                             xmlhttp.send();  
+
+                            
                         }
                         
                         var modalType = ["user", "device", "log"];

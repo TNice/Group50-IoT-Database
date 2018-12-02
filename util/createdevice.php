@@ -48,7 +48,7 @@ function CheckForDuplicateUserId($userId){
             if($row['id'] == $userId){
                 return TRUE;
             }
-        } 
+        }
     return FALSE;
 }
 
@@ -60,8 +60,8 @@ function CheckForDuplicateRuleId($userId){
             if($row['ruleId'] == $userId){
                 return TRUE;
             }
-        } 
-    
+        }
+
     return FALSE;
 }
 
