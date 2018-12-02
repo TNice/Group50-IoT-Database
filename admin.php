@@ -603,6 +603,13 @@
                             document.getElementById('saveButton').style.display = 'inline';
                             document.getElementById('cancelButton').style.display = 'inline';
                         }
+                        function FindIndexInElement(element, val){
+                            for(var i = 0; i < element.options.length; i++){
+                                if(element.options[i] == val){
+                                    return i;
+                                }
+                            }
+                        }
                         
                         function UpdateDeviceTimes(id){
                             var xmlhttp = new XMLHttpRequest();
