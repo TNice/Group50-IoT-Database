@@ -24,7 +24,18 @@ if(isset ($_REQUEST['page'])){
 if(isset ($_REQUEST['ip'])){
     $ip = $_REQUEST['ip'];
 }
-
+if(isset ($_REQUEST['sDay'])){
+    $sDay = $_REQUEST['sDay'];
+}
+if(isset ($_REQUEST['eDay'])){
+    $eDay = $_REQUEST['eDay'];
+}
+if(isset ($_REQUEST['sTime'])){
+    $sTime = $_REQUEST['sTime'];
+}
+if(isset ($_REQUEST['eTime'])){
+    $eTime = $_REQUEST['eTime'];
+}
 
 $query = "UPDATE devices SET location = '{$location}' WHERE id = {$id}";
 SqlQueryRaw($query);
@@ -46,6 +57,15 @@ switch ($type){
         break;
     default:
         break;
+}
+
+$query = "SELECT * FROM access_rule WHERE deviceId = {$id}";
+$row = SqlQuery($query);
+
+if(issset($row['ruleId'])){
+    $query = "UPDATE accesstime_rule SET startTime = {$sTime}, endTime = {$eTime}, startDay = {$sDay}, endDay = {$eDay} 
+            WHERE ruleId = {$row['ruleId']}";
+    SqlQuery($query);
 }
 
 ?>

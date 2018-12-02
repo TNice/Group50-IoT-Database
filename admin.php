@@ -610,32 +610,23 @@
                         }
 
                         function FindIndexInElement(element, val){
-                            console.dir(element.id);
                             for(var i = 0; i < element.options.length; i++){
-                                console.dir(element.options[i].value + " | " + val);
                                 if(element.options[i].value == val){
-                                    console.dir(i);
                                     return i;
                                 }
                             }
                         }
                         
                         function UpdateDeviceTimes(id){
-                            console.dir("he");
                             var xmlhttp = new XMLHttpRequest();
                             xmlhttp.onreadystatechange = function() {
                                 if (this.readyState == 4 && this.status == 200) {
-                                    //var location = document.getElementById('locationModal');
                                     var startTime = document.getElementById("startTimeModal");
                                     var endTime = document.getElementById("endTimeModal");
                                     var startDay = document.getElementById("startDayModal");
                                     var endDay = document.getElementById("endDayModal");
                                     var result = this.responseText;
                                     var results = result.split('|');
-                                    console.dir(results[0]);
-                                    console.dir(results[1]);
-                                    console.dir(results[2]);
-                                    console.dir(results[3]);
                                     startTime.selectedIndex = FindIndexInElement(startTime, results[0]);
                                     endTime.selectedIndex = FindIndexInElement(endTime, results[1]);
                                     startDay.selectedIndex = FindIndexInElement(startDay, results[2]);
