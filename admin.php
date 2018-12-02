@@ -589,6 +589,8 @@
                             };
                             xmlhttp.open("GET", "util/createdevice.php?loc=" + location + "&type=" + type + "&startDay=" +sDay + "&endDay=" +eDay + "&startTime=" +sTime + "&endTime=" +eTime, true);
                             xmlhttp.send();
+
+                            CloseModal();
                         }
 
                         function EditDeviceModal(event){
@@ -617,15 +619,16 @@
                         
                         function UpdateDeviceTimes(id){
                             console.dir("he");
-                            var startTime = document.getElementById("sModal");
-                            var endTime = document.getElementById("eTimeModal");
-                            var startDay = document.getElementById("sDayModal");
-                            var endDay = document.getElementById("eDayModal");
-                            console.dir(startTime);
                             var xmlhttp = new XMLHttpRequest();
                             xmlhttp.onreadystatechange = function() {
                                 if (this.readyState == 4 && this.status == 200) {
-                                    console.dir(this.responseText);
+                                    //var location = document.getElementById('locationModal');
+                                    var startTime = document.getElementById("startTimeModal");
+                                    var endTime = document.getElementById("endTimeModal");
+                                    var startDay = document.getElementById("startDayModal");
+                                    var endDay = document.getElementById("endDayModal");
+                                    //console.dir(startTime);
+                                    //console.dir(this.responseText);
                                     var result = this.responseText;
                                     console.dir(result);
                                     var results = result.split('|');
