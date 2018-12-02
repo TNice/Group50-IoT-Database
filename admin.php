@@ -610,8 +610,11 @@
                         }
 
                         function FindIndexInElement(element, val){
+                            console.dir(element.id);
                             for(var i = 0; i < element.options.length; i++){
+                                console.dir(element.options[i].value + " | " + val);
                                 if(element.options[i].value == val){
+                                    console.dir(i);
                                     return i;
                                 }
                             }
@@ -627,15 +630,16 @@
                                     var endTime = document.getElementById("endTimeModal");
                                     var startDay = document.getElementById("startDayModal");
                                     var endDay = document.getElementById("endDayModal");
-                                    //console.dir(startTime);
-                                    //console.dir(this.responseText);
                                     var result = this.responseText;
-                                    console.dir(result);
                                     var results = result.split('|');
+                                    console.dir(results[0]);
+                                    console.dir(results[1]);
+                                    console.dir(results[2]);
+                                    console.dir(results[3]);
                                     startTime.selectedIndex = FindIndexInElement(startTime, results[0]);
                                     endTime.selectedIndex = FindIndexInElement(endTime, results[1]);
-                                    startDay.selectedIndex = FindIndexInElement(startDay, result[2]);
-                                    endDay.selectedIndex = FindIndexInElement(endDay, result[3]);
+                                    startDay.selectedIndex = FindIndexInElement(startDay, results[2]);
+                                    endDay.selectedIndex = FindIndexInElement(endDay, results[3]);
                                 }
                             };
                         

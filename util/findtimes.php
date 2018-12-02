@@ -6,16 +6,16 @@ $id = $_REQUEST['id'];
 $sTime = $eTime = $sDay = $eDay = '';
 
 $query = "SELECT * FROM access_rule WHERE deviceId = {$id}";
-echo $query . " | ";
+//echo $query . " | ";
 $row = SqlQuery($query);
 
 if(isset($row['ruleId'])){
     $ruleId = $row['ruleId'];
     $query = "SELECT * FROM accesstime_rule WHERE ruleId = {$ruleId}";
-    echo $query . " | ";
+    //echo $query . " | ";
     $row = SqlQuery($query);
 
-        $sTime = $row['startTime'];
+    $sTime = $row['startTime'];
     $eTime = $row['endTime'];
     $sDay = $row['startDay'];
     $eDay = $row['endDay'];
