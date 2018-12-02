@@ -12,39 +12,44 @@
     $row = SqlQuery($query);
     
 //$time = $row[''];
-$ruleId = $row['ruleId'];
-$query = "SELECT * FROM accesstime_rule WHERE ruleId = {$ruleId};";
-$result = SqlQueryRaw($query);
+if(isset($row['ruleId'])){
+    $ruleId = $row['ruleId'];
+    $query = "SELECT * FROM accesstime_rule WHERE ruleId = {$ruleId};";
+    $result = SqlQueryRaw($query);
 
-$today = date("l"); // = current day of week
-$today = strtolower($today);
-$currentTime; // = current time
-//echo $today;
+    $today = date("l"); // = current day of week
+    $today = strtolower($today);
+    $currentTime; // = current time
+    //echo $today;
 
-$response = false;
+    $response = false;
 
-echo " {$query} ";
-//echo "{$row['accessDate']} date ";
-while($row = mysqli_fetch_assoc($result)){
+    echo " {$query} ";
+    //echo "{$row['accessDate']} date ";
+    while($row = mysqli_fetch_assoc($result)){
 
-    if(strcmp($row['accessDate'], "any")){
-        $response = true;
-        break;
+        if(strcmp($row['accessDate'], "any")){
+            $response = true;
+            break;
+        }
+        if(strcmp($row['accessDay'], $today)){
+            $response = true;
+            break;
+        }
+        echo "hello";
+        echo $row['accessDate'];
+
     }
-    if(strcmp($row['accessDay'], $today)){
-        $response = true;
-        break;
-    }
-    echo "hello";
-    echo $row['accessDate'];
-    
-}
 
-if($response == true){
-    //check time
-    echo "TRUE";
+    if($response == true){
+        //check time
+        echo "TRUE";
+    }
+    else{
+        echo "False";
+    }
 }
 else{
-    echo "False";
+    echo "True";
 }
 ?>
