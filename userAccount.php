@@ -240,10 +240,12 @@
                                     <h3 class='title2'>" . GetPackageName($GLOBALS['package']) . "</h3>
                                     <div class='row'>
                                         <div class='col-6'>
-                                            Package Info
+                                            ".
+                                            GetPackageInfo($GLOBALS['package']);
+                                            ."
                                         </div>
-                                        <div class='col-6'>    
-                                            Get Devices for package with sql package
+                                        <div class='col-6' id='deviceList'>
+                                           
                                         </div>
                                     </div>
                                 </div>";
@@ -251,6 +253,20 @@
                             }
                             //If user is subscribed to package add a current package tab
                         ?>
+                        <script>
+                            function loadDeviceList(id){
+                                var xmlhttp = new XMLHttpRequest();
+                                xmlhttp.onreadystatechange = function() {
+                                    if (this.readyState == 4 && this.status == 200) {
+                                        document.getElementById("deviceList").innerHtml = this.responseText;
+                                    }
+                                }
+                                xmlhttp.open("GET", "util/getDevicesOfPackage.php?id=" + id, true);
+                                xmlhttp.send();
+                            }
+
+                            loadDeviceList("<?php echo $GLOBALS['package'];?>");
+                        </script>
                         <div class='contentBox'>
                             <h3 class='title2' style='margin-bottom:1.5rem;'>Subscribe To Package</h3>
                             <!--Radio button values for packages must be the corisponding package id-->
