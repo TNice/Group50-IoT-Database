@@ -113,7 +113,6 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
     }
     else{
         $birthDate = $_POST['bday'];
-        echo $birthDate;
     }
 
     $userId = GenerateUserId();
@@ -207,7 +206,7 @@ function AddUserToDB($userId, $email, $firstName, $lastName, $phoneNumber, $birt
         header('Location: login.php');
     }
     else{
-        $_SESSION['result'] = $connection->error . '\n' . $sqlQuery;
+        //$_SESSION['result'] = $connection->error . '\n' . $sqlQuery;
     }
 }
 
@@ -297,7 +296,7 @@ function AddUserToDB($userId, $email, $firstName, $lastName, $phoneNumber, $birt
                         </div class='col-1'>
                     </div>
                 </div>
-                <div class='col-1'><?php echo $_SESSION['result'];?></div>
+                <div class='col-1'></div>
             </div>
             </div>
         </div>
