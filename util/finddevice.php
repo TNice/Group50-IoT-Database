@@ -171,6 +171,18 @@ $html .= "</div>
                     </select>
                 </div>
             </div>
+            <div class='input-group mb-3'>
+                <div class='input-group-prepend'>
+                    <span class='input-group-text'>Package</span>
+                </div>
+                <div class='form-group input-group-text'>
+                    <select id='packageModal'>
+                        <option>Package 1</option>
+                        <option>Package 2</option>
+                        <option>Package 3</option>
+                    </select>
+                </div>
+            </div>
         </div>
         <div class='col-1'></div>
     </div>

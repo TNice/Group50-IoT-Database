@@ -33,10 +33,19 @@ if(isset($row['ruleId']) && $isAdmin === FALSE){
     $eDay = $row['endDay'];
 
     $result = "{$sTime}|{$eTime}|{$sDay}|{$eDay}";
+
+    $packageId = UserHasPackage($_SESSION['currentUser']);
+    if($packageId !== NULL && DeviceInPackage($packageId, $id)){
+        $result .= "|true";
+    }
+    else{
+        $result .= "|false";
+    }
+
     echo $result;
 }
 else{
-    echo "Any|Any|Any|Any";
+    echo "Any|Any|Any|Any|true";
 }
 
 ?>

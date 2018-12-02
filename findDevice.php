@@ -198,7 +198,7 @@
                         console.dir("time: " + validTime);
                         console.dir("day: " + validDay);
                         var connectResult;
-                        if(validDay == true && validTime == true){
+                        if(validDay == true && validTime == true && results[4] == "true"){
                             alert("CONNECTED");
                             connectResult = true;
                         }
