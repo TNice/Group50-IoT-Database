@@ -225,11 +225,12 @@
                         console.dir("time: " + validTime);
                         console.dir("day: " + validDay);
                         if(validDay == true && validTime == true){
-                            console.dir("CONNECTED");
+                            alert("CONNECTED");
                         }
                         else{
-                            console.dir("ACCESS DENIED");
+                            alert("ACCESS DENIED");
                         }
+                        CloseModal();
                     }
                 };
                 xmlhttp.open("GET", "util/generateLog.php?id=" + id, true);
