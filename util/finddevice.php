@@ -65,9 +65,19 @@ else if(isset($wifiRow)){
     </div>";
 }
 $html .= "</div>
-        <div class='col-5'>
-            
-        </div>
+        <div class='col-5'>";
+
+
+        $radiobt = "select functionality from device_function where deviceID = {$row['id']}";
+        //echo $radiobt; 
+        $result = SqlQueryRaw($radiobt);
+        $html .= "<form action=''>";
+        while ($row = mysqli_fetch_assoc($result)){
+            $html .= "<input type='radio' name=functionality' value='{$row['functionality']}'> {$row['functionality']}<br>";
+        }
+        $html .="</form>";
+
+$html .= "</div>
         <div class='col-1'></div>
     </div>
 </div>
