@@ -7,6 +7,7 @@
     $fName = $lName = $username = $password = $email = $phone = $bday = $package = '';
 
     $package = UserHasPackage($_SESSION['currentUser']);
+echo $package;
     if($_SERVER['REQUEST_METHOD'] == 'POST'){
         if(isset($_POST['packageButton'])){
             UpdatePackages();
@@ -77,6 +78,7 @@
    }
 
    function UpdatePackages(){
+       $query = '';
        if(isset($_POST['package'])){ 
             if($GLOBALS['package'] === NULL){
                 $query = "INSERT INTO user_package VALUES ({$_SESSION['currentUser']}, {$_POST['package']});";
@@ -85,6 +87,7 @@
                 $query = "UPDATE user_package SET packageId = {$_POST['package']} WHERE userId = {$_SESSION['currentUser']};";
             }
             if($GLOBALS['package'] !== $_POST['package']){
+                echo $query;
                 SqlQueryRaw($query);  
                 $GLOBALS['package'] = $_POST['package'];
             }

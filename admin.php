@@ -614,6 +614,7 @@
                                     var endDay = document.getElementById("endDayModal");
                                     var result = this.responseText;
                                     var results = result.split('|');
+                                    console.dir(startTime);
                                     startTime.selectedIndex = FindIndexInElement(startTime, results[0]);
                                     endTime.selectedIndex = FindIndexInElement(endTime, results[1]);
                                     startDay.selectedIndex = FindIndexInElement(startDay, results[2]);
