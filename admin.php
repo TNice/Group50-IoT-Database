@@ -563,10 +563,22 @@
                         }
 
                         function CreateDeviceModal(){
-                            var type, location;
+                            var type, location, sDay, eDay, sTime, eTime;
                             location = document.getElementById("locationModal").value;
                             type = document.getElementById("typeModal");
                             type = type.options[type.selectedIndex].value;
+                            
+                            sDay = document.getElementById("sDayModal");
+                            sDay = sDay.options[sDay.selectedIndex].value;
+                            
+                            eDay = document.getElementById("eDayModal");
+                            eDay = eDay.options[eDay.selectedIndex].value;
+                            
+                            sTime = document.getElementById("sTimeModal");
+                            sTime = sTime.options[sTime.selectedIndex].value;
+                            
+                            eTime = document.getElementById("eTimeModal");
+                            eTime = eTime.options[eTime.selectedIndex].value; 
 
                             var xmlhttp = new XMLHttpRequest();
                             xmlhttp.onreadystatechange = function() {
@@ -574,7 +586,7 @@
                                     console.dir(this.responseText);
                                 }
                             };
-                            xmlhttp.open("GET", "util/createdevice.php?loc=" + location + "&type=" + type);
+                            xmlhttp.open("GET", "util/createdevice.php?loc=" + location + "&type=" + type + "&startDay=" +sDay + "&endDay=" +eDay + "&startTime=" +sTime + "&endTime=" +eTime);
                             xmlhttp.send();
                         }
 
