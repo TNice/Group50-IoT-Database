@@ -538,11 +538,6 @@
                             
                             xmlhttp.open("GET", "util/find" + modalType[type] + ".php?id=" + id + "&isAdmin=true", true);
                             xmlhttp.send();  
-                            
-                            console.dir(type);
-                            if(type == 1){
-                                UpdateDeviceTimes(id);
-                            }
                         }
 
                         function OpenAddDeviceModal(){
