@@ -327,20 +327,23 @@
                                    
                                    while($row = mysqli_fetch_assoc($result)){
                                        $html .= "<button class='btn list-group-item' onclick='OpenModal(2, "."{$row['logId']}".");'  style='display:block;width:95%; margin-bottom:0.5em'>" . 
-                                       "{$row['logId']} {$row['deviceId']} ({$row['userId']})". 
+                                       " User ID:{$row['userId']} Device ID: {$row['deviceId']} Time {}". 
                                         "</button>";  
                                        //echo $row['id'];
                                    }
                                                              
                                }else{
                                    //send query
-                                   echo "No Logs Found";
+//                                   echo "No Logs Found";
                                     $result = SqlQueryRaw($query);
                                     //echo $result;
                                     while($row = mysqli_fetch_assoc($result)){
-                                        $html .= "<button class='btn list-group-item' onclick='OpenModal(2, "."{$row['logId']}".");'  style='display:block;width:95% margin-bottom:0.5em'>" . 
-                                        "{$row['logId']} {$row['deviceId']} ({$row['userId']})". 
-                                        "</button>";    
+                                        $time = $row['logTime'];
+                                        $time = gmdate("m-d-Y H:i");
+                                        
+                                        $html .= "<button class='btn list-group-item' onclick='OpenModal(2, "."{$row['logId']}".");'  style='display:block;width:95% margin-bottom:0.5em'><label style='float:left;margin-right:0.2rem'>" . 
+                                        " User ID: {$row['userId']}</label><label>Device ID: {$row['deviceId']}</label><label style='float:right'>{$time}". 
+                                        "</label></button>";    
                                     }
                                     
                                }
@@ -520,16 +523,15 @@
                             xmlhttp.onreadystatechange = function() {
                                 if (this.readyState == 4 && this.status == 200) {
                                     document.getElementById("modalInfo").innerHTML = this.responseText;
+                                    if(type == 1){
+                                        UpdateDeviceTimes(id);
+                                    }
                                 }
                             };
                             
                             xmlhttp.open("GET", "util/find" + modalType[type] + ".php?id=" + id + "&isAdmin=true", true);
                             
                             xmlhttp.send();  
-                            
-                            if(type == "device"){
-                                UpdateDeviceTimes(id);
-                            }
                         }
 
                         function OpenAddDeviceModal(){
@@ -556,6 +558,36 @@
                             document.getElementById("modalInfo").innerHTML = '';
                         }
 
+                        function CreateDeviceModal(){
+                            var type, location, sDay, eDay, sTime, eTime;
+                            location = document.getElementById("locationModal").value;
+                            type = document.getElementById("typeModal");
+                            type = type.options[type.selectedIndex].value;
+                            
+                            sDay = document.getElementById("sDayModal");
+                            sDay = sDay.options[sDay.selectedIndex].value;
+                            
+                            eDay = document.getElementById("eDayModal");
+                            eDay = eDay.options[eDay.selectedIndex].value;
+                            
+                            sTime = document.getElementById("sTimeModal");
+                            sTime = sTime.options[sTime.selectedIndex].value;
+                            
+                            eTime = document.getElementById("eTimeModal");
+                            eTime = eTime.options[eTime.selectedIndex].value; 
+
+                            var xmlhttp = new XMLHttpRequest();
+                            xmlhttp.onreadystatechange = function() {
+                                if (this.readyState == 4 && this.status == 200) {
+                                    console.dir(this.responseText);
+                                }
+                            };
+                            xmlhttp.open("GET", "util/createdevice.php?loc=" + location + "&type=" + type + "&startDay=" +sDay + "&endDay=" +eDay + "&startTime=" +sTime + "&endTime=" +eTime, true);
+                            xmlhttp.send();
+
+                            CloseModal();
+                        }
+
                         function EditDeviceModal(event){
                             event.currentTarget.disabled = true;
                             var location = document.getElementById('locationModal');
@@ -572,12 +604,47 @@
                             document.getElementById('cancelButton').style.display = 'inline';
                         }
                         
+                        function UpdateDeviceTimes(id){
+                            var xmlhttp = new XMLHttpRequest();
+                            xmlhttp.onreadystatechange = function() {
+                                if (this.readyState == 4 && this.status == 200) {
+                                    var startTime = document.getElementById("startTimeModal");
+                                    var endTime = document.getElementById("endTimeModal");
+                                    var startDay = document.getElementById("startDayModal");
+                                    var endDay = document.getElementById("endDayModal");
+                                    var result = this.responseText;
+                                    var results = result.split('|');
+                                    startTime.selectedIndex = FindIndexInElement(startTime, results[0]);
+                                    endTime.selectedIndex = FindIndexInElement(endTime, results[1]);
+                                    startDay.selectedIndex = FindIndexInElement(startDay, results[2]);
+                                    endDay.selectedIndex = FindIndexInElement(endDay, results[3]);
+                                }
+                            };
+                        
+                            xmlhttp.open("GET", "util/findtimes.php?id=" + id, true);
+                            xmlhttp.send();
+                        }
+
                         function SaveDeviceModal(id){
                             var location = document.getElementById('locationModal');
                             var power = document.getElementById('powerModal');
                             var page = document.getElementById('pageModal');
                             var ink = document.getElementById('inkModal');
                             var ip =document.getElementById('ipModal');
+
+                            var startDay, endDay, startTime, endTime;
+                            startDay = document.getElementById("startDayModal");
+                            startDay = startDay.options[startDay.selectedIndex].value;
+                            endDay = document.getElementById("endDayModal");
+                            endDay = endDay.options[endDay.selectedIndex].value;
+
+                            startTime = document.getElementById("startTimeModal");
+                            startTime = startTime.options[startTime.selectedIndex].value;
+                            endTime = document.getElementById("endTimeModal");
+                            endTime = endTime.options[endTime.selectedIndex].value;
+                            
+                            console.dir(startTime);
+
                             var xmlhttp = new XMLHttpRequest();
                             xmlhttp.onreadystatechange = function() {
                                 if (this.readyState == 4 && this.status == 200) {

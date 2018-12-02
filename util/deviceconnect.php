@@ -2,49 +2,41 @@
     session_start();
     include 'sqlFunctions.php';
     $id = $_REQUEST['id'];
+    $isAdmin = FALSE;
     $query = "select roleId from user_role where userId = {$_SESSION['currentUser']};";
 //    echo "{$_SESSION['currentUser']} ";
     
     $row = SqlQuery($query);
-
-    $query = "select * from access_rule where roleId = {$row['roleId']} and deviceId = {$id}";
+    
+    if($row['roleId'] != 1){
+        $query = "select * from access_rule where roleId = {$row['roleId']} and deviceId = {$id}";
+    }
+    else{
+        $isAdmin = TRUE;
+    }
 
     $row = SqlQuery($query);
     
-//$time = $row[''];
-$ruleId = $row['ruleId'];
-$query = "SELECT * FROM accesstime_rule WHERE ruleId = {$ruleId};";
-$result = SqlQueryRaw($query);
+if(isset($row['ruleId']) && $isAdmin === FALSE){
+    $ruleId = $row['ruleId'];
+    $query = "SELECT * FROM accesstime_rule WHERE ruleId = {$ruleId};";
+    $result = SqlQueryRaw($query);
 
-$today = date("l"); // = current day of week
-$today = strtolower($today);
-$currentTime; // = current time
-//echo $today;
+    $today = date("l"); // = current day of week
+    $today = strtolower($today);
 
-$response = false;
+    $row = SqlQuery($query);
 
-echo " {$query} ";
-//echo "{$row['accessDate']} date ";
-while($row = mysqli_fetch_assoc($result)){
+    $sTime = $row['startTime'];
+    $eTime = $row['endTime'];
+    $sDay = $row['startDay'];
+    $eDay = $row['endDay'];
 
-    if(strcmp($row['accessDate'], "any")){
-        $response = true;
-        break;
-    }
-    if(strcmp($row['accessDay'], $today)){
-        $response = true;
-        break;
-    }
-    echo "hello";
-    echo $row['accessDate'];
-    
-}
-
-if($response == true){
-    //check time
-    echo "TRUE";
+    $result = "{$sTime}|{$eTime}|{$sDay}|{$eDay}";
+    echo $result;
 }
 else{
-    echo "False";
+    echo "Any|Any|Any|Any";
 }
+
 ?>

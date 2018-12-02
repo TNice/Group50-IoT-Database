@@ -4,6 +4,7 @@ $id = $_REQUEST['id'];
 $query = "SELECT * FROM devicelogs WHERE logId = {$id}";
  
 $row = SqlQuery($query);
+$time = gmdate("Y-m-d", $row['logTime']);
 
 echo "
 <div class='modal-header'>
@@ -44,7 +45,7 @@ echo "
                 <div class='input-group-prepend'>
                     <span class='input-group-text'>Log Time</span>
                 </div>
-               <input type='date' class='form-control' value='{$row['logTime']}' id='logTimeModal' disabled>
+               <input type='date' class='form-control' value='{$time}' id='logTimeModal' disabled>
             </div>
             
         </div>
