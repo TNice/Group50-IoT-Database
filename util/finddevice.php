@@ -74,7 +74,7 @@ $html .= "</div>
                     <span class='input-group-text'>Start Day</span>
                 </div>
                 <div class='form-group input-group-text'>
-                    <select id='startDayModal'>
+                    <select id='sDayModal'>
                         <option>Any</option>
                         <option>Sunday</option>
                         <option>Monday</option>
@@ -91,7 +91,7 @@ $html .= "</div>
                     <span class='input-group-text'>End Day</span>
                 </div>
                 <div class='form-group input-group-text'>
-                    <select id='endDayModal'>
+                    <select id='eDayModal'>
                         <option>Any</option>
                         <option>Sunday</option>
                         <option>Monday</option>
@@ -108,7 +108,7 @@ $html .= "</div>
                     <span class='input-group-text'>Start Time</span>
                 </div>
                 <div class='form-group input-group-text'>
-                    <select id='startTimeModal'>
+                    <select id='eTimeModal'>
                         <option>Any</option>
                         <option>12 am</option>
                         <option>1 am</option>
@@ -142,7 +142,7 @@ $html .= "</div>
                     <span class='input-group-text'>End Time</span>
                 </div>
                 <div class='form-group input-group-text'>
-                    <select id='endTimeModal'>
+                    <select id='eTimeModal'>
                         <option>Any</option>
                         <option>12 am</option>
                         <option>1 am</option>
