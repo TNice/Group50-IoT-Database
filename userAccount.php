@@ -273,17 +273,6 @@
                                         </label>
                                     </div>
                                     <div class='form-check col-5'>
-                                        <label class='form-check-lable'>
-                                            <input type='radio' class='form-check-radio' name='package' value='3'> Wifi With Charging
-                                        </label>
-                                        <br><br>
-                                        <label class='form-check-lable'>
-                                            <input type='radio' class='form-check-radio' name='package' value='4'> Printer With WiFi
-                                        </label>
-                                        <br><br>
-                                        <label class='form-check-lable'>
-                                            <input type='radio' class='form-check-radio' name='package' value='5'> Charging With Printer
-                                        </label>
                                     </div>
                                 </div>
                                 <div class='col-1'></div>

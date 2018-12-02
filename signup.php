@@ -7,7 +7,7 @@ $server = 'localhost';
 $user = 'root';
 $pass = '12345';
 $db = 'project';
-
+$roleQuery = '';
 $emptyFieldError = '* Required';
 $error = FALSE;
 $loginError = $nameError = $userError = $emailError = $passError = $result = '';
@@ -200,14 +200,19 @@ function AddUserToDB($userId, $email, $firstName, $lastName, $phoneNumber, $birt
        // $_SESSION['result'] = "{$email}, {$firstName}, {$lastName}, {$birthDay}, {$phoneNumber}, {$password} ADDED";
         
         $roleQuey = "INSERT INTO user_role VALUES ('{$userId}', '0')";
-        SqlQuery($roleQuery);
-
-        unset($_SESSION['username']);
-        unset($_SESSION['email']);
-        header('Location: login.php');
+        if($connection->query($roleQuey) === TRUE)
+        {
+            unset($_SESSION['username']);
+            unset($_SESSION['email']);
+            header('Location: login.php');
+        }
+        else{
+            echo "FAILED";
+        }
+        
     }
     else{
-        $_SESSION['result'] = $connection->error . '\n' . $sqlQuery;
+       // $_SESSION['result'] = $connection->error . '\n' . $sqlQuery;
     }
 }
 
@@ -297,7 +302,7 @@ function AddUserToDB($userId, $email, $firstName, $lastName, $phoneNumber, $birt
                         </div class='col-1'>
                     </div>
                 </div>
-                <div class='col-1'><?php echo $_SESSION['result'];?></div>
+                <div class='col-1'></div>
             </div>
             </div>
         </div>
