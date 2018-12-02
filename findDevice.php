@@ -207,6 +207,7 @@
                             connectResult = false;
                         }
                         InsertLogInfo(id, connectResult);
+                        CloseModal();
                     }
                 };
                 xmlhttp.open("GET", "util/deviceconnect.php?id=" + id, true);
