@@ -144,7 +144,7 @@ function GenerateUserId(){
         return GenerateUserId();
     }
     else{
-        echo $temp;
+        //echo $temp;
         return $temp;
     }
 }
