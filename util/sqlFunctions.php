@@ -17,6 +17,13 @@ function GetUserName($id){
   
 }
 
+function GetPackageInfo($id){
+    $query = "SELECT packageInfo FROM packages WHERE id = {$id}";
+    $row = SqlQuery($query);
+    return $row['packageInfo'];
+
+}
+
 function CheckUserPassword($id, $password){
     $query = "SELECT * FROM users WHERE id = {$id};";
     $row = SqlQuery($query);
