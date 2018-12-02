@@ -232,7 +232,7 @@
                         }
                     }
                 };
-                xmlhttp.open("GET", "util/deviceconnect.php?id=" + id, true);
+                xmlhttp.open("GET", "util/generateLog.php?id=" + id, true);
                 xmlhttp.send();
             }    
             </script>
