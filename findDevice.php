@@ -199,6 +199,33 @@
                         console.dir("day: " + validDay);
                         if(validDay == true && validTime == true){
                             console.dir("CONNECTED");
+                            InsertLogInfo();
+                        }
+                        else{
+                            console.dir("ACCESS DENIED");
+                            InsertLogInfo();
+                        }
+                    }
+                };
+                xmlhttp.open("GET", "util/deviceconnect.php?id=" + id, true);
+                xmlhttp.send();
+            }
+                
+                
+            function InsertLogInfo(){
+                var xmlhttp = new XMLHttpRequest();
+                xmlhttp.onreadystatechange = function() {
+                    if (this.readyState == 4 && this.status == 200) {
+                        var response = this.responseText;
+                        console.dir(response);
+                        var results = response.split('|');
+                        console.dir(results);
+                        var validDay = CheckDay(results[2], results[3]);
+                        var validTime = CheckTime(results[0], results[1]);
+                        console.dir("time: " + validTime);
+                        console.dir("day: " + validDay);
+                        if(validDay == true && validTime == true){
+                            console.dir("CONNECTED");
                         }
                         else{
                             console.dir("ACCESS DENIED");
@@ -207,7 +234,7 @@
                 };
                 xmlhttp.open("GET", "util/deviceconnect.php?id=" + id, true);
                 xmlhttp.send();
-            }
+            }    
             </script>
             <div class="row" style='max-width:100%;'>
                 <div class='col-3' style='margin-left:2rem;'>
