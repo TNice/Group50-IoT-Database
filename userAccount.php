@@ -187,8 +187,8 @@
                                             <div class='input-group-prepend'>
                                                 <span class='input-group-text'>Name</span>
                                             </div>
-                                            <input type='text' class='form-control' value='<?php echo $fName; ?>' name='firstName' id='fname'> <span class='error'><?php?></span>
-                                            <input type='text' class='form-control' value='<?php echo $lName; ?>' name='lastName' id='lname'> <span class='error'><?php?></span>
+                                            <input type='text' class='form-control' value='<?php echo $fName; ?>' name='firstName' id='fname'> <span class='error'><?php ?></span>
+                                            <input type='text' class='form-control' value='<?php echo $lName; ?>' name='lastName' id='lname'> <span class='error'><?php ?></span>
                                         </div>
                                         <br>
                                         <div class='input-group mb-3'>
@@ -241,7 +241,7 @@
                                     <div class='row'>
                                         <div class='col-6'>
                                             ".
-                                            GetPackageInfo($GLOBALS['package']);
+                                            GetPackageInfo($GLOBALS['package'])
                                             ."
                                         </div>
                                         <div class='col-6' id='deviceList'>
