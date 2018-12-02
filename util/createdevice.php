@@ -3,6 +3,10 @@ include 'sqlFunctions.php';
 
 $location = $_REQUEST['loc'];
 $type = $_REQUEST['type'];
+$sDay;
+$eDay;
+$sTime;
+$eTime;
 
 function GenerateUserId(){
     srand(make_seed());
