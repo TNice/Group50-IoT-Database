@@ -20,36 +20,46 @@ if(isset($row['ruleId'])){
     $today = date("l"); // = current day of week
     $today = strtolower($today);
     $currentTime; // = current time
-    //echo $today;
 
-    $response = false;
+    $row = SqlQuery($query);
 
-    echo " {$query} ";
-    //echo "{$row['accessDate']} date ";
-    while($row = mysqli_fetch_assoc($result)){
+    $sTime = $row['startTime'];
+    $eTime = $row['endTime'];
+    $sDay = $row['startDay'];
+    $eDay = $row['endDay'];
 
-        if(strcmp($row['accessDate'], "any")){
-            $response = true;
-            break;
-        }
-        if(strcmp($row['accessDay'], $today)){
-            $response = true;
-            break;
-        }
-        echo "hello";
-        echo $row['accessDate'];
+    $result = "{$sTime}|{$eTime}|{$sDay}|{$eDay}";
+    echo $result;
+   
+    
+//    while($row = mysqli_fetch_assoc($result)){
+//
+//        if(strcmp($row['startDay'], "any") || strcmp($row['endDay']), "any"){
+//            $response = true;
+//            break;
+//        }
+//        
+          
+        
+        
+//        if(strcmp($row['accessDay'], $today)){
+//            $response = true;
+//            break;
+//        }
+        
+//        echo $row['accessDate'];
 
     }
 
-    if($response == true){
-        //check time
-        echo "TRUE";
-    }
-    else{
-        echo "False";
-    }
+//    if($response == true){
+//        //check time
+//        echo "TRUE";
+//    }
+//    else{
+//        echo "False";
+//    }
 }
 else{
-    echo "True";
+    echo "Any|Any|Any|Any";
 }
 ?>
