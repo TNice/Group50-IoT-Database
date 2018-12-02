@@ -33,24 +33,6 @@
         $sqlCommand .= $sqlQuery . ';';
         
     }
-
-    /*function findDeviceByType($type){
-        $query =  "SELLECT * FROM {$type}";
-        $row = SqlQuery($query);
-        echo $row['id'];
-    }
-    
-    function findDeviceByTLoc($Loc){
-        $query =  "SELLECT * FROM {$loc}";
-    }*/
-    //querry all devices from the devices table
-    //querry based on type and if its on 'select Type' querry for every thing
-    //query ased on package
-    /*if(isset($_GET['Submit'])){
-        $type = $_GET['divType'];
-        $loc = $_GET['divLoc'];
-        $package = $_GET['Package'];        
-        }*/
 ?>
 
 <html>
@@ -221,8 +203,6 @@
                     if (this.readyState == 4 && this.status == 200) {
                         var response = this.responseText;
                         console.dir(response);
-//                        var results = response.split('|');
-//                        console.dir(results);
                     }
                 };
                 xmlhttp.open("GET", "util/generateLog.php?deviceId=" + deviceId +"&connectResult=" + connectResult, true);
@@ -311,7 +291,6 @@
                         }
                         
                         $result = SqlQueryRaw($query);
-                        //echo "$query <br>";
                         $html = "<div style='overflow: hidden; overflow-y: scroll; height: 15em; max-height:90%'><div class='list-group'>";
                         while($row = mysqli_fetch_assoc($result)){
                             $html .= "<button class='btn list-group-item' onclick='OpenModal("."{$row['id']}".");'  style='display:block;width:95%;word-spacing: 50px;margin-bottom:.5em;'>";
