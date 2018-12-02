@@ -586,7 +586,7 @@
                                     console.dir(this.responseText);
                                 }
                             };
-                            xmlhttp.open("GET", "util/createdevice.php?loc=" + location + "&type=" + type + "&startDay=" +sDay + "&endDay=" +eDay + "&startTime=" +sTime + "&endTime=" +eTime);
+                            xmlhttp.open("GET", "util/createdevice.php?loc=" + location + "&type=" + type + "&startDay=" +sDay + "&endDay=" +eDay + "&startTime=" +sTime + "&endTime=" +eTime, true);
                             xmlhttp.send();
                         }
 
