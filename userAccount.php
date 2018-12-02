@@ -102,22 +102,30 @@
             $newQuery = "SELECT * FROM smartplug WHERE id = {$row['deviceId']}";
             $newRow = SqlQuery($newQuery);
             if(isset($newRow['deviceId'])){
-                $list .= "<li>Smart Plug</li>"
+                if(strpos($list, "<li>Smart Plug</li>")){
+                    $list .= "<li>Smart Plug</li>";
+                }
             }
             else{
                 $newQuery = "SELECT * FROM printer WHERE id = {$row['deviceId']}";
                 $newRow = SqlQuery($newQuery);
                 if(isset($newRow['deviceId'])){
-                    $list .= "<li>Printer</li>"
+                    if(strpos($list, "<li>Printer</li>")){
+                        $list .= "<li>Printer</li>";
+                    }  
                 }
                 else{
                     $newQuery = "SELECT * FROM wifi WHERE id = {$row['deviceId']}";
                     $newRow = SqlQuery($newQuery);
                     if(isset($newRow['deviceId'])){
-                        $list .= "<li>Wifi</li>"
+                        if(strpos($list, "<li>Wifi</li>")){
+                            $list .= "<li>Wifi</li>";
+                        }
                     }
                     else{
-                        $list .= "<li>Other</li>"
+                        if(strpos($list, "<li>Other</li>")){
+                            $list .= "<li>Other</li>";
+                        }
                     }
                 }
             }
