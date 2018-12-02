@@ -387,9 +387,16 @@
                                     <option value= 3>Gold</option>
                                 </select>
                             </div>
+
+                            <!-- <div class='form-group'>
+                                <input type="text" name="userId" id = "userId" placeholder="User Id">
+                            </div> -->
+
                             <div>
                                 <button type="submit" name="submit" value="submit">Submit</button> 
                             </div>
+
+
                         </form> 
                             <button id="addDeviceButton" onclick="OpenAddDeviceModal()">Add Device</button>
                     </div>
@@ -419,45 +426,28 @@
                             $query =  "select * FROM devices;";
                             $result = SqlQueryRaw($query);
                         }
-                        
                         else{
                             $query = "";
                             $query = "select * from devices ";
                             if(strcmp($type, "SelectType") != 0 && empty($type) != true){
-                                $query .= "where id = (select id from {$type}) ";
+                                $query .= "inner join {$type} on devices.id = {$type}.id
+                                ";
                             }
                             
                             if(strcmp($package, "0") != 0 && empty($package) != true){
-                                if(strcmp($type, "SelectType") == 0 || empty($type) == true){ 
+                                $query .= "inner join package_device on devices.id = package_device.deviceID 
+                                where package_device.packageId = {$package} ";
+                            }
+                            
+                            if(strcmp($divLoc, "Location") != 0 && empty($divLoc) != true){ // if divLoc is not 'locatioin' and not empty
+                                if(strcmp($package,"0") != 0 && empty($package != true)){
+                                    $query .= "and ";
+                                }
+                                else {
                                     $query .= "where ";
                                 }
-                                
-                                else {
-                                    $query .= "and "; 
-                                }
-                                $query .= "id = (select deviceId from package_device where packageId = {$package}) ";
-                            }
-                            
-                            if(strcmp($divLoc, "Location") != 0 && empty($divLoc) != true){ // if divLoc is not 'locatioin' and empty
-                                if(preg_match('/^[0-9]{5}([- ]?[0-9]{4})?$/', $divLoc)){// if it is a valid zipcode
-                                    
-                                    //check if the type and package is set or not
-                                    if((strcmp($type, "SelectType") == 0 || empty($type) == true)&&(strcmp($package, "0") == 0 || empty($package) == true)){ //if is empty or set to 'SelectType' 
-                                       $query .= "where ";
-                                    }
-                                    
-                                    else {
-                                        $query .= "and ";
-                                    }
-                                    
-                                    $query .= "location = {$divLoc} ";
-                                }
-                            }
-                            
-                            $query .= ";";
-                            
-
-                            
+                                $query .= "location = {$divLoc} ";
+                            }                          
                         }
                         
                         $result = SqlQueryRaw($query);
@@ -540,6 +530,7 @@
                             };
                             
                             xmlhttp.open("GET", "util/find" + modalType[type] + ".php?id=" + id + "&isAdmin=true", true);
+                            
                             xmlhttp.send();  
                         }
 
@@ -553,12 +544,13 @@
                                 }
                             };
 
+
                             xmlhttp.open("GET", "util/adddevice.php", true);
                             xmlhttp.send();  
 
                             
                         }
-
+                        
                         var modalType = ["user", "device", "log"];
 
                         function CloseModal(type){
@@ -611,14 +603,6 @@
                             document.getElementById('saveButton').style.display = 'inline';
                             document.getElementById('cancelButton').style.display = 'inline';
                         }
-
-                        function FindIndexInElement(element, val){
-                            for(var i = 0; i < element.options.length; i++){
-                                if(element.options[i].value == val){
-                                    return i;
-                                }
-                            }
-                        }
                         
                         function UpdateDeviceTimes(id){
                             var xmlhttp = new XMLHttpRequest();
@@ -662,14 +646,12 @@
                             console.dir(startTime);
 
                             var xmlhttp = new XMLHttpRequest();
-
                             xmlhttp.onreadystatechange = function() {
                                 if (this.readyState == 4 && this.status == 200) {
                                     console.dir(this.responseText);
                                 }
                             };
-                            url = "util/editdevice.php?id=" + id + "&loc=" + location.value + "&sDay=" + startDay + "&eDay=" + endDay +
-                            "&sTime=" + startTime + "&eTime=" + endTime;
+                            url = "util/editdevice.php?id=" + id + "&loc=" + location.value;
                             if(power != null){
                                 url += "&type=plug&power=" + power.value;
                             }
@@ -698,7 +680,6 @@
                         }
 
                         function DeleteDeviceModal(event, id){
-                            console.dir(id);
                             var location = document.getElementById('locationModal');
                             var power = document.getElementById('powerModal');
                             var page = document.getElementById('pageModal');

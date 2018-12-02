@@ -289,43 +289,28 @@
                             $query = "";
                             $query = "select * from devices ";
                             if(strcmp($type, "SelectType") != 0 && empty($type) != true){
-                                $query .= "where id = (select id from {$type}) ";
+                                $query .= "inner join {$type} on devices.id = {$type}.id
+                                ";
                             }
                             
                             if(strcmp($package, "0") != 0 && empty($package) != true){
-                                if(strcmp($type, "SelectType") == 0 || empty($type) == true){ 
+                                $query .= "inner join package_device on devices.id = package_device.deviceID 
+                                where package_device.packageId = {$package} ";
+                            }
+                            
+                            if(strcmp($divLoc, "Location") != 0 && empty($divLoc) != true){ // if divLoc is not 'locatioin' and not empty
+                                if(strcmp($package,"0") != 0 && empty($package != true)){
+                                    $query .= "and ";
+                                }
+                                else {
                                     $query .= "where ";
                                 }
-                                
-                                else {
-                                    $query .= "and "; 
-                                }
-                                $query .= "id = (select deviceId from package_device where packageId = {$package}) ";
-                            }
-                            
-                            if(strcmp($divLoc, "Location") != 0 && empty($divLoc) != true){ // if divLoc is not 'locatioin' and empty
-                                if(preg_match('/^[0-9]{5}([- ]?[0-9]{4})?$/', $divLoc)){// if it is a valid zipcode
-                                    
-                                    //check if the type and package is set or not
-                                    if((strcmp($type, "SelectType") == 0 || empty($type) == true)&&(strcmp($package, "0") == 0 || empty($package) == true)){ //if is empty or set to 'SelectType' 
-                                       $query .= "where ";
-                                    }
-                                    
-                                    else {
-                                        $query .= "and ";
-                                    }
-                                    
-                                    $query .= "location = {$divLoc} ";
-                                }
-                            }
-                            
-                            $query .= ";";
-                            
-
-                            
+                                $query .= "location = {$divLoc} ";
+                            }                          
                         }
                         
                         $result = SqlQueryRaw($query);
+                        //echo "$query <br>";
                         $html = "<div style='overflow: hidden; overflow-y: scroll; height: 15em; max-height:90%'><div class='list-group'>";
                         while($row = mysqli_fetch_assoc($result)){
                             $html .= "<button class='btn list-group-item' onclick='OpenModal("."{$row['id']}".");'  style='display:block;width:95%;word-spacing: 50px;margin-bottom:.5em;'>";
