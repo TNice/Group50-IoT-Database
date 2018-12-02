@@ -571,7 +571,8 @@
                                     console.dir(this.responseText);
                                 }
                             };
-                            xmlhttp.send("GET", "util/createdevice.php?loc=" + $location + "&type=" + type);
+                            xmlhttp.open("GET", "util/createdevice.php?loc=" + location + "&type=" + type);
+                            xmlhttp.send();
                         }
 
                         function EditDeviceModal(event){

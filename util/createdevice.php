@@ -1,5 +1,5 @@
 <?php
-include 'sqlFunctions.php'
+include 'sqlFunctions.php';
 
 $location = $_REQUEST['loc'];
 $type = $_REQUEST['type'];
@@ -36,30 +36,28 @@ function make_seed()
 }
 
 function CheckForDuplicateUserId($userId){
-    $connection = new mysqli($GLOBALS['server'], $GLOBALS['user'], $GLOBALS['pass'], $GLOBALS['db']);
+   // $connection = new mysqli($GLOBALS['server'], $GLOBALS['user'], $GLOBALS['pass'], $GLOBALS['db']);
     $sqlQuery = 'SELECT id FROM devices';
-    $result = $connection->query($sqlQuery);
-    if($result->num_rows > 0){
-        while($row = $result->fetch_assoc()){
+    //$result = $connection->query($sqlQuery);
+    $result = SqlQueryRaw($sqlQuery);
+        while($row = mysqli_fetch_assoc($result)){
             if($row['id'] == $userId){
                 return TRUE;
             }
         } 
-    }  
     return FALSE;
 }
 
 function CheckForDuplicateRuleId($userId){
-    $connection = new mysqli($GLOBALS['server'], $GLOBALS['user'], $GLOBALS['pass'], $GLOBALS['db']);
-    $sqlQuery = 'SELECT id FROM access_rule';
-    $result = $connection->query($sqlQuery);
-    if($result->num_rows > 0){
-        while($row = $result->fetch_assoc()){
-            if($row['id'] == $userId){
+   // $connection = new mysqli($GLOBALS['server'], $GLOBALS['user'], $GLOBALS['pass'], $GLOBALS['db']);
+    $sqlQuery = 'SELECT ruleId FROM access_rule';
+    $result = SqlQueryRaw($sqlQuery);
+        while($row = mysqli_fetch_assoc($result)){
+            if($row['ruleId'] == $userId){
                 return TRUE;
             }
         } 
-    }  
+    
     return FALSE;
 }
 
@@ -67,17 +65,17 @@ $id = GenerateUserId();
 
 $query = "INSERT INTO devices VALUES ({$id}, $location)";
 SqlQueryRaw($query);
-
+echo $type;
 switch($type){
-    case "plug":
-        $query = "INSERT INTO smartplugs(id) VALUES ({$id})";
+    case "Smart Plug":
+        $query = "INSERT INTO smartplug(id) VALUES ({$id})";
         SqlQueryRaw($query);
         break;
-    case "print":
+    case "Printer":
         $query = "INSERT INTO printer(id) VALUES ({$id})";
         SqlQueryRaw($query);
         break;
-    case "wifi":
+    case "WiFi":
         $query = "INSERT INTO wifi(id) VALUES ({$id})";
         SqlQueryRaw($query);
         break;
@@ -85,11 +83,12 @@ switch($type){
         break;
 }
 
-$query = "INSERT INTO package_device VALUES ({$id}, 2)";
+$query = "INSERT INTO package_device VALUES ({$id}, 2);";
+echo $query;
 SqlQueryRaw($query);
 
 $ruleId = GenerateRuleId();
 
-$query = "INSERT INTO access_rule VALUES ({$id}, 0, {$ruleId})"
+$query = "INSERT INTO access_rule VALUES ({$id}, 0, {$ruleId}, 'any', 'any')";
 SqlQueryRaw($query);
 ?>

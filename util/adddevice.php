@@ -12,7 +12,7 @@ echo "<div class='modal-header'>
             <div class='input-group-prepend'>
                 <span class='input-group-text'>Location</span>
             </div>
-        <input type='text' class='form-control' value='userName' id='locationModal' disabled>
+        <input type='text' class='form-control' placeholder='zipCode' id='locationModal'>
         </div>
         <div class='input-group mb-3'>
             <div class='input-group-prepend'>
@@ -34,7 +34,7 @@ echo "<div class='modal-header'>
 <div class='modal-footer'>
 <form style='width:100%'>
     <button class='btn btn-secondary' id='cancelButton' onclick='EditModal(event);return false;' style='text-align:left;'>Cancel</button>
-    <button class='btn btn-secondary' onclick='' name='saveDevice' style='float:right'>Save</button>
+    <button class='btn btn-secondary' onclick='CreateDeviceModal(); return false;' name='saveDevice' style='float:right'>Save</button>
 </form>
 </div>";
 ?>
