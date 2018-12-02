@@ -199,11 +199,11 @@
                         console.dir("day: " + validDay);
                         var connectResult;
                         if(validDay == true && validTime == true){
-                            console.dir("CONNECTED");
+                            alert("CONNECTED");
                             connectResult = true;
                         }
                         else{
-                            console.dir("ACCESS DENIED");
+                            alert("ACCESS DENIED");
                             connectResult = false;
                         }
                         InsertLogInfo(id, connectResult);
