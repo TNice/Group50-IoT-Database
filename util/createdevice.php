@@ -69,7 +69,7 @@ $id = GenerateUserId();
 
 $query = "INSERT INTO devices VALUES ({$id}, $location)";
 SqlQueryRaw($query);
-echo $type;
+echo $type  . ' ';
 switch($type){
     case "Smart Plug":
         $query = "INSERT INTO smartplug(id) VALUES ({$id})";
@@ -88,15 +88,16 @@ switch($type){
 }
 
 $query = "INSERT INTO package_device VALUES ({$id}, 2);";
-echo $query;
+echo $query . ' ';
 SqlQueryRaw($query);
 
 $ruleId = GenerateRuleId();
 
 $query = "INSERT INTO access_rule VALUES ({$id}, 0, {$ruleId}, 'any', 'any')";
 SqlQueryRaw($query);
-
-$query = "INSERT INTO accesstime_rule VALUES ({$id}, '{$sDay}', '{$eDay}', '{$sTime}', '{$eTime}')";
+echo $query . ' ';
+$query = "INSERT INTO accesstime_rule VALUES ({$ruleId}, '{$sDay}', '{$eDay}', '{$sTime}', '{$eTime}');";
+echo $query . '';
 SqlQueryRaw($query);
 
 ?>
