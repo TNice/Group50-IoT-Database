@@ -197,14 +197,16 @@
                         var validTime = CheckTime(results[0], results[1]);
                         console.dir("time: " + validTime);
                         console.dir("day: " + validDay);
+                        var connectResult;
                         if(validDay == true && validTime == true){
                             console.dir("CONNECTED");
-                            InsertLogInfo();
+                            connectResult = true;
                         }
                         else{
                             console.dir("ACCESS DENIED");
-                            InsertLogInfo();
+                            connectResult = false;
                         }
+                        InsertLogInfo(id, connectResult);
                     }
                 };
                 xmlhttp.open("GET", "util/deviceconnect.php?id=" + id, true);
@@ -212,28 +214,17 @@
             }
                 
                 
-            function InsertLogInfo(){
+            function InsertLogInfo(deviceId, connectResult){
                 var xmlhttp = new XMLHttpRequest();
                 xmlhttp.onreadystatechange = function() {
                     if (this.readyState == 4 && this.status == 200) {
                         var response = this.responseText;
                         console.dir(response);
-                        var results = response.split('|');
-                        console.dir(results);
-                        var validDay = CheckDay(results[2], results[3]);
-                        var validTime = CheckTime(results[0], results[1]);
-                        console.dir("time: " + validTime);
-                        console.dir("day: " + validDay);
-                        if(validDay == true && validTime == true){
-                            alert("CONNECTED");
-                        }
-                        else{
-                            alert("ACCESS DENIED");
-                        }
-                        CloseModal();
+//                        var results = response.split('|');
+//                        console.dir(results);
                     }
                 };
-                xmlhttp.open("GET", "util/generateLog.php?id=" + id, true);
+                xmlhttp.open("GET", "util/generateLog.php?deviceId=" + deviceId +"&connectResult=" + connectResult, true);
                 xmlhttp.send();
             }    
             </script>

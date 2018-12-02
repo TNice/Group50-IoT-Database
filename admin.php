@@ -327,20 +327,23 @@
                                    
                                    while($row = mysqli_fetch_assoc($result)){
                                        $html .= "<button class='btn list-group-item' onclick='OpenModal(2, "."{$row['logId']}".");'  style='display:block;width:95%; margin-bottom:0.5em'>" . 
-                                       "{$row['logId']} {$row['deviceId']} ({$row['userId']})". 
+                                       " User ID:{$row['userId']} Device ID: {$row['deviceId']} Time {}". 
                                         "</button>";  
                                        //echo $row['id'];
                                    }
                                                              
                                }else{
                                    //send query
-                                   echo "No Logs Found";
+//                                   echo "No Logs Found";
                                     $result = SqlQueryRaw($query);
                                     //echo $result;
                                     while($row = mysqli_fetch_assoc($result)){
-                                        $html .= "<button class='btn list-group-item' onclick='OpenModal(2, "."{$row['logId']}".");'  style='display:block;width:95% margin-bottom:0.5em'>" . 
-                                        "{$row['logId']} {$row['deviceId']} ({$row['userId']})". 
-                                        "</button>";    
+                                        $time = $row['logTime'];
+                                        $time = gmdate("m-d-Y H:i");
+                                        
+                                        $html .= "<button class='btn list-group-item' onclick='OpenModal(2, "."{$row['logId']}".");'  style='display:block;width:95% margin-bottom:0.5em'><label style='float:left;margin-right:0.2rem'>" . 
+                                        " User ID: {$row['userId']}</label><label>Device ID: {$row['deviceId']}</label><label style='float:right'>{$time}". 
+                                        "</label></button>";    
                                     }
                                     
                                }
