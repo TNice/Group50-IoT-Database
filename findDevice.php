@@ -178,7 +178,9 @@
                     }
                     var date = new Date();
                     var day = date.getDay();
-
+                    
+                    console.dir(validIndexs);
+                    
                     return IsValueInArray(validIndexs, day);
                 }
             }
@@ -188,8 +190,14 @@
                 xmlhttp.onreadystatechange = function() {
                     if (this.readyState == 4 && this.status == 200) {
                         var response = this.responseText;
+                        console.dir(response);
                         var results = response.split('|');
-                        if(CheckDay(results[2], results[3]) == true && CheckTime(results[0], results[1]) == true){
+                        console.dir(results);
+                        var validDay = CheckDay(results[2], results[3]);
+                        var validTime = CheckTime(results[0], results[1]);
+                        console.dir("time: " + validTime);
+                        console.dir("day: " + validDay);
+                        if(validDay == true && validTime == true){
                             console.dir("CONNECTED");
                         }
                         else{
