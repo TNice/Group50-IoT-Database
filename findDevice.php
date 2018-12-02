@@ -102,13 +102,99 @@
                 document.getElementById("modalInfo").innerHTML = '';
             }
 
+            function FindIndex(array, val){
+                for(var i = 0; i < array.length; i++){
+                    if(array[i] == val){
+                        return i;
+                    }
+                }
+            }
+
+            function IsValueInArray(array, val){
+                for(var i = 0; i < array.length; i++){
+                    if(array[i] == val){
+                        return true;
+                    }
+                }
+
+                return false;
+            }
+
+            function CheckTime(start, end){
+                var times = ["12 am", "1 am", "2 am", "3 am", "4 am", "5 am", "6 am", "7 am", "8 am", "9 am", "10 am", "11 am",
+                             "12 pm", "1 pm", "2 pm", "3 pm", "4 pm", "5 pm", "6 pm", "7 pm", "8 pm", "9 pm", "10 pm", "11 pm"];
+            
+                if(start == "Any" || end == "Any"){
+                    return true;
+                }
+                else{
+                    var sIndex = FindIndex(times, start);
+                    var eIndex = FindIndex(times, end);
+                    var validIndexs = [];
+                    
+                    var done = false;
+                    for(var i = sIndex; i < times.length; i++){
+                        validIndexs.push(i);
+                        if(i == eIndex){
+                            done = true;
+                            break;
+                        }
+                    }
+                    if(done == false){
+                        for(var i = 0; i <= eIndex; i++){
+                            validIndexs.push(i);
+                        }
+                    }
+                    var date = new Date();
+                    var time = date.getHours();
+
+                    return IsValueInArray(validIndexs, time);
+                }
+            }
+            
+            function CheckDay(start, end){
+                var days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+
+                if(start == "Any" || end == "Any"){
+                    return true;
+                }
+                else{
+                    var sIndex = FindIndex(days, start);
+                    var eIndex = FindIndex(days, end);
+                    var validIndexs = [];
+                    
+                    var done = false;
+                    for(var i = sIndex; i < days.length; i++){
+                        validIndexs.push(i);
+                        if(i == eIndex){
+                            done = true;
+                            break;
+                        }
+                    }
+                    if(done == false){
+                        for(var i = 0; i <= eIndex; i++){
+                            validIndexs.push(i);
+                        }
+                    }
+                    var date = new Date();
+                    var day = date.getDay();
+
+                    return IsValueInArray(validIndexs, day);
+                }
+            }
+
             function TryConnectToDevice(id){
-                console.dir(id);
-              var xmlhttp = new XMLHttpRequest();
+                var xmlhttp = new XMLHttpRequest();
                 xmlhttp.onreadystatechange = function() {
                     if (this.readyState == 4 && this.status == 200) {
                         var response = this.responseText;
-                        console.dir(response);
+                        var results = response.split('|');
+                        if(CheckDay(results[2], results[3]) == true && CheckTime(results[0], results[1]) == true){
+                            console.dir("CONNECTED");
+                        }
+                        else{
+                            console.dir("ACCESS DENIED");
+                        }
                     }
                 };
                 xmlhttp.open("GET", "util/deviceconnect.php?id=" + id, true);
