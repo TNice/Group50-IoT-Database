@@ -102,7 +102,7 @@
             $newQuery = "SELECT * FROM smartplug WHERE id = {$row['deviceId']}";
             $newRow = SqlQuery($newQuery);
             if(isset($newRow['deviceId'])){
-                if(strpos($list, "<li>Smart Plug</li>")){
+                if(strpos($list, "<li>Smart Plug</li>") == FALSE){
                     $list .= "<li>Smart Plug</li>";
                 }
             }
@@ -110,7 +110,7 @@
                 $newQuery = "SELECT * FROM printer WHERE id = {$row['deviceId']}";
                 $newRow = SqlQuery($newQuery);
                 if(isset($newRow['deviceId'])){
-                    if(strpos($list, "<li>Printer</li>")){
+                    if(strpos($list, "<li>Printer</li>") == FALSE){
                         $list .= "<li>Printer</li>";
                     }  
                 }
@@ -118,12 +118,12 @@
                     $newQuery = "SELECT * FROM wifi WHERE id = {$row['deviceId']}";
                     $newRow = SqlQuery($newQuery);
                     if(isset($newRow['deviceId'])){
-                        if(strpos($list, "<li>Wifi</li>")){
+                        if(strpos($list, "<li>Wifi</li>") == FALSE){
                             $list .= "<li>Wifi</li>";
                         }
                     }
                     else{
-                        if(strpos($list, "<li>Other</li>")){
+                        if(strpos($list, "<li>Other</li>") == FALSE){
                             $list .= "<li>Other</li>";
                         }
                     }
