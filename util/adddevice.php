@@ -34,7 +34,7 @@ echo "<div class='modal-header'>
                     <span class='input-group-text'>Start Day</span>
                 </div>
                 <div class='form-group input-group-text'>
-                    <select id='typeModal'>
+                    <select id='sDayModal'>
                         <option>Any</option>
                         <option>Sunday</option>
                         <option>Monday</option>
@@ -51,7 +51,7 @@ echo "<div class='modal-header'>
                     <span class='input-group-text'>End Day</span>
                 </div>
                 <div class='form-group input-group-text'>
-                    <select id='typeModal'>
+                    <select id='eDayModal'>
                         <option>Any</option>
                         <option>Sunday</option>
                         <option>Monday</option>
@@ -68,7 +68,7 @@ echo "<div class='modal-header'>
                     <span class='input-group-text'>Start Time</span>
                 </div>
                 <div class='form-group input-group-text'>
-                    <select id='typeModal'>
+                    <select id='sTimeModal'>
                         <option>Any</option>
                         <option>12 am</option>
                         <option>1 am</option>
@@ -102,7 +102,7 @@ echo "<div class='modal-header'>
                     <span class='input-group-text'>End Time</span>
                 </div>
                 <div class='form-group input-group-text'>
-                    <select id='typeModal'>
+                    <select id='eTimeModal'>
                         <option>Any</option>
                         <option>12 am</option>
                         <option>1 am</option>

@@ -538,6 +538,11 @@
                             
                             xmlhttp.open("GET", "util/find" + modalType[type] + ".php?id=" + id + "&isAdmin=true", true);
                             xmlhttp.send();  
+                            
+                            console.dir(type);
+                            if(type == 1){
+                                UpdateDeviceTimes(id);
+                            }
                         }
 
                         function OpenAddDeviceModal(){
@@ -552,6 +557,8 @@
 
                             xmlhttp.open("GET", "util/adddevice.php", true);
                             xmlhttp.send();  
+
+                            
                         }
 
                         var modalType = ["user", "device", "log"];
@@ -562,10 +569,22 @@
                         }
 
                         function CreateDeviceModal(){
-                            var type, location;
+                            var type, location, sDay, eDay, sTime, eTime;
                             location = document.getElementById("locationModal").value;
                             type = document.getElementById("typeModal");
                             type = type.options[type.selectedIndex].value;
+                            
+                            sDay = document.getElementById("sDayModal");
+                            sDay = sDay.options[sDay.selectedIndex].value;
+                            
+                            eDay = document.getElementById("eDayModal");
+                            eDay = eDay.options[eDay.selectedIndex].value;
+                            
+                            sTime = document.getElementById("sTimeModal");
+                            sTime = sTime.options[sTime.selectedIndex].value;
+                            
+                            eTime = document.getElementById("eTimeModal");
+                            eTime = eTime.options[eTime.selectedIndex].value; 
 
                             var xmlhttp = new XMLHttpRequest();
                             xmlhttp.onreadystatechange = function() {
@@ -573,7 +592,7 @@
                                     console.dir(this.responseText);
                                 }
                             };
-                            xmlhttp.open("GET", "util/createdevice.php?loc=" + location + "&type=" + type);
+                            xmlhttp.open("GET", "util/createdevice.php?loc=" + location + "&type=" + type + "&startDay=" +sDay + "&endDay=" +eDay + "&startTime=" +sTime + "&endTime=" +eTime, true);
                             xmlhttp.send();
                         }
 
@@ -602,22 +621,26 @@
                         }
                         
                         function UpdateDeviceTimes(id){
-                            var startTime = document.getElementById("startTimeModal");
-                            var endTime = document.getElementById("endTimeModal");
-                            var startDay = document.getElementById("startDayModal");
-                            var endDay = document.getElementById("endDayModal");
-
+                            console.dir("he");
+                            var startTime = document.getElementById("sModal");
+                            var endTime = document.getElementById("eTimeModal");
+                            var startDay = document.getElementById("sDayModal");
+                            var endDay = document.getElementById("eDayModal");
+                            console.dir(startTime);
                             var xmlhttp = new XMLHttpRequest();
                             xmlhttp.onreadystatechange = function() {
                                 if (this.readyState == 4 && this.status == 200) {
-                                    var results = JSON.parse(this.responseText);
+                                    console.dir(this.responseText);
+                                    var result = this.responseText;
+                                    console.dir(result);
+                                    var results = result.split('|');
                                     startTime.selectedIndex = FindIndexInElement(startTime, results[0]);
                                     endTime.selectedIndex = FindIndexInElement(endTime, results[1]);
                                     startDay.selectedIndex = FindIndexInElement(startDay, result[2]);
                                     endDay.selectedIndex = FindIndexInElement(endDay, result[3]);
                                 }
                             };
-                            
+                        
                             xmlhttp.open("GET", "util/findtimes.php?id=" + id, true);
                             xmlhttp.send();
                         }
@@ -630,15 +653,17 @@
                             var ip =document.getElementById('ipModal');
 
                             var startDay, endDay, startTime, endTime;
-                            startDay = document.getElementById("startDayModal");
+                            startDay = document.getElementById("sDayModal");
                             startDay = startDay.options[startDay.selectedIndex].value;
-                            endDay = document.getElementById("endDayModal");
+                            endDay = document.getElementById("eDayModal");
                             endDay = endDay.options[endDay.selectedIndex].value;
 
-                            startTime = document.getElementById("startTimeModal");
+                            startTime = document.getElementById("sTimeModal");
                             startTime = startTime.options[startTime.selectedIndex].value;
-                            endTime = document.getElementById("endTimeModal");
+                            endTime = document.getElementById("eTimeModal");
                             endTime = endTime.options[endTime.selectedIndex].value;
+                            
+                            console.dir(startTime);
 
                             var xmlhttp = new XMLHttpRequest();
 

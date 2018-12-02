@@ -65,6 +65,8 @@ else if(isset($wifiRow)){
     </div>";
 }
 if(isset($_REQUEST['isAdmin'])){ 
+
+
 $html .= "</div>
         <div class='col-5'>
             <div class='input-group mb-3'>
@@ -72,7 +74,7 @@ $html .= "</div>
                     <span class='input-group-text'>Start Day</span>
                 </div>
                 <div class='form-group input-group-text'>
-                    <select id='startDayModal'>
+                    <select id='sDayModal'>
                         <option>Any</option>
                         <option>Sunday</option>
                         <option>Monday</option>
@@ -89,7 +91,7 @@ $html .= "</div>
                     <span class='input-group-text'>End Day</span>
                 </div>
                 <div class='form-group input-group-text'>
-                    <select id='endDayModal'>
+                    <select id='eDayModal'>
                         <option>Any</option>
                         <option>Sunday</option>
                         <option>Monday</option>
@@ -106,7 +108,7 @@ $html .= "</div>
                     <span class='input-group-text'>Start Time</span>
                 </div>
                 <div class='form-group input-group-text'>
-                    <select id='startTimeModal'>
+                    <select id='eTimeModal'>
                         <option>Any</option>
                         <option>12 am</option>
                         <option>1 am</option>
@@ -140,7 +142,7 @@ $html .= "</div>
                     <span class='input-group-text'>End Time</span>
                 </div>
                 <div class='form-group input-group-text'>
-                    <select id='endTimeModal'>
+                    <select id='eTimeModal'>
                         <option>Any</option>
                         <option>12 am</option>
                         <option>1 am</option>
@@ -178,8 +180,19 @@ $html .= "</div>
 }
 else{
     $html .= "</div>
-    <div class='col-5'>
-    </div>
+        <div class='col-5'>";
+
+
+        $radiobt = "select functionality from device_function where deviceID = {$row['id']}";
+        //echo $radiobt; 
+        $result = SqlQueryRaw($radiobt);
+        $html .= "<form action=''>";
+        while ($row = mysqli_fetch_assoc($result)){
+            $html .= "<input type='radio' name=functionality' value='{$row['functionality']}'> {$row['functionality']}<br>";
+        }
+        $html .="</form>";
+        
+    $html .= "
     <div class='modal-footer'>
     <form style='width:100%'>";
 }

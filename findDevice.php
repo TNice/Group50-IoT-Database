@@ -212,13 +212,18 @@
                             
                         }
                         
-                            $result = SqlQueryRaw($query);
-                            $html = "<div style='overflow: hidden; overflow-y: scroll; height: 15em; max-height:90%'><div class='list-group'>";
-                            while($row = mysqli_fetch_assoc($result)){
+                        $result = SqlQueryRaw($query);
+                        $html = "<div style='overflow: hidden; overflow-y: scroll; height: 15em; max-height:90%'><div class='list-group'>";
+                        while($row = mysqli_fetch_assoc($result)){
                             $html .= "<button class='btn list-group-item' onclick='OpenModal("."{$row['id']}".");'  style='display:block;width:95%;word-spacing: 50px;margin-bottom:.5em;'>";
-                            $html.= "id:{$row['id']}            location:{$row['location']}";
+                            $html.= "id:{$row['id']} location:{$row['location']}";
                             $html .= "</button>";
                         }
+
+
+                                
+
+                        
                         $html .= "</div></div>";  
                         echo $html;
                         

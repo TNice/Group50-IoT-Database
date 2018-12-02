@@ -3,10 +3,10 @@ include 'sqlFunctions.php';
 
 $location = $_REQUEST['loc'];
 $type = $_REQUEST['type'];
-$sDay;
-$eDay;
-$sTime;
-$eTime;
+$sDay = $_REQUEST['startDay'];
+$eDay = $_REQUEST['endDay'];
+$sTime = $_REQUEST['startTime'];
+$eTime = $_REQUEST['endTime'];
 
 function GenerateUserId(){
     srand(make_seed());
@@ -48,7 +48,7 @@ function CheckForDuplicateUserId($userId){
             if($row['id'] == $userId){
                 return TRUE;
             }
-        } 
+        }
     return FALSE;
 }
 
@@ -60,8 +60,8 @@ function CheckForDuplicateRuleId($userId){
             if($row['ruleId'] == $userId){
                 return TRUE;
             }
-        } 
-    
+        }
+
     return FALSE;
 }
 
@@ -69,7 +69,7 @@ $id = GenerateUserId();
 
 $query = "INSERT INTO devices VALUES ({$id}, $location)";
 SqlQueryRaw($query);
-echo $type;
+echo $type  . ' ';
 switch($type){
     case "Smart Plug":
         $query = "INSERT INTO smartplug(id) VALUES ({$id})";
@@ -88,11 +88,16 @@ switch($type){
 }
 
 $query = "INSERT INTO package_device VALUES ({$id}, 2);";
-echo $query;
+echo $query . ' ';
 SqlQueryRaw($query);
 
 $ruleId = GenerateRuleId();
 
 $query = "INSERT INTO access_rule VALUES ({$id}, 0, {$ruleId}, 'any', 'any')";
 SqlQueryRaw($query);
+echo $query . ' ';
+$query = "INSERT INTO accesstime_rule VALUES ({$ruleId}, '{$sDay}', '{$eDay}', '{$sTime}', '{$eTime}');";
+echo $query . '';
+SqlQueryRaw($query);
+
 ?>
