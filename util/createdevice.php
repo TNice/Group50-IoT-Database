@@ -96,7 +96,9 @@ $ruleId = GenerateRuleId();
 $query = "INSERT INTO access_rule VALUES ({$id}, 0, {$ruleId}, 'any', 'any')";
 SqlQueryRaw($query);
 
+
 $query = "INSERT INTO accesstime_rule VALUES ({$id}, '{$sDay}', '{$eDay}', '{$sTime}', '{$eTime}')";
+
 SqlQueryRaw($query);
 
 ?>
