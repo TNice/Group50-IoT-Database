@@ -530,6 +530,9 @@
                             xmlhttp.onreadystatechange = function() {
                                 if (this.readyState == 4 && this.status == 200) {
                                     document.getElementById("modalInfo").innerHTML = this.responseText;
+                                    if(type == 1){
+                                        UpdateDeviceTimes(id);
+                                    }
                                 }
                             };
                             
@@ -549,10 +552,6 @@
 
                             xmlhttp.open("GET", "util/adddevice.php", true);
                             xmlhttp.send();  
-
-                            if(type == "device"){
-                                UpdateDeviceTimes();
-                            }
                         }
 
                         var modalType = ["user", "device", "log"];
