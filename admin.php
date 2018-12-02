@@ -646,14 +646,14 @@
                             var ip =document.getElementById('ipModal');
 
                             var startDay, endDay, startTime, endTime;
-                            startDay = document.getElementById("sDayModal");
+                            startDay = document.getElementById("startDayModal");
                             startDay = startDay.options[startDay.selectedIndex].value;
-                            endDay = document.getElementById("eDayModal");
+                            endDay = document.getElementById("endDayModal");
                             endDay = endDay.options[endDay.selectedIndex].value;
 
-                            startTime = document.getElementById("sTimeModal");
+                            startTime = document.getElementById("startTimeModal");
                             startTime = startTime.options[startTime.selectedIndex].value;
-                            endTime = document.getElementById("eTimeModal");
+                            endTime = document.getElementById("endTimeModal");
                             endTime = endTime.options[endTime.selectedIndex].value;
                             
                             console.dir(startTime);

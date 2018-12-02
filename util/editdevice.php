@@ -62,10 +62,10 @@ switch ($type){
 $query = "SELECT * FROM access_rule WHERE deviceId = {$id}";
 $row = SqlQuery($query);
 
-if(issset($row['ruleId'])){
-    $query = "UPDATE accesstime_rule SET startTime = {$sTime}, endTime = {$eTime}, startDay = {$sDay}, endDay = {$eDay} 
-            WHERE ruleId = {$row['ruleId']}";
-    SqlQuery($query);
+if(isset($row['ruleId'])){
+    $query = "UPDATE accesstime_rule SET startTime = '{$sTime}', endTime = '{$eTime}', startDay = '{$sDay}', endDay = '{$eDay}' WHERE ruleId = {$row['ruleId']};";
+    echo $query;
+    SqlQueryRaw($query);
 }
 
 ?>
