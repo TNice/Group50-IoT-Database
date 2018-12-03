@@ -7,6 +7,7 @@
     $fName = $lName = $username = $password = $email = $phone = $bday = $package = '';
 
     $package = UserHasPackage($_SESSION['currentUser']);
+echo $package;
     if($_SERVER['REQUEST_METHOD'] == 'POST'){
         if(isset($_POST['packageButton'])){
             UpdatePackages();
@@ -77,6 +78,7 @@
    }
 
    function UpdatePackages(){
+       $query = '';
        if(isset($_POST['package'])){ 
             if($GLOBALS['package'] === NULL){
                 $query = "INSERT INTO user_package VALUES ({$_SESSION['currentUser']}, {$_POST['package']});";
@@ -85,12 +87,56 @@
                 $query = "UPDATE user_package SET packageId = {$_POST['package']} WHERE userId = {$_SESSION['currentUser']};";
             }
             if($GLOBALS['package'] !== $_POST['package']){
+                echo $query;
                 SqlQueryRaw($query);  
                 $GLOBALS['package'] = $_POST['package'];
             }
             unset($_POST['package']);
        }
    }
+
+    function GenerateDeviceList($id){
+        $list = "<ul>";
+
+        $query = "SELECT * FROM package_device WHERE packageId = {$id}";
+        $result = SqlQueryRaw($query);
+
+        while($row = mysqli_fetch_assoc($result)){
+            $newQuery = "SELECT * FROM smartplug WHERE id = {$row['deviceId']}";
+            $newRow = SqlQuery($newQuery);
+            if(isset($newRow['deviceId'])){
+                if(strpos($list, "<li>Smart Plug</li>") == FALSE){
+                    $list .= "<li>Smart Plug</li>";
+                }
+            }
+            else{
+                $newQuery = "SELECT * FROM printer WHERE id = {$row['deviceId']}";
+                $newRow = SqlQuery($newQuery);
+                if(isset($newRow['deviceId'])){
+                    if(strpos($list, "<li>Printer</li>") == FALSE){
+                        $list .= "<li>Printer</li>";
+                    }  
+                }
+                else{
+                    $newQuery = "SELECT * FROM wifi WHERE id = {$row['deviceId']}";
+                    $newRow = SqlQuery($newQuery);
+                    if(isset($newRow['deviceId'])){
+                        if(strpos($list, "<li>Wifi</li>") == FALSE){
+                            $list .= "<li>Wifi</li>";
+                        }
+                    }
+                    else{
+                        if(strpos($list, "<li>Other</li>") == FALSE){
+                            $list .= "<li>Other</li>";
+                        }
+                    }
+                }
+            }
+        }
+
+        $list .= "</ul>";
+        return $list;
+    }
 ?>
 
 <html>
@@ -244,16 +290,16 @@
                                             GetPackageInfo($GLOBALS['package'])
                                             ."
                                         </div>
-                                        <div class='col-6' id='deviceList'>
-                                           
-                                        </div>
+                                        <div class='col-6'>" .
+                                           GenerateDeviceList($GLOBALS['package'])
+                                        . "</div>
                                     </div>
                                 </div>";
                                 echo $element;
                             }
                             //If user is subscribed to package add a current package tab
                         ?>
-                        <script>
+                      <!--  <script>
                             function loadDeviceList(id){
                                 var xmlhttp = new XMLHttpRequest();
                                 xmlhttp.onreadystatechange = function() {
@@ -265,8 +311,8 @@
                                 xmlhttp.send();
                             }
 
-                            loadDeviceList("<?php echo $GLOBALS['package'];?>");
-                        </script>
+                            loadDeviceList("");
+                        </script> -->
                         <div class='contentBox'>
                             <h3 class='title2' style='margin-bottom:1.5rem;'>Subscribe To Package</h3>
                             <!--Radio button values for packages must be the corisponding package id-->

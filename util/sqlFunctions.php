@@ -50,6 +50,15 @@ function UserHasPackage($id){
   return $row['packageId'];
 }
 
+function DeviceInPackage($packageId, $deviceId){
+  $query = "SELECT * FROM package_device WHERE deviceId = {$deviceId} and packageId = {$packageId }";
+  $result = SqlQueryRaw($query);
+  if($result == NULL){
+    return FALSE;
+  }
+  return $row['deviceId'];
+}
+
 function GetPackageName($id){
   $connection = mysqli_connect($GLOBALS['server'], $GLOBALS['user'], $GLOBALS['pass'], $GLOBALS['db']);
   if(!$connection){

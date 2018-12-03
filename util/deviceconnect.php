@@ -7,16 +7,14 @@
 //    echo "{$_SESSION['currentUser']} ";
     
     $row = SqlQuery($query);
-    
     if($row['roleId'] != 1){
         $query = "select * from access_rule where roleId = {$row['roleId']} and deviceId = {$id}";
     }
     else{
         $isAdmin = TRUE;
     }
-
-    $row = SqlQuery($query);
     
+    $row = SqlQuery($query);
 if(isset($row['ruleId']) && $isAdmin === FALSE){
     $ruleId = $row['ruleId'];
     $query = "SELECT * FROM accesstime_rule WHERE ruleId = {$ruleId};";
@@ -33,10 +31,24 @@ if(isset($row['ruleId']) && $isAdmin === FALSE){
     $eDay = $row['endDay'];
 
     $result = "{$sTime}|{$eTime}|{$sDay}|{$eDay}";
+
+    $packageId = UserHasPackage($_SESSION['currentUser']);
+    echo "Package: " . $packageId;
+    if($packageId !== NULL){
+        $deviceInPackage = DeviceInPackage($packageId, $id);
+        echo "IsDeviceInPackage: " . $deviceInPackage;
+        if($deviceInPackage === TRUE){
+            $result .= "|true";
+        }
+    }
+    else{
+        $result .= "|false";
+    }
+
     echo $result;
 }
 else{
-    echo "Any|Any|Any|Any";
+    echo "Any|Any|Any|Any|true";
 }
 
 ?>

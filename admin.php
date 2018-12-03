@@ -621,6 +621,13 @@
                             document.getElementById('saveButton').style.display = 'inline';
                             document.getElementById('cancelButton').style.display = 'inline';
                         }
+                        function FindIndexInElement(element, val){
+                            for(var i = 0; i < element.options.length; i++){
+                                if(element.options[i] == val){
+                                    return i;
+                                }
+                            }
+                        }
                         
                         function UpdateDeviceTimes(id){
                             var xmlhttp = new XMLHttpRequest();
@@ -632,6 +639,7 @@
                                     var endDay = document.getElementById("endDayModal");
                                     var result = this.responseText;
                                     var results = result.split('|');
+                                    console.dir(startTime);
                                     startTime.selectedIndex = FindIndexInElement(startTime, results[0]);
                                     endTime.selectedIndex = FindIndexInElement(endTime, results[1]);
                                     startDay.selectedIndex = FindIndexInElement(startDay, results[2]);
@@ -669,7 +677,7 @@
                                     console.dir(this.responseText);
                                 }
                             };
-                            url = "util/editdevice.php?id=" + id + "&loc=" + location.value;
+                            url = "util/editdevice.php?id=" + id + "&loc=" + location.value +"&sDay=" +startDay +"&eDay=" +endDay +"&sTime=" +startTime +"&eTime=" +endTime;
                             if(power != null){
                                 url += "&type=plug&power=" + power.value;
                             }

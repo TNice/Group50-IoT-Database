@@ -68,4 +68,6 @@ if(isset($row['ruleId'])){
     SqlQueryRaw($query);
 }
 
+
+
 ?>
