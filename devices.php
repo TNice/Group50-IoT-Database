@@ -40,33 +40,33 @@
                     <br>
                     <div class="contentBox row">                   
                         <div class='col-12'>
-                            <h5 class='title1'>Device 0</h5>
+                            <h5 class='title1'>Smart Plug</h5>
                             <br>
-                            <p class='homeInfo'>This is the device info</p>
+                            <p class='homeInfo'>By being connected to this device, users will have the ability to charge a wide variety of devices.</p>
                         </div>
                     </div>
                     <div id='device1'></div>
                     <br>     
                     <div  class="contentBox row">                   
                         <div class='col-12'>
-                            <h5 class='title1'>Device 1</h5>
+                            <h5 class='title1'>Printer</h5>
                             <br>
-                            <p class='homeInfo'>This is the device info</p>
+                            <p class='homeInfo'>By being connected to this device, users will have the ability to scan, print, and fax documents.</p>
                         </div>
                     </div>
                     <div id='device2'></div>
                     <br>
                     <div  class="contentBox row">                   
                         <div class='col-12'>
-                            <h5 class='title1'>Device 2</h5>
+                            <h5 class='title1'>Wifi</h5>
                             <br>
-                            <p class='homeInfo'>This is the device info</p>
+                            <p class='homeInfo'>By being connected to this device, users will have the ability to connect to the Internet.</p>
                         </div>
                     </div>
                 </div>
             </div>
             <div id='footer' class='container-fluid footerBox'>
-                <h3 class='footer1'>Created By: Group 50</h1>
+                <h3 class='footer1'>Created By: Group 50</h3>
             </div>
         </div>
     </body>
