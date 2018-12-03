@@ -36,6 +36,10 @@ if(isset ($_REQUEST['sTime'])){
 if(isset ($_REQUEST['eTime'])){
     $eTime = $_REQUEST['eTime'];
 }
+if(isset ($_REQUEST['pack'])){
+    $package = $_REQUEST['pack'];
+}
+
 
 $query = "UPDATE devices SET location = '{$location}' WHERE id = {$id}";
 SqlQueryRaw($query);
@@ -68,6 +72,33 @@ if(isset($row['ruleId'])){
     SqlQueryRaw($query);
 }
 
-
+switch($package){
+    case 0:
+        $query = "INSERT INTO package_device VALUES ({$id}, 2);"
+        SqlQueryRaw($query);
+        $query = "INSERT INTO package_device VALUES ({$id}, 1);"
+        SqlQueryRaw($query);
+        $query = "INSERT INTO package_device VALUES ({$id}, 0);"
+        SqlQueryRaw($query);
+        break;
+    case 1:
+        $query = "DELETE FROM package_device WHERE packageId = 0 and deviceId = {$id};"
+        SqlQueryRaw($query);
+        $query = "INSERT INTO package_device VALUES ({$id}, 1);"
+        SqlQueryRaw($query);
+        $query = "INSERT INTO package_device VALUES ({$id}, 2);"
+        SqlQueryRaw($query);
+        break;
+    case 2:
+        $query = "DELETE FROM package_device WHERE packageId = 0 and deviceId = {$id};"
+        SqlQueryRaw($query);
+        $query = "DELETE FROM package_device WHERE packageId = 1 and deviceId = {$id};"
+        SqlQueryRaw($query);
+        $query = "INSERT INTO package_device VALUES ({$id}, 2);"
+        SqlQueryRaw($query);
+        break;
+    default:
+        break;
+}
 
 ?>
