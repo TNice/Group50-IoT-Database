@@ -656,7 +656,9 @@
                             xmlhttp.onreadystatechange = function() {
                                 if (this.readyState == 4 && this.status == 200) {
                                     var index = this.responseText;
+                                    console.dir(index);
                                     index = parseInt(index);
+                                    console.dir(index);
                                     if(index == 10){
                                         index = 0;
                                     }
