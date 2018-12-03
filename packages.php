@@ -42,15 +42,14 @@
                         <div class='col-8'>
                             <h5 class='title1'>Basic Package</h5>
                             <br>
-                            <p class='homeInfo'>This is the package info</p>
+                            <p class='homeInfo'><?php echo GetPackageInfo(0); ?></p>
                         </div>
                         <div class='col-4' style='color:white'>
                             <h5 class='title1'>Devices</h5>
                             <br>
-                            <ul>
-                                <li>Device1</li>
-                                <li>Device2</li>
-                            </ul>
+                            <?php
+                                echo GenerateDeviceList(0); 
+                            ?>
                         </div>  
                     </div>
                     <div id='package1'></div>
@@ -59,15 +58,14 @@
                         <div class='col-8'>
                             <h5 class='title1'>Premium Package</h5>
                             <br>
-                            <p class='homeInfo'>This is the package info</p>
+                            <p class='homeInfo'><?php echo GetPackageInfo(1); ?></p></p>
                         </div>
                         <div class='col-4' style='color:white'>
                             <h5 class='title1'>Devices</h5>
                             <br>
-                            <ul>
-                                <li>Device1</li>
-                                <li>Device2</li>
-                            </ul>
+                            <?php
+                                echo GenerateDeviceList(1); 
+                            ?>
                         </div>  
                     </div>
                     <div id='package2'></div>
@@ -76,15 +74,14 @@
                         <div class='col-8'>
                             <h5 class='title1'>Gold Package</h5>
                             <br>
-                            <p class='homeInfo'>This is the package info</p>
+                            <p class='homeInfo'><?php echo GetPackageInfo(2); ?></p>
                         </div>
                         <div class='col-4' style='color:white'>
                             <h5 class='title1'>Devices</h5>
                             <br>
-                            <ul>
-                                <li>Device1</li>
-                                <li>Device2</li>
-                            </ul>
+                            <?php
+                                echo GenerateDeviceList(2); 
+                            ?>
                         </div>  
                     </div>          
                 </div>
