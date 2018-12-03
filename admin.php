@@ -644,10 +644,28 @@
                                     endTime.selectedIndex = FindIndexInElement(endTime, results[1]);
                                     startDay.selectedIndex = FindIndexInElement(startDay, results[2]);
                                     endDay.selectedIndex = FindIndexInElement(endDay, results[3]);
+                                    UpdateDevicePackage(id);
                                 }
                             };
                         
                             xmlhttp.open("GET", "util/findtimes.php?id=" + id, true);
+                            xmlhttp.send();
+                        }
+
+                        function UpdateDevicePackage(id){
+                            var xmlhttp = new XMLHttpRequest();
+                            xmlhttp.onreadystatechange = function() {
+                                if (this.readyState == 4 && this.status == 200) {
+                                    var index = this.responseText;
+                                    index = index.parseInt();
+                                    if(index == 10){
+                                        index = 0;
+                                    }
+                                    document.getElementById("packageModal").selectedIndex = index;
+                                }
+                            };
+
+                            xmlhttp.open("GET", "util/findpackage.php?id=" + id, true);
                             xmlhttp.send();
                         }
 
