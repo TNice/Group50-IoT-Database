@@ -110,7 +110,7 @@ create table deviceLogs(
     userId int,
     logId int,
     result bool,
-    logTime datetime,
+    logTime int,
     constraint fk_log_deviceId foreign key(deviceId) references devices(id),
     constraint fk_log_userId foreign key(userId) references users(id),
     primary key(deviceId, userId, logId)
