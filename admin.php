@@ -679,7 +679,7 @@
                                     console.dir(this.responseText);
                                 }
                             };
-                            url = "util/editdevice.php?id=" + id + "&loc=" + location.value +"&sDay=" +startDay +"&eDay=" +endDay +"&sTime=" +startTime +"&eTime=" +endTime;
+                            url = "util/editdevice.php?id=" + id + "&loc=" + location.value +"&sDay=" +startDay +"&eDay=" +endDay +"&sTime=" +startTime +"&eTime=" +endTime + "&pack=" + pack;
                             if(power != null){
                                 url += "&type=plug&power=" + power.value;
                             }
