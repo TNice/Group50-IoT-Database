@@ -116,6 +116,8 @@ create table deviceLogs(
     primary key(deviceId, userId, logId)
 );
 
+
+
 insert into packages values(0, 10.0, 'Basic', 'The most basic package with limited connected devices');
 insert into packages values(1, 20.0, 'Premium', 'Allows more connections than basic package');
 insert into packages values(2, 30.0, 'Gold', 'Highest quality package. Allows unlimited connections');
@@ -126,3 +128,4 @@ insert into roles values(1, 'Admin');
 insert into users values(12345,'Hamza@localHost.com', 'Hamza', 'Hamza', 'Thabit','000000000000','2018-11-02','password',true);
 
 insert into user_role values (12345,1);
+
