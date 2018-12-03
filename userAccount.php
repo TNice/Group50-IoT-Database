@@ -323,15 +323,15 @@ echo $package;
                                     <div class='col-1'></div>
                                     <div class='form-check col-5'>
                                         <label class='form-check-lable'>
-                                            <input type='radio' class='form-check-radio' name='package' value='0'> Package 0
+                                            <input type='radio' class='form-check-radio' name='package' value='0'> Basic
                                         </label>
                                         <br><br>
                                         <label class='form-check-lable'>
-                                            <input type='radio' class='form-check-radio' name='package' value='1'> Package 1
+                                            <input type='radio' class='form-check-radio' name='package' value='1'> Premium
                                         </label>
                                          <br><br>
                                         <label class='form-check-lable'>
-                                            <input type='radio' class='form-check-radio' name='package' value='2'> Package 2
+                                            <input type='radio' class='form-check-radio' name='package' value='2'> Gold
                                         </label>
                                     </div>
                                     <div class='form-check col-5'>
