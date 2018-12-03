@@ -639,7 +639,7 @@
                             var ink = document.getElementById('inkModal');
                             var ip =document.getElementById('ipModal');
 
-                            var startDay, endDay, startTime, endTime;
+                            var startDay, endDay, startTime, endTime, pack;
                             startDay = document.getElementById("startDayModal");
                             startDay = startDay.options[startDay.selectedIndex].value;
                             endDay = document.getElementById("endDayModal");
@@ -649,6 +649,8 @@
                             startTime = startTime.options[startTime.selectedIndex].value;
                             endTime = document.getElementById("endTimeModal");
                             endTime = endTime.options[endTime.selectedIndex].value;
+
+                            pack = document.getElementById("packageModal").selectedIndex;
                             
                             console.dir(startTime);
 
