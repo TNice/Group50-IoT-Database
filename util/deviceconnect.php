@@ -37,6 +37,7 @@ if(isset($row['ruleId']) && $isAdmin === FALSE){
     if($packageId !== NULL){
         $deviceInPackage = DeviceInPackage($packageId, $id);
         echo "IsDeviceInPackage: " . $deviceInPackage;
+
         if($deviceInPackage === TRUE){
             $result .= "|true";
         }

@@ -56,7 +56,13 @@ function DeviceInPackage($packageId, $deviceId){
   if($result == NULL){
     return FALSE;
   }
-  return $row['deviceId'];
+  $row = mysqli_fetch_assoc($result);
+    
+    if($row['deviceId'] == FALSE){
+        return FALSE;
+    }else{
+        return TRUE;
+    }
 }
 
 function GetPackageName($id){

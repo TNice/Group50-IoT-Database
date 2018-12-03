@@ -30,6 +30,7 @@
     
     -----------Logs-----------
     1. Allows admins to view and filter device logs.
+    2. Result: 1 = Connected, 0 = Access Denied
     
     -----------Devices-----------
     1. Allows admins to view and filter devices.

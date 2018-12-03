@@ -445,7 +445,8 @@
                                 else {
                                     $query .= 'where ';
                                 }
-                                $query .= "package_device.packageId = $package ";
+                                $package = $package -1;
+                                $query .= "package_device.packageId = {$package} ";
                             }
 
                             if(strcmp($divLoc, "Location") != 0 && empty($divLoc) != true){ // if divLoc is not 'locatioin' and not empty
@@ -617,7 +618,7 @@
                         }
                         function FindIndexInElement(element, val){
                             for(var i = 0; i < element.options.length; i++){
-                                if(element.options[i] == val){
+                                if(element.options[i].value == val){
                                     return i;
                                 }
                             }
@@ -631,6 +632,7 @@
                                     var startDay = document.getElementById("startDayModal");
                                     var endDay = document.getElementById("endDayModal");
                                     var result = this.responseText;
+                                    console.dir(result);
                                     var results = result.split('|');
                                     console.dir(startTime);
                                     startTime.selectedIndex = FindIndexInElement(startTime, results[0]);
@@ -719,7 +721,6 @@
                             document.getElementById('saveButton').style.display = 'none';
                             document.getElementById('cancelButton').style.display = 'none';
 
-                            location.reload();
                         }
 
                         function DeleteDeviceModal(event, id){
@@ -751,7 +752,7 @@
                             xmlhttp.send();
 
                             CloseModal(1);
-                            location.reload();
+                    
 
                         }
 
@@ -826,7 +827,7 @@
                             document.getElementById('cancelButton').style.display = 'none';
                             event.currentTarget.style.display = 'none';
 
-                            location.reload();
+                           
                         }
                         
                         function DeleteUser(event, id){
@@ -840,7 +841,7 @@
                             xmlhttp.send();
                             CloseModal(0);
                             
-                            location.reload();
+                          
                         }
                        </script>
                         <div id='userList' class='contentBoxLight'>
