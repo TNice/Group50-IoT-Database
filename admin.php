@@ -227,9 +227,6 @@
                                     <input type="text" name="divName" placeholder="Log Id">
                                 </div>
                                 <div class='form-group'>
-                                    <input type="text" name="divTime" placeholder="Time">
-                                </div>
-                                <div class='form-group'>
                                     <input type="text" name="divResult" placeholder="Result">
                                 </div>
                                 <div class='form-group'>
@@ -297,12 +294,6 @@
                                        } 
                                        $query .= "logid = '{$_POST['divLogId']}'";
                                     }
-                                    if(isset($_POST['divTime']) && !empty($_POST['divTime'])){
-                                        if(strpos($query, "=")){
-                                           $query .= ' and ';
-                                       } 
-                                       $query .= "logTime = '{$_POST['divTime']}'";
-                                    }
                                     if(isset($_POST['divResult']) && !empty($_POST['divResult'])){
                                         if(strpos($query, "=")){
                                            $query .= ' and ';
@@ -326,9 +317,12 @@
                                    $result = SqlQueryRaw($query);
                                    
                                    while($row = mysqli_fetch_assoc($result)){
-                                       $html .= "<button class='btn list-group-item' onclick='OpenModal(2, "."{$row['logId']}".");'  style='display:block;width:95%; margin-bottom:0.5em'>" . 
-                                       " User ID:{$row['userId']} Device ID: {$row['deviceId']} Time {}". 
-                                        "</button>";  
+                                       $time = $row['logTime'];
+                                        $time = date("m-d-Y", $time);
+                                        
+                                        $html .= "<button class='btn list-group-item' onclick='OpenModal(2, "."{$row['logId']}".");'  style='display:block;width:95% margin-bottom:0.5em'><label style='float:left;margin-right:0.2rem'>" . 
+                                        " User ID: {$row['userId']}</label><label>Device ID: {$row['deviceId']}</label><label style='float:right'>{$time}". 
+                                        "</label></button>"; 
                                        //echo $row['id'];
                                    }
                                                              
