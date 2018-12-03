@@ -18,7 +18,6 @@
 if(isset($row['ruleId']) && $isAdmin === FALSE){
     $ruleId = $row['ruleId'];
     $query = "SELECT * FROM accesstime_rule WHERE ruleId = {$ruleId};";
-    echo $query;
     $result = SqlQueryRaw($query);
 
     $today = date("l"); // = current day of week
@@ -34,8 +33,10 @@ if(isset($row['ruleId']) && $isAdmin === FALSE){
     $result = "{$sTime}|{$eTime}|{$sDay}|{$eDay}";
 
     $packageId = UserHasPackage($_SESSION['currentUser']);
+    echo "Package: " . $packageId;
     if($packageId !== NULL){
         $deviceInPackage = DeviceInPackage($packageId, $id);
+        echo "IsDeviceInPackage: " . $deviceInPackage;
         if($deviceInPackage === TRUE){
             $result .= "|true";
         }

@@ -56,7 +56,7 @@ function DeviceInPackage($packageId, $deviceId){
   if($result == NULL){
     return FALSE;
   }
-  return TRUE;
+  return $row['deviceId'];
 }
 
 function GetPackageName($id){
