@@ -388,9 +388,9 @@
                                 </select>
                             </div>
 
-                            <!-- <div class='form-group'>
+                            <div class='form-group'>
                                 <input type="text" name="userId" id = "userId" placeholder="User Id">
-                            </div> -->
+                            </div> 
 
                             <div>
                                 <button type="submit" name="submit" value="submit">Submit</button> 
@@ -407,7 +407,7 @@
                         <h3 class='title1' style='margin-top:0.25rem;'>Devices</h3>
                         <br/>
                        <?php
-                        $type = $divLoc = $package = '';
+                        $type = $divLoc = $package = $userId = '';
                         if ( isset($_GET['divType'])){
                             $type = $_GET['divType'];
                         }
@@ -417,12 +417,16 @@
                         if ( isset($_GET['package'])){
                             $package = $_GET['package'];
                         }
+                        if ( isset($_GET['userId'])){
+                            $userId = $_GET['userId'];
+                        }
                         
                         $result = '';
                         $query = '';
                         if((strcmp($type, "SelectType") == 0 || empty($type) == true)&&
                            (strcmp($divLoc, "Location") == 0 || empty($divLoc) == true)&&
-                           (strcmp($package, "0") == 0 || empty($package) == true)){ 
+                           (strcmp($package, "0") == 0 || empty($package) == true)&&
+                            (strcmp($userId, "0") == 0 || empty($userId) == true)){ 
                             $query =  "select * FROM devices;";
                             $result = SqlQueryRaw($query);
                         }
@@ -430,25 +434,39 @@
                             $query = "";
                             $query = "select * from devices ";
                             if(strcmp($type, "SelectType") != 0 && empty($type) != true){
-                                $query .= "inner join {$type} on devices.id = {$type}.id
-                                ";
+                                $query .= "inner join {$type} on devices.id = {$type}.id ";
                             }
                             
                             if(strcmp($package, "0") != 0 && empty($package) != true){
-                                $query .= "inner join package_device on devices.id = package_device.deviceID 
-                                where package_device.packageId = {$package} ";
+                                $query .= "inner join package_device on devices.id = package_device.deviceID ";
                             }
-                            
+                            if (strcmp($userId, "0") != 0 && empty($userId) != true){
+                                $query .= "inner join devicelogs on devices.id = devicelogs.deviceId where devicelogs.userId = $userId and devicelogs.result = true ";
+                            }
+
+                            if(strcmp($package, "0") != 0 && empty($package) != true){
+                                if(strcmp($userId, "0") != 0 && empty($userId) != true){
+                                    $query .= 'and ';
+                                }
+                                else {
+                                    $query .= 'where ';
+                                }
+                                $query .= "package_device.packageId = $package ";
+                            }
+
                             if(strcmp($divLoc, "Location") != 0 && empty($divLoc) != true){ // if divLoc is not 'locatioin' and not empty
-                                if(strcmp($package,"0") != 0 && empty($package != true)){
+                                if(strcmp($package,"0") != 0 && empty($package != true) || (strcmp($package, "0") != 0 && empty($package) != true)){
                                     $query .= "and ";
                                 }
                                 else {
                                     $query .= "where ";
                                 }
-                                $query .= "location = {$divLoc} ";
-                            }                          
+                                $query .= "devices.location = {$divLoc} ";
+                            }
+                            
+
                         }
+                        // echo $query;
                         
                         $result = SqlQueryRaw($query);
                         $html = "<div style='overflow: hidden; overflow-y: scroll; height: 15em; max-height:90%'><div class='list-group'>";
@@ -621,6 +639,7 @@
                                     var endDay = document.getElementById("endDayModal");
                                     var result = this.responseText;
                                     var results = result.split('|');
+                                    console.dir(startTime);
                                     startTime.selectedIndex = FindIndexInElement(startTime, results[0]);
                                     endTime.selectedIndex = FindIndexInElement(endTime, results[1]);
                                     startDay.selectedIndex = FindIndexInElement(startDay, results[2]);
@@ -660,7 +679,7 @@
                                     console.dir(this.responseText);
                                 }
                             };
-                            url = "util/editdevice.php?id=" + id + "&loc=" + location.value;
+                            url = "util/editdevice.php?id=" + id + "&loc=" + location.value +"&sDay=" +startDay +"&eDay=" +endDay +"&sTime=" +startTime +"&eTime=" +endTime;
                             if(power != null){
                                 url += "&type=plug&power=" + power.value;
                             }
