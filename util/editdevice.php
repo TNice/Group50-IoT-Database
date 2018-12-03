@@ -74,27 +74,27 @@ if(isset($row['ruleId'])){
 
 switch($package){
     case 0:
-        $query = "INSERT INTO package_device VALUES ({$id}, 2);"
+        $query = "INSERT INTO package_device VALUES ({$id}, 2);";
         SqlQueryRaw($query);
-        $query = "INSERT INTO package_device VALUES ({$id}, 1);"
+        $query = "INSERT INTO package_device VALUES ({$id}, 1);";
         SqlQueryRaw($query);
-        $query = "INSERT INTO package_device VALUES ({$id}, 0);"
+        $query = "INSERT INTO package_device VALUES ({$id}, 0);";
         SqlQueryRaw($query);
         break;
     case 1:
-        $query = "DELETE FROM package_device WHERE packageId = 0 and deviceId = {$id};"
+        $query = "DELETE FROM package_device WHERE packageId = 0 and deviceId = {$id};";
         SqlQueryRaw($query);
-        $query = "INSERT INTO package_device VALUES ({$id}, 1);"
+        $query = "INSERT INTO package_device VALUES ({$id}, 1);";
         SqlQueryRaw($query);
-        $query = "INSERT INTO package_device VALUES ({$id}, 2);"
+        $query = "INSERT INTO package_device VALUES ({$id}, 2);";
         SqlQueryRaw($query);
         break;
     case 2:
-        $query = "DELETE FROM package_device WHERE packageId = 0 and deviceId = {$id};"
+        $query = "DELETE FROM package_device WHERE packageId = 0 and deviceId = {$id};";
         SqlQueryRaw($query);
-        $query = "DELETE FROM package_device WHERE packageId = 1 and deviceId = {$id};"
+        $query = "DELETE FROM package_device WHERE packageId = 1 and deviceId = {$id};";
         SqlQueryRaw($query);
-        $query = "INSERT INTO package_device VALUES ({$id}, 2);"
+        $query = "INSERT INTO package_device VALUES ({$id}, 2);";
         SqlQueryRaw($query);
         break;
     default:
