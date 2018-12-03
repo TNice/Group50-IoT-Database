@@ -628,7 +628,6 @@
                                 }
                             }
                         }
-                        
                         function UpdateDeviceTimes(id){
                             var xmlhttp = new XMLHttpRequest();
                             xmlhttp.onreadystatechange = function() {
