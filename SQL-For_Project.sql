@@ -49,6 +49,7 @@ create table packages(
 	id int,
     price float default 0.0,
     packageName varchar(20) not null,
+    packageInfo varchar(55),
     primary key(id)
 );
 
@@ -64,7 +65,7 @@ create table user_package(
 	userId int,
     packageId int,
     constraint fk_userid_package foreign key(userId) references users(id),
-    constraint fk_user_packageid foreign key(userId) references packages(id),
+    constraint fk_user_packageid foreign key(packageId) references packages(id),
     primary key(userId, packageId)
 );
 
@@ -96,9 +97,12 @@ create table access_rule(
 
 create table accesstime_rule(
 	ruleId int,
-	accessDay enum('any', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday'),
+	startDay varchar(225),
+    endDay varchar(225),
+    startTime varchar(225),
+    endTime varchar(225),
 	foreign key(ruleId) references access_rule(ruleId),
-	primary key(ruleId, accessDay)
+	primary key(ruleId, startDay, endDay)
 );
 
 create table deviceLogs(
@@ -109,5 +113,16 @@ create table deviceLogs(
     logTime datetime,
     constraint fk_log_deviceId foreign key(deviceId) references devices(id),
     constraint fk_log_userId foreign key(userId) references users(id),
-    primary key(deviceId, userId)
+    primary key(deviceId, userId, logId)
 );
+
+insert into packages values(0, 10.0, 'Basic', 'The most basic package with limited connected devices');
+insert into packages values(1, 20.0, 'Premium', 'Allows more connections than basic package');
+insert into packages values(2, 30.0, 'Gold', 'Highest quality package. Allows unlimited connections');
+
+insert into roles values(0, 'User');
+insert into roles values(1, 'Admin');
+
+insert into users values(12345,'Hamza@localHost.com', 'Hamza', 'Hamza', 'Thabit','000000000000','2018-11-02','password',true);
+
+insert into user_role values (12345,1);
