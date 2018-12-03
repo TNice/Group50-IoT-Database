@@ -724,6 +724,8 @@
                             document.getElementById('editButton').disabled = false;
                             document.getElementById('saveButton').style.display = 'none';
                             document.getElementById('cancelButton').style.display = 'none';
+
+                            location.reload();
                         }
 
                         function DeleteDeviceModal(event, id){
@@ -755,6 +757,8 @@
                             xmlhttp.send();
 
                             CloseModal(1);
+                            location.reload();
+
                         }
 
                         function CancelDeviceModal(event){
@@ -827,6 +831,8 @@
                             document.getElementById('editButton').disabled = false;
                             document.getElementById('cancelButton').style.display = 'none';
                             event.currentTarget.style.display = 'none';
+
+                            location.reload();
                         }
                         
                         function DeleteUser(event, id){
@@ -839,6 +845,8 @@
                             xmlhttp.open("GET", "util/deleteusers.php?id=" + id, true);
                             xmlhttp.send();
                             CloseModal(0);
+                            
+                            location.reload();
                         }
                        </script>
                         <div id='userList' class='contentBoxLight'>
