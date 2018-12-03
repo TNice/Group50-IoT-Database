@@ -7,7 +7,7 @@
     $fName = $lName = $username = $password = $email = $phone = $bday = $package = '';
 
     $package = UserHasPackage($_SESSION['currentUser']);
-echo $package;
+//echo $package;
     if($_SERVER['REQUEST_METHOD'] == 'POST'){
         if(isset($_POST['packageButton'])){
             UpdatePackages();
@@ -87,7 +87,7 @@ echo $package;
                 $query = "UPDATE user_package SET packageId = {$_POST['package']} WHERE userId = {$_SESSION['currentUser']};";
             }
             if($GLOBALS['package'] !== $_POST['package']){
-                echo $query;
+//                echo $query;
                 SqlQueryRaw($query);  
                 $GLOBALS['package'] = $_POST['package'];
             }
