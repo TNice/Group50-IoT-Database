@@ -1,5 +1,48 @@
 <?php
     include 'util/sqlFunctions.php';
+
+    function GenerateDeviceList($id){
+        $list = "<ul>";
+
+        $query = "SELECT * FROM package_device WHERE packageId = {$id}";
+        $result = SqlQueryRaw($query);
+
+        while($row = mysqli_fetch_assoc($result)){
+            $newQuery = "SELECT * FROM smartplug WHERE id = {$row['deviceId']}";
+            $newRow = SqlQuery($newQuery);
+            if(isset($newRow['deviceId'])){
+                if(strpos($list, "<li>Smart Plug</li>") == FALSE){
+                    $list .= "<li>Smart Plug</li>";
+                }
+            }
+            else{
+                $newQuery = "SELECT * FROM printer WHERE id = {$row['deviceId']}";
+                $newRow = SqlQuery($newQuery);
+                if(isset($newRow['deviceId'])){
+                    if(strpos($list, "<li>Printer</li>") == FALSE){
+                        $list .= "<li>Printer</li>";
+                    }  
+                }
+                else{
+                    $newQuery = "SELECT * FROM wifi WHERE id = {$row['deviceId']}";
+                    $newRow = SqlQuery($newQuery);
+                    if(isset($newRow['deviceId'])){
+                        if(strpos($list, "<li>Wifi</li>") == FALSE){
+                            $list .= "<li>Wifi</li>";
+                        }
+                    }
+                    else{
+                        if(strpos($list, "<li>Other</li>") == FALSE){
+                            $list .= "<li>Other</li>";
+                        }
+                    }
+                }
+            }
+        }
+
+        $list .= "</ul>";
+        return $list;
+    }
 ?>
 
 <!DOCTYPE html>
