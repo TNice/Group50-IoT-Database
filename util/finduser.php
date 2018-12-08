@@ -61,7 +61,7 @@ echo "
         <button class='btn btn-secondary' id='editButton' onclick='EditUserModal(event);return false;' style='text-align:left;'>Edit</button>
         <button class='btn btn-secondary' id='saveButton' onclick='SaveUserModal(event);return false;' style='display:none'>Save</button>
         <button class='btn btn-secondary' id='cancelButton' onclick='CancelUserEdit(event);return false;' style='display:none'>Cancel</button>
-        <button class='btn btn-danger' onclick='DeleteUser(event, {$id});' name='deleteAcct' style='float:right'>DELETE</button>
+        <button class='btn btn-danger' onclick='DeleteUser(event, {$id});return false;' name='deleteAcct' style='float:right'>DELETE</button>
     </form>
 </div>
 ";
